@@ -58,4 +58,8 @@ class informacionWorker{
             <?php
         }
     }
+    public static function getNum($conexion,$sql){
+        $resultado = datosWorker::count($conexion,$sql);
+        return $resultado[0]->num;
+}
 }

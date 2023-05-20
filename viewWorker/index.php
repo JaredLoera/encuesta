@@ -12,13 +12,24 @@
     include "../clases/login.inc.php";
     include "../clases/database/conexion.inc.php";
     include "../clases/dataworker/informacionWorker.inc.php";
+    include "../clases/modelos/userrespuesta.php";
+    session_start();
     if(isset($_POST['cerrarsession'])){
         login::cerrarSession();
     }
     if (isset($_POST['guardarEncuesta'])) {
     extract($_POST);
-    echo $inlineRadioOptions1;
-    die();
+    for ($i=1; $i <= sizeof($_POST)-1; $i++) {
+      $inlineRadioOptions = 'inlineRadioOptions'.$i;
+      $userrespuesta = new userrespuesta($_SESSION['id'],$i,$$inlineRadioOptions);
+      if ($userrespuesta->save()) {
+        echo "Guardado";
+      }
+      else{
+        echo "No guardado";
+      }
+    }
+    header("Refresh:2; url=index.php");
     }
     ?>
     <nav class="navbar bg-body-tertiary">

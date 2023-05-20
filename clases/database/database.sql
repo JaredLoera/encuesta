@@ -53,3 +53,4 @@ INSERT INTO `encuestas`.`pregunta` (`pregunta`) VALUES
 ("Mi trabajo exige que atienda varios asuntos al mismo tiempo");
 
 INSERT INTO respuestasUser(user_id,pregunta_id,respuesta)VALUES();
+

@@ -60,6 +60,7 @@ if (isset($_POST['cerrarsession'])) {
           Conexion::abrir_conexion();
           datosRoot::addCompany(Conexion::obtener_conexion(),$company);
           Conexion::cerrar_conexion();
+          header("Refresh:2; url=index.php");
       }
       if (isset($_POST['cerrarsession'])) {
         login::cerrarSession();

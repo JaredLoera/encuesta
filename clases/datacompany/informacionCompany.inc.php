@@ -48,7 +48,7 @@ class informacionCompany{
                 <td><?php echo $info->rfc; ?></td>
                 <td><?php echo $info->correo; ?></td>
                 <td>
-                    <form action="encuestasEmpresa.php?id=<?php echo $info->id; ?>" method="post">
+                    <form action="respuestasWorker.php?id=<?php echo $info->id; ?>" method="post">
                         <button type="submit" class="btn btn-outline-primary">Ver encuesta</button>
                     </form>
                 </td>
