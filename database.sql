@@ -41,3 +41,13 @@ create table respuestasUser(
     foreign key(user_id) references user(id),
     foreign key(pregunta_id) references pregunta(id)
 );
+INSERT INTO `encuestas`.`pregunta` (`pregunta`) VALUES 
+('Mi trabajo me exige hace mucho esfuerzo'),
+("Me preocupa sufrir un accidente laboral"),
+("Considero que las actividades que realizo son peligrosas"),
+("Por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno"),
+("Por la cantidad de trabajo que tengo debo trabajar sin parar"),
+("Considero que es necesario mantener un ritmo de trabajo acelerado"),
+("Mi trabajo exige que esté muy concentrado"),
+("Mi trabajo requiere que memorice mucha información"),
+("Mi trabajo exige que atienda varios asuntos al mismo tiempo");
