@@ -26,8 +26,34 @@ class informacionCompany{
          <?php
          }
     }
-        public static function getNum($conexion,$sql){
+    public static function getNum($conexion,$sql){
             $resultado = datosCompany::count($conexion,$sql);
             return $resultado[0]->num;
+    }
+    public static function getWorkers($conexion,$id){
+        $consulta = "SELECT * FROM user where user.company_id = ".$id;
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+            <tr>
+                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+            </tr>
+            <?php
+        }
+        foreach ($resultados as $info) {
+            ?>
+            <tr>
+                <td><?php echo $info->id; ?></td>
+                <td><?php echo $info->nombre; ?></td>
+                <td><?php echo $info->rfc; ?></td>
+                <td><?php echo $info->correo; ?></td>
+                <td>
+                    <form action="encuestasEmpresa.php?id=<?php echo $info->id; ?>" method="post">
+                        <button type="submit" class="btn btn-outline-primary">Ver encuesta</button>
+                    </form>
+                </td>
+            </tr>
+            <?php
+        }
     }
 }

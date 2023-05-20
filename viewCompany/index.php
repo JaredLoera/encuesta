@@ -102,6 +102,7 @@ if (isset($_POST['cerrarsession'])) {
           Conexion::cerrar_conexion();
            ?></h3>
           </p>
+          <div class="card-footer bg-transparent border-success"><a href="trabajadores.php?id=<?php echo $_SESSION['id'] ?>">ver empleados</a></div>
       </div>
   </div>
     </div>
