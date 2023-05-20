@@ -56,4 +56,26 @@ class informacionCompany{
             <?php
         }
     }
+    public static function getAnswersUser($conexion,$id){
+        $consulta ="select pregunta.id as id_pregunta,pregunta.pregunta as pregunta,respuestasuser.respuesta as respuesta FROM pregunta join respuestasuser on pregunta.id = respuestasuser.pregunta_id where respuestasuser.user_id=" .$id;
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+            <tr>
+                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+            </tr>
+            <?php
+        }
+        else {
+            foreach ($resultados as $info) {
+                ?>
+                <tr>
+                    <td><?php echo $info->id_pregunta; ?></td>
+                    <td><?php echo $info->pregunta; ?></td>
+                    <td><?php echo $info->respuesta; ?></td>
+                </tr>
+                <?php
+            }
+        }
+    }
 }

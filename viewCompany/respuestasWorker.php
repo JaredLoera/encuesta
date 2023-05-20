@@ -8,7 +8,9 @@
   </head>
   <body>
         <?php 
-            include '../clases/login.inc.php'; 
+          include '../clases/database/conexion.inc.php';
+          include '../clases/datacompany/informacionCompany.inc.php';
+          include '../clases/login.inc.php'; 
         ?>
      <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
@@ -34,6 +36,31 @@
             login::cerrarSession();
         }
         ?>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>Encuesta del usuario</h1>
+        </div>
+      </div>
+      <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pregunta</th>
+            <th scope="col">respuesta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          Conexion::abrir_conexion();
+          informacionCompany::getAnswersUser(Conexion::obtener_conexion(),$_GET['id']);
+          Conexion::cerrar_conexion();
+          ?>
+        </tbody>
+      </table>
+      </div>
+    </div>
     <script src="../assets/js/bootstrap.bundle.js"></script>
   </body>
 </html>
