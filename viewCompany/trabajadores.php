@@ -45,6 +45,7 @@
       <th scope="col">Nombre</th>
       <th scope="col">rfc</th>
       <th scope="col">corre</th>
+      <th scope="col">telefono</th>
     </tr>
   </thead>
   <tbody>

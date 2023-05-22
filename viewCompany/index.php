@@ -63,6 +63,9 @@ if (isset($_POST['cerrarsession'])) {
     $worker->set_rfc($rfc);
     $worker->set_correo($correo);
     $worker->set_idCompany($_SESSION['id']);
+    $worker->set_ap_paterno($ap_paterno);
+    $worker->set_ap_materno($ap_materno);
+    $worker->set_telefono($telefono);
     $partes = explode("@", $correo);
     $password = $partes[0];
     $worker->set_pass($password."123");
@@ -149,15 +152,36 @@ if (isset($_POST['cerrarsession'])) {
                 </div>
             </div>
             <div class="mb-3">
+                <label for="ap_paterno" class="form-label">Apellido del empleado</label>
+                <input type="text" class="form-control" id="nombre" placeholder="apellido paterno" aria-describedby="ap_paterno" name="ap_paterno" required>
+                <div class="invalid-feedback">
+                  Escriba el apellido paterno del empleado
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="ap_materno" class="form-label">Apellido del empleado</label>
+                <input type="text" class="form-control" id="nombre" placeholder="apellido materno" aria-describedby="ap_materno" name="ap_materno" required>
+                <div class="invalid-feedback">
+                  Escriba el apellido materno del empleado
+                </div>
+            </div>
+            <div class="mb-3">
                 <label for="rfc" class="form-label">rfc del empleado</label>
-                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="nombre" name="rfc" required>
+                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="rfc" name="rfc" required>
                 <div class="invalid-feedback">
                   Escriba el rfc del empleado
                 </div>
             </div>
             <div class="mb-3">
-                <label for="rfc" class="form-label">correo del empleado</label>
-                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="nombre" name="correo" required>
+                <label for="telefono" class="form-label">telefono del empleado</label>
+                <input type="phone" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="telefono" name="telefono" required>
+                <div class="invalid-feedback">
+                  Escriba el telefono del empleado
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">correo del empleado</label>
+                <input type="email" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="correo" name="correo" required>
                 <div class="invalid-feedback">
                   Escriba el correo del empleado
                 </div>

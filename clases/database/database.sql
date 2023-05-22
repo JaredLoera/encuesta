@@ -25,6 +25,9 @@ create table user(
     primary key(id),
     foreign key(company_id) references company(id)
 );
+alter table user add column telefono varchar(10) not null;
+alter table user add column ap_paterno varchar(255);
+alter table user add column ap_materno varchar(255);
 create table pregunta(
     id int not null auto_increment,
     pregunta varchar(255) not null,
@@ -41,6 +44,7 @@ create table respuestasUser(
     foreign key(user_id) references user(id),
     foreign key(pregunta_id) references pregunta(id)
 );
+
 INSERT INTO `encuestas`.`pregunta` (`pregunta`) VALUES 
 ('Mi trabajo me exige hace mucho esfuerzo'),
 ("Me preocupa sufrir un accidente laboral"),
