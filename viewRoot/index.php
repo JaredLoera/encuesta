@@ -95,26 +95,38 @@ if (isset($_POST['cerrarsession'])) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="" method="Post">
+      <form action="" method="Post" class="needs-validation" novalidate>
         <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre de la empresa</label>
-                <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="name">
+                <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="name" required>
+                <div class="invalid-feedback">
+                  Por favor escriba el nombre.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="Refimen" class="form-label">Refimen fiscal</label>
-                <input type="text" class="form-control" id="Refimen" placeholder="Refimen" aria-describedby="emailHelp" name="regimen">
+                <input type="text" class="form-control" id="Refimen" placeholder="Refimen" aria-describedby="emailHelp" name="regimen" required>
+                <div class="invalid-feedback">
+                  Por favor escriba el regimen fiscal.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="Domicilio" class="form-label">Domicilio</label>
-                <input type="text" class="form-control" id="Domicilio" placeholder="domicilio" aria-describedby="emailHelp" name="domicilio">
+                <input type="text" class="form-control" id="Domicilio" placeholder="domicilio" aria-describedby="emailHelp" name="domicilio" required>
             </div>
             <div class="mb-3">
                 <label for="Email" class="form-label">Email de la empresa</label>
-                <input type="email" class="form-control" id="Email" placeholder="Email" aria-describedby="emailHelp" name="email">
+                <input type="email" class="form-control" id="Email" placeholder="Email" aria-describedby="emailHelp" name="email" required>
+                <div class="invalid-feedback">
+                  Por favor escriba el domicilio.
+                </div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="pass">
+                <input type="password" class="form-control" id="exampleInputPassword1" name="pass" required>
+                <div class="invalid-feedback">
+                  Por favor escriba la contraseña de la empresa.
+                </div>
             </div>
       </div>
       <div class="modal-footer">
@@ -125,6 +137,26 @@ if (isset($_POST['cerrarsession'])) {
     </div>
   </div>
 </div>
+<script>
+  (() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
     <script src="../assets/js/bootstrap.bundle.js"></script>
   </body>
 </html>

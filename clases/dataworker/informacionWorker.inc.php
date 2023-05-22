@@ -22,35 +22,37 @@ class informacionWorker{
                 <div class="row algin-items-start">
                 <div class="col">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="siempre">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="siempre" required>
                     <label class="form-check-label" for="inlineRadio1">1</label>
                 </div>
                 </div>
                 <div class="col">
                 <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi siempre">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi siempre" required>
                     <label class="form-check-label" for="inlineRadio2">2</label>
                 </div>
                 </div>
                 <div class="col">
                 <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Algunas veces">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Algunas veces" required>
                     <label class="form-check-label" for="inlineRadio2">3</label>
                 </div>
                 </div>
                 <div class="col"> 
                     <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi nunca">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi nunca" required>
                     <label class="form-check-label" for="inlineRadio2">4</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Nunca">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Nunca" required>
                     <label class="form-check-label" for="inlineRadio2">5</label>
                     </div>
                 </div>
+                <div class="invalid-feedback">More example invalid feedback text</div>
                     </div>
+                    
                 </div>
             </div>
             </div>

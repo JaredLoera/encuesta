@@ -140,18 +140,27 @@ if (isset($_POST['cerrarsession'])) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="index.php?id=<?php echo $_SESSION['id'] ?>" method="Post">
+      <form action="index.php?id=<?php echo $_SESSION['id'] ?>" method="Post" class="needs-validation" novalidate>
         <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre del empleado</label>
-                <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="nombre">
+                <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="nombre" required>
+                <div class="invalid-feedback">
+                  Escriba el nombre del empleado
+                </div>
             </div>
             <div class="mb-3">
                 <label for="rfc" class="form-label">rfc del empleado</label>
-                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="nombre" name="rfc">
+                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="nombre" name="rfc" required>
+                <div class="invalid-feedback">
+                  Escriba el rfc del empleado
+                </div>
             </div>
             <div class="mb-3">
                 <label for="rfc" class="form-label">correo del empleado</label>
-                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="nombre" name="correo">
+                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="nombre" name="correo" required>
+                <div class="invalid-feedback">
+                  Escriba el correo del empleado
+                </div>
             </div>
       </div>
       <div class="modal-footer">
@@ -162,6 +171,26 @@ if (isset($_POST['cerrarsession'])) {
     </div>
   </div>
 </div>
+<script>
+  (() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
 <script src="../assets/js/bootstrap.bundle.js"></script>
 </body>
 </html>

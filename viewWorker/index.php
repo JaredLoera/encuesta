@@ -7,17 +7,13 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <title>Encuesta estres</title>
 </head>
-<body style="background-color: #C9FFBD;">
-    <?php 
-    include "../clases/login.inc.php";
-    include "../clases/database/conexion.inc.php";
-    include "../clases/dataworker/informacionWorker.inc.php";
-    include "../clases/modelos/userrespuesta.php";
-    session_start();
-    if(isset($_POST['cerrarsession'])){
-        login::cerrarSession();
-    }
-    if (isset($_POST['guardarEncuesta'])) {
+<body <?php 
+   include "../clases/login.inc.php";
+   include "../clases/database/conexion.inc.php";
+   include "../clases/dataworker/informacionWorker.inc.php";
+   include "../clases/modelos/userrespuesta.php";
+   session_start();
+   if (isset($_POST['guardarEncuesta'])) {
     extract($_POST);
     for ($i=1; $i <= sizeof($_POST)-1; $i++) {
       $inlineRadioOptions = 'inlineRadioOptions'.$i;
@@ -26,6 +22,16 @@
     }
     header("Refresh:2; url=index.php");
     }
+    if (informacionWorker::checkAnswer($_SESSION['id'])) {
+  ?> style="background-color: #C9FFBD;"
+<?php } ?>  >
+    <?php 
+ 
+    
+    if(isset($_POST['cerrarsession'])){
+        login::cerrarSession();
+    }
+    
     ?>
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
@@ -84,7 +90,7 @@
         </div>
        <!--preguntas-->
 
-       <form action="" method="post">
+       <form action="" method="post" class="needs-validation" novalidate>
         <?php 
         Conexion::abrir_conexion();
         informacionWorker::preguntas(conexion::obtener_conexion());
@@ -94,6 +100,26 @@
         </form>
     </div>
     <?php }?>
+    <script>
+      (() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+    </script>
 <script src="../assets/js/bootstrap.bundle.js"></script>
 </body>
 </html>
