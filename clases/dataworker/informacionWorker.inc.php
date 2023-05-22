@@ -62,7 +62,7 @@ class informacionWorker{
         $resultado = datosWorker::count($conexion,$sql);
         return $resultado[0]->num;
 }
-public static function checkAnswer($user_id,):bool{
+public static function checkAnswer($user_id):bool{
     $sql="SELECT * FROM respuestasuser WHERE respuestasuser.user_id =". $user_id;
     Conexion::abrir_conexion();
     $resultados = datosWorker::preguntas(Conexion::obtener_conexion(),$sql);

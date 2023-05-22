@@ -56,14 +56,14 @@
               <br>
               Redirigiendo en 2 segundos...
               <?php 
-              header("Refresh:2; url=../clases/cerrar.inc.php");?>
+              header("Refresh:2; url=../clases/cerrar.inc.php");
+              ?>
              </p>
            </div>
         </div>
         </div>
       </div>
       <?php
-       
     }else {
       ?>
     <div class="row">
