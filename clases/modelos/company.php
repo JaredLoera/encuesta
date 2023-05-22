@@ -36,4 +36,16 @@ class company{
     function get_pass(){
         return $this->pass;
     }
+    function save(){
+        try {
+        Conexion::abrir_conexion();
+       ;
+        $sql = "INSERT INTO company (nombre,refimenFiscal,domicilio,correo,pass) VALUES ('$this->name','$this->regimen','$this->domicilio','$this->correo','$this->pass')";
+        $resultado = Conexion::obtener_conexion()->prepare($sql);
+        $resultado->execute();
+        Conexion::cerrar_conexion();
+        }catch (PDOException $ex) {
+            echo "ERROR ".$ex->getMessage() ; 
+        }  
+    }
 }

@@ -57,9 +57,7 @@ if (isset($_POST['cerrarsession'])) {
           $company->set_domicilio($domicilio);
           $company->set_correo($email);
           $company->set_pass($pass);
-          Conexion::abrir_conexion();
-          datosRoot::addCompany(Conexion::obtener_conexion(),$company);
-          Conexion::cerrar_conexion();
+          $company->save();
           header("Refresh:2; url=index.php");
       }
       if (isset($_POST['cerrarsession'])) {

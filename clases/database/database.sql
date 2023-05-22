@@ -52,5 +52,7 @@ INSERT INTO `encuestas`.`pregunta` (`pregunta`) VALUES
 ("Mi trabajo requiere que memorice mucha información"),
 ("Mi trabajo exige que atienda varios asuntos al mismo tiempo");
 
-INSERT INTO respuestasUser(user_id,pregunta_id,respuesta)VALUES();
+SELECT COUNT(*) as num FROM user LEFT JOIN respuestasuser on user.id = respuestasuser.user_id WHERE respuestasuser.user_id is null;
+
+select count(DISTINCT user.id) as sum from user join respuestasuser on user.id =respuestasuser.user_id group by user.id;
 

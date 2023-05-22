@@ -11,13 +11,5 @@ class datosRoot{
             echo "ERROR ".$ex->getMessage() ; 
         }
     }
-    public static function addCompany($conexion,company $company)
-    {
-        try {
-            $cadena = "INSERT INTO company (nombre,refimenFiscal,domicilio,correo,pass) VALUES ('$company->name','$company->regimen','$company->domicilio','$company->correo','$company->pass')";
-            $conexion->query($cadena);
-        } catch (PDOException $ex) {
-            echo "ERROR ".$ex->getMessage() ; 
-        }  
-    }
+   
 }
