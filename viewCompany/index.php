@@ -14,6 +14,12 @@
     include '../clases/database/conexion.inc.php';
     include '../clases/modelos/worker.php';
     session_start();
+    if (isset($_SESSION['id'])) {
+
+    }
+    else{
+        header("Location: ../index.php");
+    }
     ?>
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
@@ -82,10 +88,16 @@ if (isset($_POST['cerrarsession'])) {
     <div class="card border-info mb-3" style="max-width: 18rem;">
   <div class="card-header"><h5>Encuestas</h5></div>
       <div class="card-body text-center">
-        <h5 class="card-title">Total de encuestas terminadas</h5>
+        <h5 class="card-title">Total terminadas</h5>
         <p class="card-text"><h3>
-          <?php ?>
+          <?php 
+          $sql ="SELECT count(DISTINCT user.id) as num from user join respuestasuser on user.id =respuestasuser.user_id where user.company_id = ".$_SESSION['id'];
+          Conexion::abrir_conexion();
+          echo informacionCompany::getNum(Conexion::obtener_conexion(),$sql); 
+          Conexion::cerrar_conexion();
+          ?>
         </h3></p>
+        <div class="card-footer bg-transparent border-success"><a href="estadisticas.php?id=<?php echo $_SESSION['id'] ?>">ver encuestas</a></div>
       </div>
   </div>
     </div>

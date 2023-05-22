@@ -54,5 +54,7 @@ INSERT INTO `encuestas`.`pregunta` (`pregunta`) VALUES
 
 SELECT COUNT(*) as num FROM user LEFT JOIN respuestasuser on user.id = respuestasuser.user_id WHERE respuestasuser.user_id is null;
 
-select count(DISTINCT user.id) as sum from user join respuestasuser on user.id =respuestasuser.user_id group by user.id;
-
+SELECT count(DISTINCT user.id) as sum from user join respuestasuser on user.id =respuestasuser.user_id group by user.id;
+SELECT * FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id WHERE pregunta.id = 1;
+SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id WHERE respuestasuser.respuesta = "siempre" AND pregunta.id = 1;
+SELECT * FROM respuestasuser WHERE respuestasuser.user_id = 15;

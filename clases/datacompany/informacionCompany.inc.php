@@ -78,4 +78,60 @@ class informacionCompany{
             }
         }
     }
+    public function getAllQuiestions($conexion){
+        $consulta = "SELECT * from pregunta";
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+            <tr>
+                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+            </tr>
+            <?php
+        }
+        else {
+            foreach ($resultados as $info) {
+                ?>
+                <tr>
+                    <td><?php echo $info->id; ?></td>
+                    <td><?php echo $info->pregunta; ?></td>
+                    <td>
+                    <?php 
+                    Conexion::abrir_conexion();
+                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id WHERE respuestasuser.respuesta = 'siempre' AND pregunta.id = ".$info->id);
+                    Conexion::cerrar_conexion();
+                    ?>
+                    </td>
+                    <td>
+                    <?php 
+                    Conexion::abrir_conexion();
+                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id WHERE respuestasuser.respuesta = 'Casi siempre' AND pregunta.id = ".$info->id);
+                    Conexion::cerrar_conexion();
+                    ?>
+                    </td>
+                    <td>
+                    <?php 
+                    Conexion::abrir_conexion();
+                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id WHERE respuestasuser.respuesta = 'Algunas veces' AND pregunta.id = ".$info->id);
+                    Conexion::cerrar_conexion();
+                    ?>
+                    </td>
+                    <td>
+                    <?php 
+                    Conexion::abrir_conexion();
+                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id WHERE respuestasuser.respuesta = 'Casi nunca' AND pregunta.id = ".$info->id);
+                    Conexion::cerrar_conexion();
+                    ?>
+                    </td>
+                    <td>
+                    <?php 
+                    Conexion::abrir_conexion();
+                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id WHERE respuestasuser.respuesta = 'Nunca' AND pregunta.id = ".$info->id);
+                    Conexion::cerrar_conexion();
+                    ?>
+                    </td>
+                </tr>
+                <?php
+            }
+        }
+    }
 }

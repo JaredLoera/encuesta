@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <title>Encuesta estres</title>
 </head>
-<body>
+<body style="background-color: #C9FFBD;">
     <?php 
     include "../clases/login.inc.php";
     include "../clases/database/conexion.inc.php";
@@ -22,12 +22,7 @@
     for ($i=1; $i <= sizeof($_POST)-1; $i++) {
       $inlineRadioOptions = 'inlineRadioOptions'.$i;
       $userrespuesta = new userrespuesta($_SESSION['id'],$i,$$inlineRadioOptions);
-      if ($userrespuesta->save()) {
-        echo "Guardado";
-      }
-      else{
-        echo "No guardado";
-      }
+      $userrespuesta->save();
     }
     header("Refresh:2; url=index.php");
     }
@@ -52,6 +47,25 @@
       </div>
     </div>
     <div class="container">
+    <?php
+    if (informacionWorker::checkAnswer($_SESSION['id'])) {
+      ?><div class="container">
+        <div class="row align-items-start text-center ">
+           <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+             <p class="text-center fs-1">YA A REALIZADO LA ENCUESTA GRACIAS 🙌❤
+              <br>
+              Redirigiendo en 2 segundos...
+              <?php 
+              header("Refresh:2; url=../clases/cerrar.inc.php");?>
+             </p>
+           </div>
+        </div>
+        </div>
+      </div>
+      <?php
+       
+    }else {
+      ?>
     <div class="row">
             <div class="col">
                 <h1 class="text-center">Encuesta estres</h1>
@@ -78,10 +92,8 @@
         ?>
         <button type="submit" name="guardarEncuesta">Guardar</button>
         </form>
-        <div class="row">
-
-        </div>
     </div>
+    <?php }?>
 <script src="../assets/js/bootstrap.bundle.js"></script>
 </body>
 </html>
