@@ -7,6 +7,7 @@ class Worker{
     public $telefono;
     public $correo;
     public $pass;
+    public $passNoHash;
     public $idCompany;
     // Methods 
     function set_nombre($nombre) {
@@ -28,10 +29,14 @@ class Worker{
         return $this->correo;
     }
     function set_pass($pass){
+        $this->passNoHash = $pass;         
         $this->pass = password_hash($pass, PASSWORD_DEFAULT);
     }
     function get_pass(){
         return $this->pass;
+    }
+    function get_passNoHash(){
+        return $this->passNoHash;
     }
     function set_idCompany($idCompany){
         $this->idCompany = $idCompany;

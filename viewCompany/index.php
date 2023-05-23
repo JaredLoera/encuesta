@@ -13,6 +13,7 @@
     include '../clases/datacompany/informacionCompany.inc.php';
     include '../clases/database/conexion.inc.php';
     include '../clases/modelos/worker.php';
+    include '../clases/correos/newworker.php';
     session_start();
     if (isset($_SESSION['id'])) {
 
@@ -69,6 +70,9 @@ if (isset($_POST['cerrarsession'])) {
     $partes = explode("@", $correo);
     $password = $partes[0];
     $worker->set_pass($password."123");
+    $mail = new Mail();
+    $mail->sendMailWorker($worker);
+
     if ($worker->save()) {
     ?><div class="alert alert-success" role="alert">
       Empleado agregado correctamente
@@ -91,16 +95,16 @@ if (isset($_POST['cerrarsession'])) {
     <div class="card border-info mb-3" style="max-width: 18rem;">
   <div class="card-header"><h5>Encuestas</h5></div>
       <div class="card-body text-center">
-        <h5 class="card-title">Total terminadas</h5>
+        <h5 class="card-title">encuestas totales</h5>
         <p class="card-text"><h3>
           <?php 
-          $sql ="SELECT count(DISTINCT user.id) as num from user join respuestasuser on user.id =respuestasuser.user_id where user.company_id = ".$_SESSION['id'];
+          $sql ="SELECT count(quiz.id) as num from quiz where company_id =".$_SESSION['id'];
           Conexion::abrir_conexion();
           echo informacionCompany::getNum(Conexion::obtener_conexion(),$sql); 
           Conexion::cerrar_conexion();
           ?>
         </h3></p>
-        <div class="card-footer bg-transparent border-success"><a href="estadisticas.php?id=<?php echo $_SESSION['id'] ?>">ver encuestas</a></div>
+        <div class="card-footer bg-transparent border-success"><a href="encuestas.php?id=<?php echo $_SESSION['id'] ?>">ver encuestas</a></div>
       </div>
   </div>
     </div>
