@@ -5,6 +5,7 @@ class company{
     public $domicilio;
     public $correo;
     public $pass;
+    public $passNoHash;
     // Methods
     function set_name($name) {
       $this->name = $name;
@@ -31,7 +32,11 @@ class company{
         return $this->correo;
     }
     function set_pass($pass){
+        $this->passNoHash = $pass;      
         $this->pass = password_hash($pass, PASSWORD_DEFAULT);
+    }
+    function get_passNoHash(){
+        return $this->passNoHash;
     }
     function get_pass(){
         return $this->pass;

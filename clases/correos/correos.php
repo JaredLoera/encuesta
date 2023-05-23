@@ -21,11 +21,11 @@ class Mail{
         $this->mail->Port       = PORTSMTP;                     //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         $this->mail->setFrom(USERMAIL, 'Mailer');
         $this->mail->setFrom(USERMAIL, 'EMPRESA');
+        $this->mail->isHTML(true);  //Set email format to HTML
     }
-    public function sendMailWorker(Worker $worker){
+    public function sendMailNewWorker(Worker $worker){
         try {
-        $this->mail->addAddress($worker->get_correo());     // Add a recipient    
-        $this->mail->isHTML(true);                                  //Set email format to HTML
+        $this->mail->addAddress($worker->get_correo());     // Add a recipient              
         $this->mail->Subject = 'Bienvenido a la empresa '.$worker->get_nombre() ;
         $this->mail->Body    = '<!doctype html>
                             <html lang="en">
@@ -52,5 +52,36 @@ class Mail{
         } catch (Exception  $e) {
             echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }
+    }
+    public function sendMailNewCompany(company $company){
+        try {
+            $this->mail->addAddress($company->get_correo());    
+            $this->mail->Subject = 'Empresa Cuenta '.$company->get_name();
+            $this->mail->Body    = '<!doctype html>
+                            <html lang="en">
+                            <head>
+                                <meta charset="utf-8">
+                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                <title>Bootstrap demo</title>
+                                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+                            </head>
+                            <body>
+                                <div class="container">
+                                    <div class="row">
+                                    <h1>Se a registrado la empresa '. $company->get_name().'!</h1>
+                                    <br>
+                                    El Correo de la empresa es  '.$company->get_correo().';
+                                    <br>
+                                    La contraseña con la que se registro '.$company->get_passNoHash().';
+                                    </div>
+                                </div>
+                                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+                            </body>
+                            </html>';
+            $this->mail->send();
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
+        }
+        
     }
 }

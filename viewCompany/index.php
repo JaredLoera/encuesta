@@ -13,7 +13,7 @@
     include '../clases/datacompany/informacionCompany.inc.php';
     include '../clases/database/conexion.inc.php';
     include '../clases/modelos/worker.php';
-    include '../clases/correos/newworker.php';
+    include '../clases/correos/correos.php';
     session_start();
     if (isset($_SESSION['id'])) {
 
@@ -71,7 +71,7 @@ if (isset($_POST['cerrarsession'])) {
     $password = $partes[0];
     $worker->set_pass($password."123");
     $mail = new Mail();
-    $mail->sendMailWorker($worker);
+    $mail->sendMailNewWorker($worker);
 
     if ($worker->save()) {
     ?><div class="alert alert-success" role="alert">

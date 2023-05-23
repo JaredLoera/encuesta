@@ -12,6 +12,7 @@
             include '../clases/database/conexion.inc.php';  
             include '../clases/modelos/company.php'; 
             include '../clases/login.inc.php'; 
+            include '../clases/correos/correos.php';
         ?>
      <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
@@ -58,6 +59,8 @@ if (isset($_POST['cerrarsession'])) {
           $company->set_correo($email);
           $company->set_pass($pass);
           $company->save();
+          $mail = new Mail();
+          $mail->sendMailNewCompany($company);
           header("Refresh:2; url=index.php");
       }
       if (isset($_POST['cerrarsession'])) {
