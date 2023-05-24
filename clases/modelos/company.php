@@ -44,8 +44,15 @@ class company{
     function save(){
         try {
         Conexion::abrir_conexion();
-       ;
-        $sql = "INSERT INTO company (nombre,refimenFiscal,domicilio,correo,pass) VALUES ('$this->name','$this->regimen','$this->domicilio','$this->correo','$this->pass')";
+        $conexion = Conexion::obtener_conexion();
+        $correo = "INSERT INTO contacto (correo,pass,tipo_user_id) VALUES ('$this->correo','$this->pass',2)";
+        $resultado = Conexion::obtener_conexion()->prepare($correo);
+        $resultado->execute();
+        $consutla = "SELECT id FROM contacto WHERE correo = '$this->correo'";
+        $sentenica = $conexion->query($consutla);
+        $resp = $sentenica->fetch(PDO::FETCH_OBJ);
+        $id = $resp->id;
+        $sql = "INSERT INTO company (nombre,refimenFiscal,domicilio,contacto_id) VALUES ('$this->name','$this->regimen','$this->domicilio','$id')";
         $resultado = Conexion::obtener_conexion()->prepare($sql);
         $resultado->execute();
         Conexion::cerrar_conexion();

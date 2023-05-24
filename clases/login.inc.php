@@ -1,51 +1,58 @@
 <?php 
 class login{
-    public static function iniciarSession($conexion,$correo){
-        $sql = "SELECT * FROM company WHERE correo = '$correo'";
+    public static function iniciarSession($conexion,$correo,$pass){
+        $sql = "SELECT contacto.id, pass, correo, nombre as tipouser FROM contacto join tipo_user on contacto.tipo_user_id = tipo_user.id WHERE correo = '$correo'";
         $sentencia = $conexion->query($sql);
         $resultado = $sentencia->fetch(PDO::FETCH_OBJ);
         if (!$resultado) {
-            $sql = "SELECT * FROM user WHERE correo = '$correo'";
-            $sentencia = $conexion->query($sql);
-            $resultado = $sentencia->fetch(PDO::FETCH_OBJ);
-            if (!$resultado) {
-                $sql = "SELECT * FROM userRoot WHERE correo = '$correo'";
-                $sentencia = $conexion->query($sql);
-                $resultado = $sentencia->fetch(PDO::FETCH_OBJ);
-                if (!$resultado) {
-                    ?> <div>
-                        <?php echo "Usuario o contraseña incorrectos";?>
-                    </div>  
-                    <?php
-                }else{
+          ?>
+          <div class="alert alert-danger" role="alert">
+            Correo o contrasñea incorrecta
+          </div> 
+          <?php    
+        }else{
+            if (password_verify($pass, $resultado->pass)) {
+                if ($resultado->tipouser == "root") {
                     session_start();
-                    $_SESSION['id'] = $resultado->id;
-                    $_SESSION['nombre'] = $resultado->nombre;
-                    $_SESSION['correo'] = $resultado->correo;
                     $_SESSION['tipo'] = "ROOT";
+                    $_SESSION['id'] = $resultado->id;
                     header("Location: viewRoot/index.php");
                 }
-              
-            }else{
-                session_start();
-                $_SESSION['id'] = $resultado->id;
-                $_SESSION['nombre'] = $resultado->nombre;
-                $_SESSION['correo'] = $resultado->correo;
-                $_SESSION['rfc'] = $resultado->rfc;
-                $_SESSION['tipo'] = "WORKER";
-                header("Location: viewWorker/index.php");
+                elseif ($resultado->tipouser == "company") {
+                    session_start();
+                    $_SESSION['tipo'] = "COMPANY";
+                    $_SESSION['id'] = $resultado->id;
+                    header("Location: viewCompany/index.php");
+                }
+                else {
+                    session_start();
+                    $_SESSION['tipo'] = "WORKER";
+                    $_SESSION['id'] = $resultado->id;
+                    header("Location: viewWorker/index.php");
+                }
             }
-        }else{
-            session_start();
-            $_SESSION['id'] = $resultado->id;
-            $_SESSION['nombre'] = $resultado->nombre;
-            $_SESSION['regimen'] = $resultado->refimenFiscal;
-            $_SESSION['domicilio'] = $resultado->domicilio;
-            $_SESSION['correo'] = $resultado->correo;
-            $_SESSION['pass'] = $resultado->pass;
-            $_SESSION['tipo'] = "COMPANY";
-            header("Location: viewCompany/index.php");
+            else {
+                ?>
+                <div class="alert alert-danger" role="alert">
+                Correo o contrasñea incorrecta
+                </div> 
+                <?php   
+            }
+           
         }
+    }
+    public static function desiblebutton():bool{
+       Conexion::abrir_conexion();
+       $conexion = Conexion::obtener_conexion();
+       $sql = "select * from contacto where tipo_user_id = 1;";
+       $sentencia = $conexion->query($sql);     
+       $resultado = $sentencia->fetchAll();
+       if(!$resultado){
+        return false;
+       }   
+       else{
+        return true;
+       }
     }
    public static function cerrarSession(){
         session_start();    

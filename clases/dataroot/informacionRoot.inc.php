@@ -3,7 +3,7 @@ include 'datosRoot.inc.php';
 class informacionRoot{
 
     public static function informacion($conexion){
-        $sql = "SELECT * FROM company";
+        $sql = "SELECT company.id as id_company,nombre,refimenFiscal,domicilio,pass,correo from company join contacto on contacto.id = company.contacto_id ;";
         $resultados = datosRoot::consultas($conexion,$sql);
         if (!$resultados) {
             ?>
@@ -15,7 +15,7 @@ class informacionRoot{
         foreach($resultados as $resultado){
             ?>
             <tr>  
-                <td><?php echo $resultado->id; ?></td>
+                <td><?php echo $resultado->id_company; ?></td>
                 <td><?php echo $resultado->nombre;?></td>
                 <td><?php echo $resultado->refimenFiscal;?></td>
                 <td><?php echo $resultado->domicilio;?></td>

@@ -120,6 +120,25 @@
   })
 })()
   </script>
+  <?php 
+    if (!login::desiblebutton()) {
+      ?> 
+      <form action="" method="post">
+          <button type="submit" name="primerinicio">primer inicio</button>
+        </form>
+      <?php  
+    }
+   
+  if (isset($_POST['primerinicio'])) {
+   Conexion::abrir_conexion();
+    $conexion = Conexion::obtener_conexion();
+    $pass= password_hash('123456789', PASSWORD_DEFAULT);
+    $sql= "INSERT INTO contacto (pass, correo, tipo_user_id) VALUES('$pass', 'root@gmail.com', 1)";
+    $resultado = $conexion->prepare($sql);
+    $resultado->execute();
+    Conexion::cerrar_conexion();
+  }
+  ?>
 </body>
 </html>
 
