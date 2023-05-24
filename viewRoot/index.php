@@ -32,31 +32,21 @@
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
-                <a class="nav-link" href="index.php">
+              <h4>  <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
+                   
                     <span>Panel principal</span>
                 </a>
+                </h4>
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 Interfaces
             </div>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>
-                            <h3 class="fw-bol">Encuestas</h3>
-                        </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                        <i class="fas fa-fw fa-chart-area"></i>
-                        <span>
-                            <h3 class="fw-bol">Encuestas</h3>
-                        </span>
-                </a>
-            </li>
+            <nav class="nav flex-column ml-3 fw-bold">
+                <a class="nav-link text-white" href="#">Empresas</a>
+                <a class="nav-link text-white" href="#">Encuestas</a>
+            </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 Componentes adicionales
@@ -137,7 +127,7 @@
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num FROM company;");
+                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num from quiz;");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>
@@ -145,10 +135,7 @@
                                             <div class="col mt-4">
                                                 <div class="row">
                                                 <div class="col">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir Empresa</button>
-                                                </div>
-                                                <div class="col">
-                                                    <button type="button" class="btn btn-success">Ver empresas</button>
+                                                    <button type="button" class="btn btn-success">Ver encuestas</button>
                                                 </div>
                                                 </div>
                                             </div>
