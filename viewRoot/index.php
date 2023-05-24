@@ -8,20 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Dashboard</title>
-
-    <!-- Custom fonts for this template-->
+    <title>Panel principal</title>
     <link href="../assets/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
-
+            <?php 
+            include '../clases/dataroot/informacionRoot.inc.php';
+            include '../clases/database/conexion.inc.php';  
+            include '../clases/modelos/company.php'; 
+            include '../clases/login.inc.php'; 
+            include '../clases/correos/correos.php';
+            ?>
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -33,45 +32,34 @@
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Panel principal</span>
+                </a>
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 Interfaces
             </div>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Componentes</span>
+                <a href="#" class="nav-link">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>
+                            <h3 class="fw-bol">Encuestas</h3>
+                        </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                <a href="#" class="nav-link">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>
+                            <h3 class="fw-bol">Encuestas</h3>
+                        </span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
             </li>
-
-            <!-- Divider -->
             <hr class="sidebar-divider">
-
-            <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Componentes adicionales
             </div>
             <hr class="sidebar-divider d-none d-md-block">
         </ul>
@@ -141,9 +129,29 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Encuestas    
+                                            <h5>
+                                            Encuestas  
+                                            </h5>  
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">50</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
+                                            <h2>
+                                                <?php
+                                                Conexion::abrir_conexion();
+                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num FROM company;");
+                                                Conexion::cerrar_conexion();
+                                                ?>
+                                            </h2>
+                                            </div>
+                                            <div class="col mt-4">
+                                                <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir Empresa</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-success">Ver empresas</button>
+                                                </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -158,8 +166,30 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                               Empresas</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                             <h5>
+                                             Empresas
+                                             </h5>  
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
+                                            <h2>
+                                                <?php
+                                                Conexion::abrir_conexion();
+                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num FROM company;");
+                                                Conexion::cerrar_conexion();
+                                                ?>
+                                            </h2>
+                                            </div>
+                                            <div class="col mt-4">
+                                                <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir Empresa</button>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-success">Ver empresas</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -168,27 +198,95 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                           
-                        </div>
-                    </div>
+                    </div>           
                 </div>
+                <!--TERMINAN CARDS SUPERIORES-->
+                <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
+                    <?php 
+                        if (isset($_POST['cerrarsession'])) {
+                            login::cerrarSession();
+                        }
+                        if (isset($_POST['saveCompany'])) {
+                            extract($_POST);
+                            $company = new company();
+                            $company->set_name($name);
+                            $company->set_refimen($regimen);
+                            $company->set_domicilio($domicilio);
+                            $company->set_correo($email);
+                            $company->set_pass($pass);
+                            $company->save();
+                            $mail = new Mail();
+                            $mail->sendMailNewCompany($company);
+                            header("Refresh:2; url=index.php");
+                        }
+                    ?>
             </div>
-       
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Encuestas grupo conta pagos</span>
-                    </div>
-                </div>
-            </footer>
-        
         </div>
-      
     </div>
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Encuestas grupo conta pagos</span>
+            </div>
+        </div>
+    </footer>
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir empresa</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form action="" method="Post" class="needs-validation" novalidate>
+        <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre de la empresa</label>
+                <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="name" required>
+                <div class="invalid-feedback">
+                  Por favor escriba el nombre.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="Refimen" class="form-label">Refimen fiscal</label>
+                <input type="text" class="form-control" id="Refimen" placeholder="Refimen" aria-describedby="emailHelp" name="regimen" required>
+                <div class="invalid-feedback">
+                  Por favor escriba el regimen fiscal.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="Domicilio" class="form-label">Domicilio</label>
+                <input type="text" class="form-control" id="Domicilio" placeholder="domicilio" aria-describedby="emailHelp" name="domicilio" required>
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email de la empresa</label>
+                <input type="email" class="form-control" id="Email" placeholder="Email" aria-describedby="emailHelp" name="email" required>
+                <div class="invalid-feedback">
+                  Por favor escriba el domicilio.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="passcompany" name="pass" required>
+                <div class="invalid-feedback">
+                 La contraseña debe de tener mas de 8 caracteres.
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" name="saveCompany" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
     <script src="../assets/js/bootstrap.bundle.js"></script>
+    <script src="../assets/js/validaciones.js"></script>
 </body>
 </html>

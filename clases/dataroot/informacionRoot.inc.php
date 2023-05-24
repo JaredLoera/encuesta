@@ -49,4 +49,8 @@ class informacionRoot{
             <?php
         }   
     }
+    public static function getNumCompanys($conexion,$sql){
+        $resultado = datosRoot::count($conexion,$sql);
+        return $resultado[0]->num;
+}
 }
