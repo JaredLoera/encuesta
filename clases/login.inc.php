@@ -13,10 +13,9 @@ class login{
                 $sentencia = $conexion->query($sql);
                 $resultado = $sentencia->fetch(PDO::FETCH_OBJ);
                 if (!$resultado) {
-                    ?>
-                    <div class="alert alert-danger mt-5" role="alert">
+                    ?> <div>
                         <?php echo "Usuario o contraseña incorrectos";?>
-                    </div>
+                    </div>  
                     <?php
                 }else{
                     session_start();

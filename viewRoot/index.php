@@ -126,9 +126,9 @@ if (isset($_POST['cerrarsession'])) {
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="pass" required>
+                <input type="password" class="form-control" id="passcompany" name="pass" required>
                 <div class="invalid-feedback">
-                  Por favor escriba la contraseña de la empresa.
+                 La contraseña debe de tener mas de 8 caracteres.
                 </div>
             </div>
       </div>
@@ -140,26 +140,7 @@ if (isset($_POST['cerrarsession'])) {
     </div>
   </div>
 </div>
-<script>
-  (() => {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-</script>
+<script src="../assets/js/validaciones.js"></script>
     <script src="../assets/js/bootstrap.bundle.js"></script>
   </body>
 </html>
