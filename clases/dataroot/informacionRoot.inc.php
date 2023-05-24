@@ -21,8 +21,8 @@ class informacionRoot{
                 <td><?php echo $resultado->domicilio;?></td>
                 <td><?php echo $resultado->correo;?></td>
                 <td>
-                 <form action="encuestasEmpresa.php?id=<?php echo $resultado->id; ?>" method="post">
-                   <!-- <button type="submit" class="btn btn-outline-primary">Ver encuestas</button> -->
+                 <form action="companyquiz.php?id=<?php echo $resultado->id_company; ?>" method="post">
+                    <button type="submit" class="btn btn-outline-primary">Ver encuestas</button>
                  </form>   
                 </td>
             </tr>

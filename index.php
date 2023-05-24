@@ -128,7 +128,6 @@
         </form>
       <?php  
     }
-   
   if (isset($_POST['primerinicio'])) {
    Conexion::abrir_conexion();
     $conexion = Conexion::obtener_conexion();
@@ -141,6 +140,3 @@
   ?>
 </body>
 </html>
-
-
-

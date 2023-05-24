@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Panel principal</title>
+    <title>Panel empresas</title>
     <link href="../assets/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-                <a class="nav-link text-white" href="companys.php">Empresas</a>
+                <a class="nav-link text-white" href="#">Empresas</a>
                 <a class="nav-link text-white" href="#">Encuestas</a>
             </nav>
             <hr class="sidebar-divider">
@@ -69,80 +69,28 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
+                <!--INICIAN CARDS SUPERIORES-->
                     <div class="row">
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            <h5>
-                                            Encuestas  
-                                            </h5>  
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
-                                            <h2>
-                                                <?php
-                                                Conexion::abrir_conexion();
-                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num from quiz;");
-                                                Conexion::cerrar_conexion();
-                                                ?>
-                                            </h2>
-                                            </div>
-                                            <div class="col mt-4">
-                                                <div class="row">
-                                                <div class="col">
-                                                    <button type="button" class="btn btn-success">Ver encuestas</button>
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                             <h5>
-                                             Empresas
-                                             </h5>  
-                                            </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
-                                            <h2>
-                                                <?php
-                                                Conexion::abrir_conexion();
-                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num FROM company;");
-                                                Conexion::cerrar_conexion();
-                                                ?>
-                                            </h2>
-                                            </div>
-                                            <div class="col mt-4">
-                                                <div class="row">
-                                                <div class="col">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir Empresa</button>
-                                                </div>
-                                                <div class="col">
-                                                    <a href="companys.php" class="btn btn-success" role="button">Ver empresas</a>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>           
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Regimen fiscal</th>
+                                <th scope="col">Direccion</th>
+                                <th scope="col">Correo</th>
+                                <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <?php 
+                               Conexion::abrir_conexion();
+                               informacionRoot::informacion(conexion::obtener_conexion());
+                               Conexion::cerrar_conexion();
+                               ?>
+                            </tbody>
+                        </table>
+                    </div>          
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
@@ -164,11 +112,6 @@
                             header("Refresh:2; url=index.php");
                         }
                     ?>
-                    <div class="container">
-                        <div class="row bg-danger">
-                            buenas tardes
-                        </div>
-                    </div>
             </div>
         </div>
     </div>
