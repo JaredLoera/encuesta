@@ -22,6 +22,7 @@
             include '../clases/modelos/company.php'; 
             include '../clases/login.inc.php'; 
             include '../clases/correos/correos.php';
+            session_start();
             ?>
 <body id="page-top">
     <div id="wrapper">
@@ -57,9 +58,9 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                         <div class="dropdown" style="margin-right: 30px;">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown button
-                        </button>
+                        <a class="fs-5 mt-1 icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo $_SESSION['correo']; ?>
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item fs-5" href="#">Configuracion</a></li>
                             <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>

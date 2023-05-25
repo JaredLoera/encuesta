@@ -17,11 +17,10 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
 </head>
             <?php 
-            include '../clases/dataroot/informacionRoot.inc.php';
             include '../clases/database/conexion.inc.php';  
-            include '../clases/modelos/company.php'; 
-            include '../clases/login.inc.php'; 
+            include '../clases/datacompany/informacionCompany.inc.php';
             include '../clases/correos/correos.php';
+            include '../clases/modelos/worker.php';
             session_start();
             ?>
 <body id="page-top">
@@ -85,9 +84,8 @@
                         $partes = explode("@", $correo);
                         $password = $partes[0];
                         $worker->set_pass($password."123");
-                        $mail = new Mail();
-                        $mail->sendMailNewWorker($worker);
-
+                        //$mail = new Mail();
+                        //$mail->sendMailNewWorker($worker);
                         if ($worker->save()) {
                         ?><div class="alert alert-success" role="alert">
                         Empleado agregado correctamente
@@ -120,7 +118,7 @@
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num from user where company_id =".$_SESSION['id'].";");
+                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num from user where company_id =".$_SESSION['id'].";");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>
@@ -154,7 +152,7 @@
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num from user where company_id =".$_SESSION['id']."");
+                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num from user where company_id =".$_SESSION['id']."");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>

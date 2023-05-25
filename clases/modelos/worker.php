@@ -66,7 +66,11 @@ class Worker{
         try{
             Conexion::abrir_conexion();
             $conexion = Conexion::obtener_conexion();
-            $sql = "INSERT INTO user (nombre, rfc, correo, pass, company_id,telefono, ap_paterno, ap_materno) VALUES ('$this->nombre', '$this->rfc', '$this->correo', '$this->pass', '$this->idCompany', '$this->telefono', '$this->ap_paterno', '$this->ap_materno')";
+            $sqlContacto = "INSERT INTO contacto (correo,pass,tipo_user_id) VALUES ('$this->correo','$this->pass',3)";
+            $resultadoContacto = $conexion->prepare($sqlContacto);
+            $resultadoContacto->execute();
+            $idContacto = $conexion->lastInsertId();
+            $sql = "INSERT INTO user (nombre,ap_paterno,ap_materno,rfc,telefono,contacto_id,company_id) VALUES ('$this->nombre', '$this->ap_paterno', '$this->ap_materno', '$this->rfc', '$this->telefono', $idContacto,$this->idCompany)";
             $resultado = $conexion->prepare($sql);
             $resultado->execute();
             Conexion::cerrar_conexion();
@@ -77,3 +81,4 @@ class Worker{
         }
     }
 }
+//ERROR: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`segundoejemplo`.`user`, CONSTRAINT `user_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`))

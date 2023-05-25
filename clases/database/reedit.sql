@@ -36,15 +36,25 @@ create table user(
     foreign key(company_id) references company(id)
     foreign key(contacto_id) references contacto(id)
 );
+create table capitulo(
+    id int not null auto_increment,
+    numcapitulo int not null,
+    descripcion varchar(255) not null,
+    primary key(id)
+);
 create table quiz(
     id int not null auto_increment,
     nombre varchar(255) not null,
-    descripcion varchar(255) not null,
     company_id int not null,
     fecha_inicio date not null,
     primary key(id),
     foreign key(company_id) references company(id)
 );
+
+alter table quiz drop column descripcion;
+alter table quiz add column capitulo_id int not null;
+alter table quiz add foreign key(capitulo_id) references capitulo(id);
+
 create table question(
     id int not null auto_increment,
     pregunta varchar(255) not null,

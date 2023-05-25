@@ -78,6 +78,7 @@
                               <th scope="col">RFC</th>
                               <th scope="col">Correo</th>
                               <th scope="col">telefono</th>
+                              <th scope="col">acciones</th>
                             </tr>
                           </thead>
                           <tbody>
