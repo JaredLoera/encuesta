@@ -31,7 +31,7 @@ class informacionCompany{
             return $resultado[0]->num;
     }
     public static function getWorkers($conexion,$id){
-        $consulta = "SELECT id ,concat(nombre, ' ',ap_paterno,' ',ap_materno) as nombre, correo ,telefono,rfc FROM user where user.company_id=".$id;
+        $consulta = "SELECT user.id ,concat(nombre, ' ',ap_paterno,' ',ap_materno) as nombre ,telefono,correo,rfc FROM user join contacto on  contacto.id = user.contacto_id where user.company_id=".$id;
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {
             ?>

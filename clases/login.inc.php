@@ -16,12 +16,18 @@ class login{
                     session_start();
                     $_SESSION['tipo'] = "ROOT";
                     $_SESSION['id'] = $resultado->id;
+                    $_SESSION['correo']= $resultado->correo;
                     header("Location: viewRoot/index.php");
                 }
                 elseif ($resultado->tipouser == "company") {
+                    $sql = "SELECT * FROM company WHERE contacto_id = $resultado->id";
+                    $sentencia = $conexion->query($sql);
+                    $dataCompany = $sentencia->fetch(PDO::FETCH_OBJ);
                     session_start();
-                    $_SESSION['tipo'] = "COMPANY";
                     $_SESSION['id'] = $resultado->id;
+                    $_SESSION['nombre']= $dataCompany->nombre;
+                    $_SESSION['correo']= $resultado->correo;
+                    $_SESSION['tipo'] = "COMPANY";
                     header("Location: viewCompany/index.php");
                 }
                 else {

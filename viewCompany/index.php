@@ -1,144 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Panel principal</title>
+    <link href="../assets/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
-    <title>Empresa encuesas</title>
 </head>
-<body>
-    <?php 
-    include '../clases/login.inc.php';
-    include '../clases/datacompany/informacionCompany.inc.php';
-    include '../clases/database/conexion.inc.php';
-    include '../clases/modelos/worker.php';
-    include '../clases/correos/correos.php';
-    session_start();
-    if (isset($_SESSION['id'])) {
+            <?php 
+            include '../clases/dataroot/informacionRoot.inc.php';
+            include '../clases/database/conexion.inc.php';  
+            include '../clases/modelos/company.php'; 
+            include '../clases/login.inc.php'; 
+            include '../clases/correos/correos.php';
+            session_start();
+            ?>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">ENCUESTA <?php echo $_SESSION['nombre']; ?></div>
+            </a>
+            <hr class="border border-1 opacity-75">
+            <li class="nav-item active">
+           <a class="nav-link fs-5" href="index.php"> Panel principal </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading fs-5">
+                Interfaces
+            </div>
+            <nav class="nav flex-column ml-3 fw-bold">
+                <a class="nav-link text-white" href="trabajadores.php">Trabajadores</a>
+                <a class="nav-link text-white" href="encuestas.php">Encuestas</a>
+            </nav>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Componentes adicionales
+            </div>
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                        <div class="dropdown" style="margin-right: 30px;">
+                        <a class="fs-5 mt-1 icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo $_SESSION['correo']; ?>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fs-5" href="#">Configuracion</a></li>
+                            <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
+                        </ul>
+                        </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    <div class="row">
+                    <?php 
+                    if (isset($_POST['saveWorker'])) {
+                        extract($_POST);
+                        $worker = new Worker();
+                        $worker->set_nombre($nombre);
+                        $worker->set_rfc($rfc);
+                        $worker->set_correo($correo);
+                        $worker->set_idCompany($_SESSION['id']);
+                        $worker->set_ap_paterno($ap_paterno);
+                        $worker->set_ap_materno($ap_materno);
+                        $worker->set_telefono($telefono);
+                        $partes = explode("@", $correo);
+                        $password = $partes[0];
+                        $worker->set_pass($password."123");
+                        $mail = new Mail();
+                        $mail->sendMailNewWorker($worker);
 
-    }
-    else{
-        header("Location: ../index.php");
-    }
-    ?>
-<nav class="navbar bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand">Encuestas <?php echo $_SESSION['nombre'] ?> </a>
-    <a class="btn btn-primary" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-  <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-    </svg>
+                        if ($worker->save()) {
+                        ?><div class="alert alert-success" role="alert">
+                        Empleado agregado correctamente
+                        </div>
+                        <?php
+                        header("Refresh:2; url=index.php");
+                        }else{
+                        ?>
+                        <div class="alert alert-danger" role="alert">
+                        Error al agregar empleado
+                        </div>
+                        
+                        <?php
+                        }
+                    }
+                    ?>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <h5>
+                                            Encuestas  
+                                            </h5>  
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
+                                            <h2>
+                                                <?php
+                                                Conexion::abrir_conexion();
+                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num from user where company_id =".$_SESSION['id'].";");
+                                                Conexion::cerrar_conexion();
+                                                ?>
+                                            </h2>
+                                            </div>
+                                            <div class="col mt-4">
+                                                <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-success">Ver encuestas</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                             <h5>
+                                             Trabajadores
+                                             </h5>  
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
+                                            <h2>
+                                                <?php
+                                                Conexion::abrir_conexion();
+                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num from user where company_id =".$_SESSION['id']."");
+                                                Conexion::cerrar_conexion();
+                                                ?>
+                                            </h2>
+                                            </div>
+                                            <div class="col mt-4">
+                                                <div class="row">
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir trabajador</button>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="trabajadores.php" class="btn btn-success" role="button">Ver trabajadores</a>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>           
+                </div>
+                <!--TERMINAN CARDS SUPERIORES-->
+                <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
+                    <?php 
+                        if (isset($_POST['cerrarsession'])) {
+                            login::cerrarSession();
+                        }
+                        if (isset($_POST['saveCompany'])) {
+                            extract($_POST);
+                            $company = new company();
+                            $company->set_name($name);
+                            $company->set_refimen($regimen);
+                            $company->set_domicilio($domicilio);
+                            $company->set_correo($email);
+                            $company->set_pass($pass);
+                            $company->save();
+                            $mail = new Mail();
+                            $mail->sendMailNewCompany($company);
+                            header("Refresh:2; url=index.php");
+                        }
+                    ?>
+                    <div class="container">
+                        <div class="row bg-danger">
+                            buenas tardes
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Encuestas grupo conta pagos</span>
+            </div>
+        </div>
+    </footer>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
     </a>
-  </div>
-</nav>
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Configuracion</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-  <form action="" method="post"><button type="submit" class="btn btn-outline-danger" name="cerrarsession">Cerrar session</button></form>
-  </div>
-</div>
-<?php
-if (isset($_POST['cerrarsession'])) {
-    login::cerrarSession();
-}
-?>
-<div class="container">
-<div class="row align-items-start">
-      <div class="col"> 
-       <h1 class="text-center">Encuestas</h1>
-      </div>
-      <div class="col mt-3">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir empleado</button>
-      </div>
-</div>
-<div class="row">
-  <?php 
-  if (isset($_POST['saveWorker'])) {
-    extract($_POST);
-    $worker = new Worker();
-    $worker->set_nombre($nombre);
-    $worker->set_rfc($rfc);
-    $worker->set_correo($correo);
-    $worker->set_idCompany($_SESSION['id']);
-    $worker->set_ap_paterno($ap_paterno);
-    $worker->set_ap_materno($ap_materno);
-    $worker->set_telefono($telefono);
-    $partes = explode("@", $correo);
-    $password = $partes[0];
-    $worker->set_pass($password."123");
-    $mail = new Mail();
-    $mail->sendMailNewWorker($worker);
 
-    if ($worker->save()) {
-    ?><div class="alert alert-success" role="alert">
-      Empleado agregado correctamente
-      </div>
-    <?php
-    header("Refresh:2; url=index.php");
-    }else{
-     ?>
-     <div class="alert alert-danger" role="alert">
-      Error al agregar empleado
-      </div>
-     
-     <?php
-    }
-  }
-  ?>
-</div>
-  <div class="row mt-5">
-    <div class="col">
-    <div class="card border-info mb-3" style="max-width: 18rem;">
-  <div class="card-header"><h5>Encuestas</h5></div>
-      <div class="card-body text-center">
-        <h5 class="card-title">encuestas totales</h5>
-        <p class="card-text"><h3>
-          <?php 
-          $sql ="SELECT count(quiz.id) as num from quiz where company_id =".$_SESSION['id'];
-          Conexion::abrir_conexion();
-          echo informacionCompany::getNum(Conexion::obtener_conexion(),$sql); 
-          Conexion::cerrar_conexion();
-          ?>
-        </h3></p>
-        <div class="card-footer bg-transparent border-success"><a href="encuestas.php?id=<?php echo $_SESSION['id'] ?>">ver encuestas</a></div>
-      </div>
-  </div>
-    </div>
-    <div class="col">
-    <div class="card border-info mb-3" style="max-width: 18rem;">
-  <div class="card-header"><h5>Empleados</h5></div>
-      <div class="card-body text-center">
-        <h5 class="card-title">Total de empleados</h5>
-        <p class="card-text"><h3>
-          <?php
-          $sql= "SELECT count(*) as num FROM user where user.company_id = ".$_SESSION['id'];
-          Conexion::abrir_conexion();
-          echo informacionCompany::getNum(Conexion::obtener_conexion(),$sql);
-          Conexion::cerrar_conexion();
-           ?></h3>
-          </p>
-          <div class="card-footer bg-transparent border-success"><a href="trabajadores.php?id=<?php echo $_SESSION['id'] ?>">ver empleados</a></div>
-      </div>
-  </div>
-    </div>
-  </div>
-  <div class="row">
-  
-  </div>
-  </div>
-  <div class="row">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-  <?php 
- 
-  ?>
-</div>
-  </div>
-</div>
-<!-- Modal -->
+
+    <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -147,78 +229,59 @@ if (isset($_POST['cerrarsession'])) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="index.php?id=<?php echo $_SESSION['id'] ?>" method="Post" class="needs-validation" novalidate>
-        <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre del empleado</label>
-                <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="nombre" required>
-                <div class="invalid-feedback">
-                  Escriba el nombre del empleado
-                </div>
-            </div>
+        <form action="index.php?id=<?php echo $_SESSION['id'] ?>" method="Post" class="needs-validation" novalidate>
             <div class="mb-3">
-                <label for="ap_paterno" class="form-label">Apellido del empleado</label>
-                <input type="text" class="form-control" id="nombre" placeholder="apellido paterno" aria-describedby="ap_paterno" name="ap_paterno" required>
-                <div class="invalid-feedback">
-                  Escriba el apellido paterno del empleado
+                    <label for="nombre" class="form-label">Nombre del empleado</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="nombre" required>
+                    <div class="invalid-feedback">
+                    Escriba el nombre del empleado
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="ap_materno" class="form-label">Apellido del empleado</label>
-                <input type="text" class="form-control" id="nombre" placeholder="apellido materno" aria-describedby="ap_materno" name="ap_materno" required>
-                <div class="invalid-feedback">
-                  Escriba el apellido materno del empleado
+                <div class="mb-3">
+                    <label for="ap_paterno" class="form-label">Apellido del empleado</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="apellido paterno" aria-describedby="ap_paterno" name="ap_paterno" required>
+                    <div class="invalid-feedback">
+                    Escriba el apellido paterno del empleado
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="rfc" class="form-label">rfc del empleado</label>
-                <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="rfc" name="rfc" required>
-                <div class="invalid-feedback">
-                  Escriba el rfc del empleado
+                <div class="mb-3">
+                    <label for="ap_materno" class="form-label">Apellido del empleado</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="apellido materno" aria-describedby="ap_materno" name="ap_materno" required>
+                    <div class="invalid-feedback">
+                    Escriba el apellido materno del empleado
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="telefono" class="form-label">telefono del empleado</label>
-                <input type="phone" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="telefono" name="telefono" required>
-                <div class="invalid-feedback">
-                  Escriba el telefono del empleado
+                <div class="mb-3">
+                    <label for="rfc" class="form-label">rfc del empleado</label>
+                    <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="rfc" name="rfc" required>
+                    <div class="invalid-feedback">
+                    Escriba el rfc del empleado
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label for="correo" class="form-label">correo del empleado</label>
-                <input type="email" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="correo" name="correo" required>
-                <div class="invalid-feedback">
-                  Escriba el correo del empleado
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">telefono del empleado</label>
+                    <input type="phone" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="telefono" name="telefono" required>
+                    <div class="invalid-feedback">
+                    Escriba el telefono del empleado
+                    </div>
                 </div>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" name="saveWorker" class="btn btn-primary">Guardar</button>
-        </form>
-      </div>
+                <div class="mb-3">
+                    <label for="correo" class="form-label">correo del empleado</label>
+                    <input type="email" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="correo" name="correo" required>
+                    <div class="invalid-feedback">
+                    Escriba el correo del empleado
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" name="saveWorker" class="btn btn-primary">Guardar</button>
+         </form>
+        </div>
+        </div>
     </div>
-  </div>
-</div>
-<script>
-  (() => {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-</script>
-<script src="../assets/js/bootstrap.bundle.js"></script>
+    </div>
+    <script src="../assets/js/bootstrap.bundle.js"></script>
+    <script src="../assets/js/validaciones.js"></script>
 </body>
 </html>
