@@ -43,6 +43,7 @@
             <nav class="nav flex-column ml-3 fw-bold">
                 <a class="nav-link text-white" href="trabajadores.php">Trabajadores</a>
                 <a class="nav-link text-white" href="encuestas.php">Encuestas</a>
+                <a class="nav-link text-white" href="encuesats.php">Encuestas realizadas</a>
             </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -104,21 +105,24 @@
                     ?>
                     </div>
                     <div class="row">
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <h5>
-                                            Encuestas  
+                                            Encuestas 
                                             </h5>  
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num from user where company_id =".$_SESSION['id'].";");
+                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM capitulo join quiz on capitulo.id = quiz.capitulo_id where company_id  =".$_SESSION['id'].";");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>
@@ -126,7 +130,41 @@
                                             <div class="col mt-4">
                                                 <div class="row">
                                                 <div class="col">
-                                                    <button type="button" class="btn btn-success">Ver encuestas</button>
+                                                    <a href="encuestas.php" type="button" class="btn btn-primary">Ver encuestas</a>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <h5>
+                                            Encuestas realizadas 
+                                            </h5>  
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
+                                            <h2>
+                                                <?php
+                                                Conexion::abrir_conexion();
+                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM capitulo join quiz on capitulo.id = quiz.capitulo_id where company_id  =".$_SESSION['id'].";");
+                                                Conexion::cerrar_conexion();
+                                                ?>
+                                            </h2>
+                                            </div>
+                                            <div class="col mt-4">
+                                                <div class="row">
+                                                <div class="col">
+                                                    <a href="encuestas.php" type="button" class="btn btn-success">Ver encuestas</a>
                                                 </div>
                                                 </div>
                                             </div>
@@ -176,7 +214,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>           
+                    </div> 
+                    <div class="row">
+                        cosa
+                    </div>          
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
@@ -198,11 +239,6 @@
                             header("Refresh:2; url=index.php");
                         }
                     ?>
-                    <div class="container">
-                        <div class="row bg-danger">
-                            buenas tardes
-                        </div>
-                    </div>
             </div>
         </div>
     </div>

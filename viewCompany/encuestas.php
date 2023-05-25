@@ -1,57 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<?php session_start(); ?>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Panel principal</title>
+    <link href="../assets/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
-    <title>Encestas  <?php echo $_SESSION['nombre'] ?></title>
 </head>
-<body>
-    <nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand">Encuestas <?php echo $_SESSION['nombre'] ?> </a>
-        <div>
-            <a href="index.php" class="btn btn-primary" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                </svg>
-            </a>
-            <a class="btn btn-primary" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                </svg>
-            </a>
-        </div>
-    </div>
-    </nav>
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">Configuracion</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-            <div class="offcanvas-body">
-            <form action="" method="post"><button type="submit" class="btn btn-outline-danger" name="cerrarsession">Cerrar session</button></form>
-            </div>
-    </div> 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">Capitulos de las encuestas</h1>
-            </div>
-        </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-            <div class="card border-primary mb-3" style="max-width: 20rem;">
-                <div class="card-header">Capitulos primera encuesta</div>
-                <div class="card-body">
-                    <h5 class="card-title">Capitulo 1</h5>
-                    <p class="card-text">Explicacion capitulo.</p>
+            <?php 
+            include '../clases/database/conexion.inc.php';  
+            include '../clases/datacompany/informacionCompany.inc.php';
+            include '../clases/correos/correos.php';
+            include '../clases/modelos/worker.php';
+            session_start();
+            ?>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="card-footer bg-transparent border-primary"><a style="text-decoration: none;" href="preguntas.php">Ver preguntas</a></div>
+                <div class="sidebar-brand-text mx-3">ENCUESTA <?php echo $_SESSION['nombre']; ?></div>
+            </a>
+            <hr class="border border-1 opacity-75">
+            <li class="nav-item active">
+           <a class="nav-link fs-5" href="index.php"> Panel principal </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading fs-5">
+                Interfaces
+            </div>
+            <nav class="nav flex-column ml-3 fw-bold">
+                <a class="nav-link text-white" href="trabajadores.php">Trabajadores</a>
+                <a class="nav-link text-white" href="encuestas.php">Encuestas</a>
+                <a class="nav-link text-white" href="encuesats.php">Encuestas realizadas</a>
+            </nav>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Componentes adicionales
+            </div>
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                        <div class="dropdown" style="margin-right: 30px;">
+                        <a class="fs-5 mt-1 icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo $_SESSION['correo']; ?>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item fs-5" href="#">Configuracion</a></li>
+                            <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
+                        </ul>
+                        </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    <div class="row mb-4">
+                        <div class="col">
+                            <h1 class="h3 mb-0 text-gray-800">Capitulos</h1>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary btn-lg"> añadir capitulo</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                             <h5>
+                                                CAPITULO 1
+                                             </h5>  
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
+                                            <h6>
+                                              Descripcion: estres laboral
+                                            </h6>
+                                            </div>
+                                            <div class="col mt-4">
+                                            <!-- Button modal-->
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>         
+                    </div>
+                
+                </div>
+                <!--TERMINAN CARDS SUPERIORES-->
+                <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
             </div>
         </div>
     </div>
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Encuestas grupo conta pagos</span>
+            </div>
+        </div>
+    </footer>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
     <script src="../assets/js/bootstrap.bundle.js"></script>
+    <script src="../assets/js/validaciones.js"></script>
 </body>
 </html>

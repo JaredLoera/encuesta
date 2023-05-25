@@ -1,11 +1,12 @@
-create database segundoEjemplo;
-use segundoEjemplo;
+create database tercerEjemplo;
+use tercerEjemplo;
 
 create table tipo_user(
     id int not null auto_increment,
     nombre varchar(255) not null,
     primary key(id)
 );
+INSERT INTO tipo_user (nombre) VALUES ('root'), ('company'), ('worker');
 create table contacto(
     id int not null auto_increment,
     pass varchar(255) not null,
@@ -33,28 +34,25 @@ create table user(
     company_id int not null,
     contacto_id int not null,
     primary key(id),
-    foreign key(company_id) references company(id)
+    foreign key(company_id) references company(id),
     foreign key(contacto_id) references contacto(id)
 );
 create table capitulo(
     id int not null auto_increment,
     numcapitulo int not null,
+    company_id int not null,
     descripcion varchar(255) not null,
-    primary key(id)
+    primary key(id),
+    foreign key(company_id) references company(id)
 );
 create table quiz(
     id int not null auto_increment,
     nombre varchar(255) not null,
-    company_id int not null,
+    capitulo_id int not null,
     fecha_inicio date not null,
     primary key(id),
-    foreign key(company_id) references company(id)
+    foreign key(capitulo_id) references capitulo(id)
 );
-
-alter table quiz drop column descripcion;
-alter table quiz add column capitulo_id int not null;
-alter table quiz add foreign key(capitulo_id) references capitulo(id);
-
 create table question(
     id int not null auto_increment,
     pregunta varchar(255) not null,
@@ -74,7 +72,9 @@ CREATE TABLE user_answer(
     FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 );
 
-INSERT INTO tipo_user (nombre) VALUES ('root'), ('company'), ('worker');
+
+
+
 
 INSERT INTO quiz (nombre, descripcion, company_id, fecha_inicio) VALUES 
 ('capitulo 1', 'Cuestionario para identificar los factores de riesgo psicosocial en los centros de trabajo', 1, '2020-10-10');

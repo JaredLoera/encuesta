@@ -55,6 +55,7 @@ class company{
         $sql = "INSERT INTO company (nombre,refimenFiscal,domicilio,contacto_id) VALUES ('$this->name','$this->regimen','$this->domicilio','$id')";
         $resultado = Conexion::obtener_conexion()->prepare($sql);
         $resultado->execute();
+        return true;
         Conexion::cerrar_conexion();
         }catch (PDOException $ex) {
             echo "ERROR ".$ex->getMessage() ; 

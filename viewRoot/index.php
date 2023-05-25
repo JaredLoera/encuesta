@@ -85,7 +85,7 @@
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(*) as num from quiz;");
+                                                echo informacionRoot::getNumCompanys(Conexion::obtener_conexion(),"SELECT count(quiz.id) as num from quiz;");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>
@@ -160,9 +160,9 @@
                             $company->set_correo($email);
                             $company->set_pass($pass);
                             $company->save();
-                            $mail = new Mail();
-                            $mail->sendMailNewCompany($company);
-                            header("Refresh:2; url=index.php");
+                           //$mail = new Mail();
+                           //$mail->sendMailNewCompany($company);
+                            header("Location: companys.php");
                         }
                     ?>
                     <div class="container">
