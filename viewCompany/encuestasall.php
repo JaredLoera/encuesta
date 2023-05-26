@@ -20,6 +20,7 @@
             include '../clases/correos/correos.php';
             include '../clases/modelos/worker.php';
             include '../clases/modelos/capitulo.php';
+            include '../clases/modelos/quiz.php';
             session_start();
             ?>
 <body id="page-top">
@@ -74,7 +75,7 @@
                             <h1 class="h3 mb-0 text-gray-800">Cuestionarios</h1>
                         </div>
                         <div class="col">
-                            <a href="preguntas.php?bloque=<?php echo $_GET['bloque']?>&bloExter=<?php echo $_GET['bloExter'] ?>" class="btn btn-primary btn-lg">Ver preguntas del bloque</a>
+                            <a href="preguntas.php?bloque=<?php echo $_GET['bloque']?>&capId=<?php echo $_GET['capId'] ?>" class="btn btn-primary btn-lg">Ver preguntas del bloque</a>
                         </div>
                         <div class="col">
                         <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -82,8 +83,21 @@
                             </button>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary btn-lg">Aplicar</button>
+                            <form action="" method="post"><button type="submit" class="btn btn-primary btn-lg" name="aplicarQuiz">Aplicar</button></form>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                        <?php
+                            if(isset($_POST['aplicarQuiz'])){
+                               $quiz = new Quiz();
+                               $quiz->set_fecha(date("Y-m-d"));
+                               $quiz->set_capitulo_id($_GET['bloque']);
+                               $quiz->save();
+                            }
+                        ?>
+                        </div>
+                   
                     </div>
                     <div class="row">
                         <div class="col">
@@ -136,7 +150,7 @@
                 <tbody>
                             <?php
                             Conexion::abrir_conexion();
-                            informacionCompany::getQuestionsModal(Conexion::obtener_conexion(),$_GET['bloExter'],$_SESSION['id']);
+                            informacionCompany::getQuestionsModal(Conexion::obtener_conexion(),$_GET['capId'],$_SESSION['id']);
                             Conexion::cerrar_conexion();
                             ?>
                         </tbody>

@@ -113,7 +113,7 @@ class informacionCompany{
                                             <!-- Button modal-->
 						                    <div class="row">
                                                 <div class="col">
-                                                    <a href="encuestasall.php?bloque=<?php echo$info->numcapitulo; ?>&bloExter=<?php echo$info->id; ?>" class="btn btn-success" role="button">Ver encuestas</a>
+                                                    <a href="encuestasall.php?bloque=<?php echo$info->numcapitulo; ?>&capId=<?php echo$info->id; ?>" class="btn btn-success" role="button">Ver encuestas</a>
                                                 </div>
                                                 </div>
                                             </div>

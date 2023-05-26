@@ -34,6 +34,7 @@ class login{
                     session_start();
                     $_SESSION['tipo'] = "WORKER";
                     $_SESSION['id'] = $resultado->id;
+                    $_SESSION['correo']= $resultado->correo;
                     header("Location: viewWorker/index.php");
                 }
             }
