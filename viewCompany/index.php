@@ -88,20 +88,19 @@
                         //$mail = new Mail();
                         //$mail->sendMailNewWorker($worker);
                         if ($worker->save()) {
-                        ?><div class="alert alert-success" role="alert">
-                        Empleado agregado correctamente
-                        </div>
-                        <script>
-                                    window.setTimeout(function(){window.location.href="index.php"}, 2000);
-                            </script>
-                        <?php
-                        }else{
-                        ?>
-                        <div class="alert alert-danger" role="alert">
-                        Error al agregar empleado
-                        </div>
-                        
-                        <?php
+                            ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>¡Empleado añadido!</strong> El empleado se añadio correctamente.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php
+                        }else {
+                            ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>¡Error!</strong> El empleado no se añadio correctamente.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            <?php
                         }
                     }
                     ?>
@@ -117,14 +116,14 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <h5>
-                                            Encuestas 
+                                            Capitulos 
                                             </h5>  
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM capitulo join quiz on capitulo.id = quiz.capitulo_id where company_id  =".$_SESSION['id'].";");
+                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num from capitulo where company_id=".$_SESSION['id'].";");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>
@@ -132,7 +131,7 @@
                                             <div class="col mt-4">
                                                 <div class="row">
                                                 <div class="col">
-                                                    <a href="encuestas.php" type="button" class="btn btn-primary">Ver encuestas</a>
+                                                    <a href="encuestas.php" type="button" class="btn btn-primary">Ver capitulos</a>
                                                 </div>
                                                 </div>
                                             </div>
@@ -158,7 +157,7 @@
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                                echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM capitulo join quiz on capitulo.id = quiz.capitulo_id where company_id  =".$_SESSION['id'].";");
+                                             echo 0; //  echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM capitulo join quiz on capitulo.id = quiz.capitulo_id where company_id  =".$_SESSION['id'].";");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>

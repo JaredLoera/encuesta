@@ -71,6 +71,40 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="row">
+                    <?php 
+                        if (isset($_POST['cerrarsession'])) {
+                            login::cerrarSession();
+                        }
+                        if (isset($_POST['saveCompany'])) {
+                            extract($_POST);
+                            $company = new company();
+                            $company->set_name($name);
+                            $company->set_refimen($regimen);
+                            $company->set_domicilio($domicilio);
+                            $company->set_correo($email);
+                            $company->set_pass($pass);
+                            if ($company->save()) {
+                                 //$mail = new Mail();
+                                 //$mail->sendMailNewCompany($company);
+                                ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>¡Empresa añadida!</strong> La empresa se añadio correctamente.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                <?php
+                            }
+                            else{
+                                ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>¡Error!</strong> La empresa no se añadio correctamente.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                                <?php
+                            }
+                        }
+                    ?>
+                    </div>
+                    <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
@@ -147,33 +181,7 @@
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
-                    <?php 
-                        if (isset($_POST['cerrarsession'])) {
-                            login::cerrarSession();
-                        }
-                        if (isset($_POST['saveCompany'])) {
-                            extract($_POST);
-                            $company = new company();
-                            $company->set_name($name);
-                            $company->set_refimen($regimen);
-                            $company->set_domicilio($domicilio);
-                            $company->set_correo($email);
-                            $company->set_pass($pass);
-                            $company->save();
-                           //$mail = new Mail();
-                           //$mail->sendMailNewCompany($company);
-                            ?>
-                            <script>
-                                    window.setTimeout(function(){window.location.href="index.php"}, 2000);
-                                </script>
-                            <?php
-                        }
-                    ?>
-                    <div class="container">
-                        <div class="row bg-danger">
-                            buenas tardes
-                        </div>
-                    </div>
+                    
             </div>
         </div>
     </div>

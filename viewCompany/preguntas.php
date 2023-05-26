@@ -20,6 +20,7 @@
             include '../clases/correos/correos.php';
             include '../clases/modelos/worker.php';
             include '../clases/modelos/capitulo.php';
+            include '../clases/modelos/question.php';
             session_start();
             ?>
 <body id="page-top">
@@ -71,11 +72,22 @@
                 <div class="container-fluid">
                     <div class="row mb-4">
                         <div class="col">
-                            <h1 class="h3 mb-0 text-gray-800">Preguntas del capitulo 1</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Preguntas del capitulo <?php  echo $_GET['bloque'] ?></h1>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir pregunta</button>
                         </div>
+                    </div>
+                    <div class="row">
+                        <?php 
+                            if (isset($_POST['guardarPregunta'])) {
+                                extract($_POST);
+                                $pregunta = new question();
+                                $pregunta->set_pregunta($nuevapregunta);
+                                $pregunta->set_capitulo($_GET['bloque']);
+                                $pregunta->save();
+                            }
+                        ?>
                     </div>
                     <div class="row">
                     <table class="table">
@@ -89,7 +101,7 @@
                         <tbody>
                             <?php
                             Conexion::abrir_conexion();
-                            informacionCompany::getQuestions(Conexion::obtener_conexion(),1);
+                            informacionCompany::getQuestions(Conexion::obtener_conexion(),$_GET['bloque'],$_SESSION['id']);
                             Conexion::cerrar_conexion();
                             ?>
                         </tbody>
@@ -125,8 +137,8 @@
                 <div class="modal-body">
                 <form method="post" action="">
                     <div class="mb-3">
-                        <label for="pregunta" class="form-label">Numero de capitulo</label>
-                        <input type="text" class="form-control" id="pregunta" aria-describedby="emailHelp" name="pregunta">
+                        <label for="pregunta" class="form-label">Pregunta</label>
+                        <input type="text" class="form-control" id="pregunta" aria-describedby="emailHelp" name="nuevapregunta">
                     </div>   
                 </div>
                 <div class="modal-footer">

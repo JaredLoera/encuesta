@@ -133,8 +133,8 @@ class informacionCompany{
         
         <?php
     }
-    public static function getQuestions($conexion,$capitulo_id){
-        $consulta = "SELECT question.id as id, pregunta,estado from (select capitulo.id from company join capitulo on company.id = capitulo.company_id where capitulo.id = $capitulo_id) as CC join question on CC.id = question.capitulo_id  ;";
+    public static function getQuestions($conexion,$capitulo_id,$company_id){
+        $consulta = "SELECT question.id as id, pregunta,estado from (SELECT capitulo.id from company join capitulo on company.id = capitulo.company_id where capitulo.id = $capitulo_id and company.id =$company_id) as CC join question on CC.id = question.capitulo_id  ;";
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {
             ?>

@@ -87,20 +87,18 @@
                             $capitulo->set_company_id($_SESSION['id']);
                             if ($capitulo->save()) {
                                 ?>
-                                <div class="alert alert-success" role="alert">
-                                    se a añadido el capitulo
-                                </div> 
-                                <script>
-                                    window.setTimeout(function(){window.location.href="encuestas.php"}, 2000);
-                                </script>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>¡Capitulo añadido!</strong> El capitulo se añadio correctamente.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                                 <?php
-                                
                             }
-                            else {
+                            else{
                                 ?>
-                                <div class="alert alert-danger" role="alert">
-                                    Algo a fallado por favor intente de nuevo
-                                </div> 
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>¡Error!</strong> El capitulo no se añadio correctamente.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                                 <?php
                             }
                         }
