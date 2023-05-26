@@ -91,8 +91,10 @@
                         ?><div class="alert alert-success" role="alert">
                         Empleado agregado correctamente
                         </div>
+                        <script>
+                                    window.setTimeout(function(){window.location.href="index.php"}, 2000);
+                            </script>
                         <?php
-                        header("Refresh:2; url=index.php");
                         }else{
                         ?>
                         <div class="alert alert-danger" role="alert">
@@ -224,23 +226,6 @@
                     <?php 
                         if (isset($_POST['cerrarsession'])) {
                             login::cerrarSession();
-                        }
-                        if (isset($_POST['saveCompany'])) {
-                            extract($_POST);
-                            $company = new company();
-                            $company->set_name($name);
-                            $company->set_refimen($regimen);
-                            $company->set_domicilio($domicilio);
-                            $company->set_correo($email);
-                            $company->set_pass($pass);
-                            $company->save();
-                            $mail = new Mail();
-                            $mail->sendMailNewCompany($company);
-                              ?>
-                            <script>
-                                    window.setTimeout(function(){window.location.href="index.php"}, 2000);
-                            </script>
-                            <?php
                         }
                     ?>
             </div>

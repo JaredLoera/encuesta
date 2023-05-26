@@ -110,7 +110,11 @@
                             $company->save();
                             $mail = new Mail();
                             $mail->sendMailNewCompany($company);
-                            header("Refresh:2; url=index.php");
+                           ?> 
+                           <script>
+                                    window.setTimeout(function(){window.location.href="companys.php"}, 2000);
+                            </script>
+                            <?php
                         }
                     ?>
             </div>

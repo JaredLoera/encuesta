@@ -136,6 +136,11 @@
     $resultado = $conexion->prepare($sql);
     $resultado->execute();
     Conexion::cerrar_conexion();
+    ?>
+    <script>
+          window.setTimeout(function(){window.location.href="index.php"}, 2000);
+    </script>
+    <?php
   }
   ?>
 </body>

@@ -76,7 +76,7 @@ if (isset($_POST['cerrarsession'])) {
               <?php
               Conexion::abrir_conexion();
               $metodo = new informacionCompany();
-              $metodo->getAllQuiestions(conexion::obtener_conexion(),$_SESSION['id']);
+              $metodo->getAllAnswers(conexion::obtener_conexion(),$_SESSION['id']);
               Conexion::cerrar_conexion();
               ?>
             </tbody>
