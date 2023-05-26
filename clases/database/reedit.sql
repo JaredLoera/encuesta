@@ -49,7 +49,9 @@ create table quiz(
     id int not null auto_increment,
     nombre varchar(255) not null,
     fecha_inicio date not null,
-    primary key(id)
+    capitulo_id int not null,
+    primary key(id),
+    foreign key(capitulo_id) references capitulo(id)
 );
 create table question(
     id int not null auto_increment,
@@ -69,8 +71,6 @@ CREATE TABLE user_answer(
     FOREIGN KEY(user_id) REFERENCES user(id),
     FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 );
-
-
 
 
 
@@ -99,3 +99,6 @@ INSERT INTO contacto (pass, correo, tipo_user_id) VALUES ('123456789', 'root@gma
 
 INSERT INTO user_answer (user_id, quiz_id, answers)
 VALUES (1, 1, '{"1": "Respuesta 1", "2": "Respuesta 2", "3": "Respuesta 3"}');
+
+alter table quiz add column capitulo_id int not null;
+alter table quiz add foreign key(capitulo_id) references capitulo(id);

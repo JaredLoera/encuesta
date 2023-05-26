@@ -113,7 +113,7 @@ class informacionCompany{
                                             <!-- Button modal-->
 						                    <div class="row">
                                                 <div class="col">
-                                                    <a href="encuestasall.php?bloque=<?php echo $info->numcapitulo; ?>" class="btn btn-success" role="button">Ver encuestas</a>
+                                                    <a href="encuestasall.php?bloque=<?php echo$info->numcapitulo; ?>&bloExter=<?php echo$info->id; ?>" class="btn btn-success" role="button">Ver encuestas</a>
                                                 </div>
                                                 </div>
                                             </div>
@@ -157,6 +157,37 @@ class informacionCompany{
                 </tr>
             <?php
             }
+        }
+    }
+    public static function getQuestionsModal($conexion,$capitulo_id,$company_id){
+        $consulta = "SELECT question.id as id, pregunta,estado from (SELECT capitulo.id from company join capitulo on company.id = capitulo.company_id where capitulo.id = $capitulo_id and company.id =$company_id) as CC join question on CC.id = question.capitulo_id  ;";
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+            <div class="row">
+                <div class="col text-center">No hay preguntas</div>
+            </div>
+            <?php
+        }
+        else {
+            ?>
+            <div class="row">
+                <div class="col">
+                <h2>
+                Preguntas
+                </h2>
+            </div>
+            </div>
+            <?php
+            foreach ($resultados as $info) {
+               echo  '<div class="row mb-2">';
+               echo '<h6 class="mb-1">';
+               echo $info->pregunta; echo "<br>";
+               echo '</h6>';
+               echo '</div>';
+            }?>
+          
+            <?php
         }
     }
     public function getAllAnswers($conexion,$company_id){
@@ -210,6 +241,27 @@ class informacionCompany{
                     Conexion::cerrar_conexion();
                     ?>
                     </td>
+                </tr>
+                <?php
+            }
+        }
+    }
+    public static function getQuizBlock($conexion,$id){
+        $consulta = "SELECT * from quiz where quiz.capitulo_id=".$id;   
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+            <tr>
+                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+            </tr>
+            <?php
+        }else {
+            foreach ($resultados as $info) {
+                ?>
+                <tr>
+                    <td><?php echo $info->id; ?></td>
+                    <td><?php echo $info->fecha_inicio; ?></td>
+                    <td><?php echo $info->capitulo_id; ?></td>
                 </tr>
                 <?php
             }

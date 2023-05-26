@@ -74,15 +74,36 @@
                             <h1 class="h3 mb-0 text-gray-800">Cuestionarios</h1>
                         </div>
                         <div class="col">
-                            <a href="preguntas.php?bloque=<?php echo $_GET['bloque'] ?>" class="btn btn-primary btn-lg">Ver preguntas del bloque</a>
+                            <a href="preguntas.php?bloque=<?php echo $_GET['bloque']?>&bloExter=<?php echo $_GET['bloExter'] ?>" class="btn btn-primary btn-lg">Ver preguntas del bloque</a>
+                        </div>
+                        <div class="col">
+                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Previsualizar cuestionario
+                            </button>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary btn-lg">Aplicar</button>
                         </div>
                     </div>
                     <div class="row">
-                        
-                           
+                        <div class="col">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">fecha</th>
+                                <th scope="col">capitulo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <?php
+                               Conexion::abrir_conexion();
+                               informacionCompany::getQuizBlock(Conexion::obtener_conexion(),$_GET['bloque']);
+                               Conexion::cerrar_conexion();
+                               ?>     
+                            </tbody>
+                            </table>
+                        </div>
                     </div>
                 
                 </div>
@@ -103,5 +124,28 @@
     </a>
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
+    <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Preguntas de capitulo <?php echo $_GET['bloque']?></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <tbody>
+                            <?php
+                            Conexion::abrir_conexion();
+                            informacionCompany::getQuestionsModal(Conexion::obtener_conexion(),$_GET['bloExter'],$_SESSION['id']);
+                            Conexion::cerrar_conexion();
+                            ?>
+                        </tbody>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+                </div>
+            </div>
+            </div>
 </body>
 </html>

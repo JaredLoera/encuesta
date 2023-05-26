@@ -74,7 +74,7 @@
                             <h1 class="h3 mb-0 text-gray-800">Capitulos</h1>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"> añadir capitulo</button>
+                            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir capitulo</button>
                         </div>
                     </div>
                     <div class="row">

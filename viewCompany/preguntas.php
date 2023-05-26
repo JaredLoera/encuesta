@@ -84,7 +84,7 @@
                                 extract($_POST);
                                 $pregunta = new question();
                                 $pregunta->set_pregunta($nuevapregunta);
-                                $pregunta->set_capitulo($_GET['bloque']);
+                                $pregunta->set_capitulo($_GET['bloExter']);
                                 $pregunta->save();
                             }
                         ?>
@@ -101,7 +101,7 @@
                         <tbody>
                             <?php
                             Conexion::abrir_conexion();
-                            informacionCompany::getQuestions(Conexion::obtener_conexion(),$_GET['bloque'],$_SESSION['id']);
+                            informacionCompany::getQuestions(Conexion::obtener_conexion(),$_GET['bloExter'],$_SESSION['id']);
                             Conexion::cerrar_conexion();
                             ?>
                         </tbody>
