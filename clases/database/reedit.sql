@@ -48,18 +48,16 @@ create table capitulo(
 create table quiz(
     id int not null auto_increment,
     nombre varchar(255) not null,
-    capitulo_id int not null,
     fecha_inicio date not null,
-    primary key(id),
-    foreign key(capitulo_id) references capitulo(id)
+    primary key(id)
 );
 create table question(
     id int not null auto_increment,
     pregunta varchar(255) not null,
-    quiz_id int not null,
+    capitulo_id int not null,
     estado boolean not null default true,
     primary key(id),
-    foreign key(quiz_id) references quiz(id)
+    foreign key(capitulo_id) references capitulo(id)
 );
 CREATE TABLE user_answer(
     id INT NOT NULL AUTO_INCREMENT,

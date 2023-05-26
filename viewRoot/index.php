@@ -162,7 +162,11 @@
                             $company->save();
                            //$mail = new Mail();
                            //$mail->sendMailNewCompany($company);
-                            header("Location: companys.php");
+                            ?>
+                            <script>
+                                    window.setTimeout(function(){window.location.href="index.php"}, 2000);
+                                </script>
+                            <?php
                         }
                     ?>
                     <div class="container">

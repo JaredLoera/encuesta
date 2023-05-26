@@ -5,7 +5,7 @@ class informacionCompany{
     public static function Encuestas($conexion, $id)
     {
 
-        $consulta = "select * from quiz where quiz.company_id= '$id'";
+        $consulta = "SELECT * from quiz where quiz.company_id= '$id'";
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {
             ?>
@@ -58,7 +58,7 @@ class informacionCompany{
         }
     }
     public static function getAnswersUser($conexion,$id){
-        $consulta ="select pregunta.id as id_pregunta,pregunta.pregunta as pregunta,respuestasuser.respuesta as respuesta FROM pregunta join respuestasuser on pregunta.id = respuestasuser.pregunta_id where respuestasuser.user_id=" .$id;
+        $consulta ="SELECT pregunta.id as id_pregunta,pregunta.pregunta as pregunta,respuestasuser.respuesta as respuesta FROM pregunta join respuestasuser on pregunta.id = respuestasuser.pregunta_id where respuestasuser.user_id=" .$id;
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {
             ?>
@@ -79,7 +79,87 @@ class informacionCompany{
             }
         }
     }
-    public function getAllQuiestions($conexion,$company_id){
+    public static function getCapitulos($conexion,$id){
+        $consulta = "SELECT * from capitulo where company_id=".$id;
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+           <div class="col">
+            <h1>
+            no se encontraron capitulos
+            </h1>
+           </div>
+            <?php
+        }
+        else {
+            foreach ($resultados as $info) {
+                ?>
+                 <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1 ml-1">
+                                             <h5>
+                                                CAPITULO <?php echo $info->numcapitulo; ?>
+                                             </h5>  
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
+                                            <h6>
+                                              Descripcion: <?php echo $info->descripcion; ?>
+                                            </h6>
+                                            </div>
+                                            <div class="col mt-4">
+                                            <!-- Button modal-->
+						                    <div class="row">
+                                                <div class="col">
+                                                    <a href="encuestasall.php?bloque=<?php echo $info->numcapitulo; ?>" class="btn btn-success" role="button">Ver encuestas</a>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                <?php
+            }
+        }
+        ?>
+        
+        <?php
+    }
+    public static function getQuestions($conexion,$capitulo_id){
+        $consulta = "SELECT question.id as id, pregunta,estado from (select capitulo.id from company join capitulo on company.id = capitulo.company_id where capitulo.id = $capitulo_id) as CC join question on CC.id = question.capitulo_id  ;";
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+            <tr>
+                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+            </tr>
+            <?php
+        }
+        else {
+            foreach($resultados as $info){
+                ?>
+                <tr>
+                    <td><?php echo $info->id; ?></td>
+                    <td><?php echo $info->pregunta; ?></td>
+                    <td>
+                    <input class="form-check-input" type="checkbox" value="<?php echo $info->estado; ?>" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                    </label>
+                    </td>
+                </tr>
+            <?php
+            }
+        }
+    }
+    public function getAllAnswers($conexion,$company_id){
         $consulta = "SELECT * from pregunta";
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {

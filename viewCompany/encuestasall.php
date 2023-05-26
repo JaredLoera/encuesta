@@ -71,43 +71,17 @@
                 <div class="container-fluid">
                     <div class="row mb-4">
                         <div class="col">
-                            <h1 class="h3 mb-0 text-gray-800">Capitulos</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Cuestionarios</h1>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal"> añadir capitulo</button>
+                            <a href="preguntas.php?bloque=<?php echo $_GET['bloque'] ?>" class="btn btn-primary btn-lg">Ver preguntas del bloque</a>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary btn-lg">Aplicar</button>
                         </div>
                     </div>
                     <div class="row">
-                        <?php 
-                        if (isset($_POST['guardarCapitulo'])) {
-                           extract($_POST);
-                            $capitulo = new Capitulo();
-                            $capitulo->set_numcapitulo($numcapitulo);
-                            $capitulo->set_descripcion($descripcion);
-                            $capitulo->set_company_id($_SESSION['id']);
-                            if ($capitulo->save()) {
-                                ?>
-                                <div class="alert alert-success" role="alert">
-                                    se a añadido el capitulo
-                                </div> 
-                                <script>
-                                    window.setTimeout(function(){window.location.href="encuestas.php"}, 2000);
-                                </script>
-                                <?php
-                                
-                            }
-                            else {
-                                ?>
-                                <div class="alert alert-danger" role="alert">
-                                    Algo a fallado por favor intente de nuevo
-                                </div> 
-                                <?php
-                            }
-                        }
-                        Conexion::abrir_conexion();
-                        informacionCompany::getCapitulos(Conexion::obtener_conexion(),$_SESSION['id']);
-                        Conexion::cerrar_conexion();
-                        ?>
+                        
                            
                     </div>
                 
@@ -129,33 +103,5 @@
     </a>
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir Capitulo</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <form method="post" action="">
-                    <div class="mb-3">
-                        <label for="numcapitulo" class="form-label">Numero de capitulo</label>
-                        <input type="number" class="form-control" id="numcapitulo" aria-describedby="emailHelp" name="numcapitulo">
-                    </div>
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">descripcion</label>
-                        <input type="text" class="form-control" id="descripcion" aria-describedby="emailHelp" name="descripcion">
-                    </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" name="guardarCapitulo">Guardar</button>
-                    </form>
-                </div>
-                </div>
-            </div>
-            </div>
 </body>
 </html>

@@ -105,7 +105,7 @@
                     ?>
                     </div>
                     <div class="row">
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -236,7 +236,11 @@
                             $company->save();
                             $mail = new Mail();
                             $mail->sendMailNewCompany($company);
-                            header("Refresh:2; url=index.php");
+                              ?>
+                            <script>
+                                    window.setTimeout(function(){window.location.href="index.php"}, 2000);
+                            </script>
+                            <?php
                         }
                     ?>
             </div>
