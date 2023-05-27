@@ -92,7 +92,7 @@
                             if(isset($_POST['aplicarQuiz'])){
                                $quiz = new Quiz();
                                $quiz->set_fecha(date("Y-m-d"));
-                               $quiz->set_capitulo_id($_GET['bloque']);
+                               $quiz->set_capitulo_id($_GET['capId']);
                                $quiz->save();
                             }
                         ?>
@@ -112,7 +112,7 @@
                             <tbody>
                                <?php
                                Conexion::abrir_conexion();
-                               informacionCompany::getQuizBlock(Conexion::obtener_conexion(),$_GET['bloque']);
+                               informacionCompany::getQuizBlock(Conexion::obtener_conexion(),$_GET['capId'],$_SESSION['id']);
                                Conexion::cerrar_conexion();
                                ?>     
                             </tbody>

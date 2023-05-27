@@ -74,8 +74,31 @@ public static function checkAnswer($user_id):bool{
     }
     return true;
 }
+public static function quizNoFinished($capitulo_id){
+    $sql = "SELECT * FROM quiz left join user_answer on user_answer.quiz_id = quiz.id where user_answer.id is null and quiz.capitulo_id =". $capitulo_id;
+    Conexion::abrir_conexion();
+    $resultados = datosWorker::preguntas(Conexion::obtener_conexion(),$sql);
+    Conexion::cerrar_conexion();
+    if (!$resultados) {
+        ?>
+       <h1>No se encontraron examenes</h1>
+        <?php
+    }
+    else {
+        foreach ($resultados as $info) {
+            ?>
+           <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    </tr>
+        <?php
+        }
+    }
+}
 public static function getBlocksWorker($conexion,$user_id){
-    $consulta = "SELECT DISTINCT capitulo.descripcion,capitulo.id,numcapitulo FROM quiz join capitulo on capitulo.id = quiz.capitulo_id join user on user.company_id = capitulo.company_id join contacto on contacto.id = user.contacto_id where contacto_id =" . $user_id;
+    $consulta = "SELECT DISTINCT capitulo.descripcion,capitulo.id as idcap,numcapitulo FROM quiz join capitulo on capitulo.id = quiz.capitulo_id join user on user.company_id = capitulo.company_id join contacto on contacto.id = user.contacto_id where contacto_id =" . $user_id;
     $resultados = datosWorker::preguntas($conexion,$consulta);
     if (!$resultados) {
         ?>
@@ -87,13 +110,13 @@ public static function getBlocksWorker($conexion,$user_id){
              <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                    <h5 class="card-title">Capitulo <?php echo $resultado-> numcapitulo?></h5>
+                    <h5 class="card-title">Capitulo <?php echo $resultado-> numcapitulo;?></h5>
                     <p class="card-text">
-                    <?php echo $resultado-> descripcion?>
+                    <?php echo $resultado-> descripcion;?>
                     </p>
                     </div>
                     <div class="card-footer bg-transparent border-success">
-                        <a href="examenes.php">Ver examenes del bloque  <?php echo $resultado-> numcapitulo?></a>
+                    <a href="examenes.php?bloque=<?php echo$resultado->idcap; ?>" class="btn btn-success" role="button">Ver encuestas</a>
                     </div>
                 </div>
                 </div>

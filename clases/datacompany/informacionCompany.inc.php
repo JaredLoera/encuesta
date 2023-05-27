@@ -246,8 +246,8 @@ class informacionCompany{
             }
         }
     }
-    public static function getQuizBlock($conexion,$id){
-        $consulta = "SELECT * from quiz where quiz.capitulo_id=".$id;   
+    public static function getQuizBlock($conexion,$id,$company_id){
+        $consulta = "SELECT * from quiz join capitulo on quiz.capitulo_id = capitulo.id where company_id =".$company_id ." and capitulo_id =".$id.";";;   
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {
             ?>
