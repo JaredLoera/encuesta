@@ -49,14 +49,13 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">fecha de aplicacion</th>
+                    <th scope="col">acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php
-                informacionWorker::quizNoFinished($_GET['bloque'] );
+                informacionWorker::quizNoFinished($_SESSION['id'],$_GET['bloque']);
                 ?>
                 </tbody>
             </table>

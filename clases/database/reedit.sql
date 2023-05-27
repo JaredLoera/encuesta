@@ -102,3 +102,9 @@ VALUES (1, 1, '{"1": "Respuesta 1", "2": "Respuesta 2", "3": "Respuesta 3"}');
 
 alter table quiz add column capitulo_id int not null;
 alter table quiz add foreign key(capitulo_id) references capitulo(id);
+
+
+/*CONSULTAS*/
+
+/*Examenes sin contestar de detemrinado usuario*/
+SELECT * from (select CI.user_id_table,quiz_id,CI.empresa from (select user.id as user_id_table,company_id as empresa from user where contacto_id = 3 ) as CI join user_answer on user_answer.user_id = CI.user_id_table)as UUA right join quiz on quiz.id = UUA.quiz_id where quiz.capitulo_id=1 and user_id_table is null;

@@ -74,8 +74,8 @@ public static function checkAnswer($user_id):bool{
     }
     return true;
 }
-public static function quizNoFinished($capitulo_id){
-    $sql = "SELECT * FROM quiz left join user_answer on user_answer.quiz_id = quiz.id where user_answer.id is null and quiz.capitulo_id =". $capitulo_id;
+public static function quizNoFinished($contacto_id,$capitulo_id){
+    $sql = "SELECT * from (select CI.user_id_table,quiz_id,CI.empresa from (select user.id as user_id_table,company_id as empresa from user where contacto_id =  $contacto_id ) as CI join user_answer on user_answer.user_id = CI.user_id_table)as UUA right join quiz on quiz.id = UUA.quiz_id where quiz.capitulo_id= $capitulo_id and user_id_table is null;";
     Conexion::abrir_conexion();
     $resultados = datosWorker::preguntas(Conexion::obtener_conexion(),$sql);
     Conexion::cerrar_conexion();
@@ -89,9 +89,8 @@ public static function quizNoFinished($capitulo_id){
             ?>
            <tr>
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td><?php echo $info->fecha_inicio ?></td>
+                    <td><a href="responder" role="button" class="btn btn-primary">Responder</a></td>
                     </tr>
         <?php
         }
