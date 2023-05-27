@@ -1,9 +1,12 @@
 <?php
 include 'datosWorker.inc.php';
 class informacionWorker{
-    public static function preguntas($conexion){
-        $sql = "SELECT * FROM pregunta";
+    public static function preguntas($capitulo_id){
+        Conexion::abrir_conexion();
+        $conexion = Conexion::obtener_conexion();
+        $sql = "SELECT * from question where question.capitulo_id =". $capitulo_id;
         $resultados = datosWorker::preguntas($conexion,$sql);
+        Conexion::cerrar_conexion();
         if (!$resultados) {
             ?>
            <h1>No se encontraron preguntas</h1>
@@ -13,7 +16,7 @@ class informacionWorker{
             ?>
             
         <div class="row align-items-start border border-primary">
-            <div class="col">
+            <div class="col-4">
                 <?php echo $resultado->id ." ";   ?>  <?php echo $resultado->pregunta ?> 
             </div>
             <div class="col border border-warning align-items-start">
@@ -22,32 +25,32 @@ class informacionWorker{
                 <div class="row algin-items-start">
                 <div class="col">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="siempre" required>
-                    <label class="form-check-label" for="inlineRadio1">1</label>
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="Siempre" required>
+                    <label class="form-check-label" for="inlineRadio1">Siempre</label>
                 </div>
                 </div>
                 <div class="col">
                 <div class="col form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi siempre" required>
-                    <label class="form-check-label" for="inlineRadio2">2</label>
+                    <label class="form-check-label" for="inlineRadio2">Casi siempre</label>
                 </div>
                 </div>
                 <div class="col">
                 <div class="col form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Algunas veces" required>
-                    <label class="form-check-label" for="inlineRadio2">3</label>
+                    <label class="form-check-label" for="inlineRadio2">Algunas veces</label>
                 </div>
                 </div>
                 <div class="col"> 
                     <div class="col form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi nunca" required>
-                    <label class="form-check-label" for="inlineRadio2">4</label>
+                    <label class="form-check-label" for="inlineRadio2">Casi nunca</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="col form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Nunca" required>
-                    <label class="form-check-label" for="inlineRadio2">5</label>
+                    <label class="form-check-label" for="inlineRadio2">Nunca</label>
                     </div>
                 </div>
                 <div class="invalid-feedback">More example invalid feedback text</div>
@@ -90,7 +93,7 @@ public static function quizNoFinished($contacto_id,$capitulo_id){
            <tr>
                     <th scope="row">1</th>
                     <td><?php echo $info->fecha_inicio ?></td>
-                    <td><a href="responder" role="button" class="btn btn-primary">Responder</a></td>
+                    <td><a href="responder.php?cap=<?php echo $capitulo_id ?>" role="button" class="btn btn-primary">Responder</a></td>
                     </tr>
         <?php
         }
