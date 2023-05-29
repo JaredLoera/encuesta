@@ -31,7 +31,7 @@ class userrespuesta{
         try{
             Conexion::abrir_conexion();
             $conexion = Conexion::obtener_conexion();
-            $sql = "INSERT INTO respuestasuser (user_id, pregunta_id, respuesta) VALUES ('$this->user_id','$this->pregunta_id','$this->respuesta');";
+            $sql = "INSERT INTO answers (user_id, pregunta_id, respuesta) VALUES ('$this->user_id','$this->pregunta_id','$this->respuesta');";
             $resultado = $conexion->prepare($sql);
             $resultado->execute();
             Conexion::cerrar_conexion();
