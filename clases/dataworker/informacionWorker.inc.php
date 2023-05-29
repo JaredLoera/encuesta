@@ -16,15 +16,17 @@ class informacionWorker{
             ?>
             
         <div class="row align-items-start border border-primary">
-            <div class="col-4">
-                <?php echo $resultado->id ." ";   ?>  <?php echo $resultado->pregunta ?> 
+            <div class="col-4 d-flex align-items-center">
+                <span class="align-middle mt-2">
+               <h6><?php echo $resultado->id ." ";   ?>  <?php echo $resultado->pregunta ?></h6> 
+                </span>
             </div>
             <div class="col border border-warning align-items-start">
-            <div class="row">
+            <div class="row mt-3">
             <div class="col">
                 <div class="row algin-items-start">
                 <div class="col">
-                <div class="form-check form-check-inline">
+                <div class="form-check form-check-inline mb-1">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="Siempre" required>
                     <label class="form-check-label" for="inlineRadio1">Siempre</label>
                 </div>

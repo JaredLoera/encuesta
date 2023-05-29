@@ -22,7 +22,7 @@
             include '../clases/modelos/company.php'; 
             include '../clases/login.inc.php'; 
             include '../clases/correos/correos.php';
-            session_start();
+            login::sessionRoot();
             ?>
 <body id="page-top">
     <div id="wrapper">

@@ -15,12 +15,7 @@
     include '../clases/database/conexion.inc.php';
     include '../clases/modelos/worker.php';
     session_start();
-    if (isset($_SESSION['id'])) {
-
-    }
-    else{
-        header("Location: ../index.php");
-    }
+    login::sessionCompany();
     ?>
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">

@@ -15,12 +15,13 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
 </head>
             <?php 
+            include '../clases/login.inc.php';
             include '../clases/database/conexion.inc.php';  
             include '../clases/datacompany/informacionCompany.inc.php';
             include '../clases/correos/correos.php';
             include '../clases/modelos/worker.php';
             include '../clases/modelos/capitulo.php';
-            session_start();
+            login::sessionCompany();
             ?>
 <body id="page-top">
     <div id="wrapper">

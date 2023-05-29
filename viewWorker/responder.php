@@ -47,7 +47,12 @@
         <?php 
         informacionWorker::preguntas($_GET['cap']);
         ?>
-      <button type="submit" name="saveAnswers">Guardar</button>  
+        <div class="row mt-3">
+          <div class="col text-center">
+            <button type="submit" name="saveAnswers" class="btn btn-success btn-lg">Guardar</button>  
+            <a href="examenes.php?bloque=<?php echo $_GET['cap']?>" class="btn btn-danger btn-lg">Cancelar</a>
+          </div>
+        </div>
       </form>
     </div>
    <?php 

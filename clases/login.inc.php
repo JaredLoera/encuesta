@@ -68,21 +68,40 @@ class login{
         session_destroy();
         header("Location: ../index.php");
     }
-    public static function session(){
+    public static function sessionRoot(){
         session_start();
-        if (isset($_SESSION['tipo'])) {
-            header("Location: index.php");
-        }elseif ($_SESSION['tipo'] == "COMPANY") {
+        if (!isset($_SESSION['tipo'])) {
+            header("Location: ../index.php");
+        }
+        elseif ($_SESSION['tipo'] === "COMPANY") {
             header("Location: ../viewCompany/index.php");
         }
-        elseif ($_SESSION['tipo'] == "WORKER") {
+        elseif ($_SESSION['tipo'] === "WORKER") {
             header("Location: ../viewWorker/index.php");
         }
-        elseif ($_SESSION['tipo'] == "ROOT") {
+    }
+    public static function sessionCompany(){
+        session_start();
+        if (!isset($_SESSION['tipo'])) {
+            header("Location: ../index.php");
+        }
+        elseif ($_SESSION['tipo'] === "ROOT") {
             header("Location: ../viewRoot/index.php");
         }
-        else{
+        elseif ($_SESSION['tipo'] === "WORKER") {
+            header("Location: ../viewWorker/index.php");
+        }
+    }
+    public static function sessionWorker(){
+        session_start();
+        if (!isset($_SESSION['tipo'])) {
             header("Location: ../index.php");
+        }
+        elseif ($_SESSION['tipo'] === "ROOT") {
+            header("Location: ../viewRoot/index.php");
+        }
+        elseif ($_SESSION['tipo'] === "COMPANY") {
+            header("Location: ../viewCompany/index.php");
         }
     }
 }

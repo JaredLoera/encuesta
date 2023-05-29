@@ -12,6 +12,7 @@
    include "../clases/database/conexion.inc.php";
    include "../clases/dataworker/informacionWorker.inc.php";
    include "../clases/modelos/userrespuesta.php";
+
    session_start();
    if (isset($_POST['guardarEncuesta'])) {
     extract($_POST);
