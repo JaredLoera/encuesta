@@ -23,9 +23,7 @@
     }
     header("Refresh:2; url=index.php");
     }
-    if (informacionWorker::checkAnswer($_SESSION['id'])) {
-  ?> style="background-color: #C9FFBD;"
-<?php } ?>  >
+    ?> style="background-color: #324B77;" >
     <?php 
  
     

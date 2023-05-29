@@ -20,7 +20,6 @@
             include '../clases/login.inc.php';
             include '../clases/datacompany/informacionCompany.inc.php';
             include '../clases/database/conexion.inc.php';  
-            include '../clases/login.inc.php'; 
             include '../clases/correos/correos.php';
             login::sessionCompany();
             ?>
