@@ -34,16 +34,16 @@
             </a>
             <hr class="border border-1 opacity-75">
             <li class="nav-item active">
-           <a class="nav-link fs-5" href="index.php"> Panel principal </a>
+           <a class="nav-link fs-5" href="index.php">Panel principal </a>
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading fs-5">
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-                <a class="nav-link text-white" href="trabajadores.php">Trabajadores</a>
-                <a class="nav-link text-white" href="encuestas.php">Encuestas</a>
-                <a class="nav-link text-white" href="encuesats.php">Encuestas realizadas</a>
+            <?php
+               include 'links.php'; 
+            ?>
             </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -105,7 +105,7 @@
                             <thead>
                                 <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">fecha</th>
+                                <th scope="col">fecha de aplicacion</th>
                                 <th scope="col">capitulo</th>
                                 </tr>
                             </thead>

@@ -24,6 +24,7 @@ class login{
                     $sentencia = $conexion->query($sql);
                     $dataCompany = $sentencia->fetch(PDO::FETCH_OBJ);
                     session_start();
+                    $_SESSION['id_contacto'] = $resultado->id;
                     $_SESSION['id'] = $dataCompany->id;
                     $_SESSION['nombre']= $dataCompany->nombre;
                     $_SESSION['correo']= $resultado->correo;

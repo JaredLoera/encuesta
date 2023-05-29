@@ -267,4 +267,52 @@ class informacionCompany{
             }
         }
     }
+    public static function capitulosRespuestas($company_id){
+        Conexion::abrir_conexion();
+        $consulta = "SELECT * from capitulo where company_id =".$company_id.";";
+        $resultados = datosCompany::consultas(Conexion::obtener_conexion(),$consulta);
+       
+        if (!$resultados) {
+            ?>
+            <div class="col text-center">
+                <h2>
+                        No se encontraron capitulos
+                </h2>
+            </div>
+            <?php
+    }
+    else {
+        foreach($resultados as $info){
+            ?>
+               <div class="col">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h5 class="card-title">Capitulo <?php echo $info->numcapitulo ?></h5>
+                        <p class="card-text">
+                            <div class="row">
+                                <div class="col">
+                                Descripcion: <?php echo $info->descripcion ?>.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    Total exmanes: <?php echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM quiz join capitulo on capitulo.id = quiz.capitulo_id where company_id= $company_id and capitulo.id =$info->id;") ?>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    
+                                </div>
+                            </div>
+                      </div>
+                      <div class="card-footer bg-transparent border-success"><a href="http://">Ver examnes del capitulo</a></div>
+                    </div>
+                  </div>
+            <?php
+              Conexion::cerrar_conexion();   
+        }
+    }
+
+}
 }

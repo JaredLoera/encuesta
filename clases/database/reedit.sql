@@ -71,7 +71,15 @@ CREATE TABLE user_answer(
     FOREIGN KEY(user_id) REFERENCES user(id),
     FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 );
-
+create table answers(
+    id int not null auto_increment,
+    user_id int not null,
+    pregunta_id int not null,
+    respuesta varchar(255) not null,
+    primary key(id),
+    foreign key(user_id) references user(id),
+    foreign key(pregunta_id) references question(id)
+);
 
 
 INSERT INTO quiz (nombre, descripcion, company_id, fecha_inicio) VALUES 
