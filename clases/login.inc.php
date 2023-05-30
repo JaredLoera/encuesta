@@ -33,6 +33,10 @@ class login{
                 }
                 else {
                     session_start();
+                    $sql ="SELECT user.id from user join contacto on user.contacto_id = contacto.id where contacto.id = $resultado->id";
+                    $sentencia = $conexion->query($sql);
+                    $dataUser = $sentencia->fetch(PDO::FETCH_OBJ);
+                    $_SESSION['user_id'] = $dataUser->id;
                     $_SESSION['tipo'] = "WORKER";
                     $_SESSION['id'] = $resultado->id;
                     $_SESSION['correo']= $resultado->correo;

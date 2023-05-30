@@ -93,9 +93,9 @@ public static function quizNoFinished($contacto_id,$capitulo_id){
         foreach ($resultados as $info) {
             ?>
            <tr>
-                    <th scope="row">1</th>
+                    <th scope="row"><?php echo $info->id ?></th>
                     <td><?php echo $info->fecha_inicio ?></td>
-                    <td><a href="responder.php?cap=<?php echo $capitulo_id ?>" role="button" class="btn btn-primary">Responder</a></td>
+                    <td><a href="responder.php?cap=<?php echo $capitulo_id ?>&idExam=<?php echo $info->id ?>" role="button" class="btn btn-primary">Responder</a></td>
                     </tr>
         <?php
         }

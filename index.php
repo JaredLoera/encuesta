@@ -88,7 +88,6 @@
                       Conexion::abrir_conexion();
                       login::iniciarSession(Conexion::obtener_conexion(),$email,$pass);
                       Conexion::cerrar_conexion();
-                      header("refresh:2 index.php");
                     }
                   ?>
               <button type="submit" class="btn btn-primary btn-block mb-4 btn-lg" name="login">

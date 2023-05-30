@@ -80,4 +80,7 @@ create table answers(
     foreign key(pregunta_id) references question(id)
 );
 
+alter table user_answer modify answers JSON not null;
+
+
 alter table quiz drop column nombre;
