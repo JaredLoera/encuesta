@@ -13,8 +13,7 @@ class informacionWorker{
             <?php
         }
         foreach($resultados as $resultado){
-            ?>
-            
+            ?> 
         <div class="row align-items-start border border-primary">
             <div class="col-4 d-flex align-items-center">
                 <span class="align-middle mt-2">
@@ -56,8 +55,7 @@ class informacionWorker{
                     </div>
                 </div>
                 <div class="invalid-feedback">More example invalid feedback text</div>
-                    </div>
-                    
+                    </div> 
                 </div>
             </div>
             </div>
@@ -172,10 +170,31 @@ public static function getBlocksWorker($conexion,$user_id){
            <tr>
                     <th scope="row"><?php echo $info->id ?></th>
                     <td><?php echo $info->fecha_inicio ?></td>
-                    <td><a href="verexamen.php?cap=<?php echo $capitulo_id ?>&idExam=<?php echo $info->id ?>" role="button" class="btn btn-primary">Respuestas</a></td>
+                    <td><a href="respuestasexamen.php?cap=<?php echo $capitulo_id ?>&idExam=<?php echo $info->id ?>" role="button" class="btn btn-primary">Respuestas</a></td>
                     </tr>
         <?php
         }
     }
+ }
+ //TRABAJANDING EN ESTA FUNCION
+ public static function getAnswer($conexion,$quiz_id){
+    $consulta = "SELECT answers FROM user_answer where user_answer.id = ".$quiz_id;
+    $resultados = datosWorker::preguntaOnlyRow($conexion,$consulta);
+    if(!$resultados){
+        ?>
+        <div class="col">
+            <h3>No se encontraron respuestas</h3>
+        </div>
+        <?php
+    }
+    else {
+        print_r($resultados);
+        $respuestas = json_decode($resultados->answers,true);
+    }
+    ?> 
+        <div class="col">
+            
+        </div>
+    <?php
  }
 }
