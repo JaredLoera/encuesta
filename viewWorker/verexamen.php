@@ -64,28 +64,30 @@
                 </nav>
                 <div class="container-fluid">
                 <div class="row">
-        <div class="col">
-            <h1>Encuesta del capitulo  </h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">fecha de aplicacion</th>
-                    <th scope="col">acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php
-                informacionWorker::quizNoFinished($_SESSION['id'],$_GET['bloque']);
-                ?>
-                </tbody>
-            </table>
-        </div>
-    </div>    
+                    <div class="col">
+                        <h1>Encuesta del capitulo </h1>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">fecha de aplicacion</th>
+                                    <th scope="col">acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                Conexion::abrir_conexion();
+                                informacionWorker::getAnswersBlock(conexion::obtener_conexion(),$_GET['bloque'],$_SESSION['id']);
+                                Conexion::cerrar_conexion();
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>     
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
@@ -106,4 +108,3 @@
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
 </body>
-</html>
