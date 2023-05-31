@@ -71,6 +71,11 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="row">
+                        <div class="col mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Principal</h1>
+                        </div>
+                    </div>
+                    <div class="row">
                     <?php 
                     if (isset($_POST['saveWorker'])) {
                         extract($_POST);
@@ -104,9 +109,6 @@
                         }
                     }
                     ?>
-                    </div>
-                    <div class="row">
-
                     </div>
                     <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -157,7 +159,7 @@
                                             <h2>
                                                 <?php
                                                 Conexion::abrir_conexion();
-                                             echo 0; //  echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM capitulo join quiz on capitulo.id = quiz.capitulo_id where company_id  =".$_SESSION['id'].";");
+                                               echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM capitulo join quiz on capitulo.id = quiz.capitulo_id where company_id  =".$_SESSION['id'].";");
                                                 Conexion::cerrar_conexion();
                                                 ?>
                                             </h2>
@@ -165,7 +167,7 @@
                                             <div class="col mt-4">
                                                 <div class="row">
                                                 <div class="col">
-                                                    <a href="encuestas.php" type="button" class="btn btn-success">Ver encuestas</a>
+                                                    <a href="respuestasWorker.php" type="button" class="btn btn-success">Ver encuestas</a>
                                                 </div>
                                                 </div>
                                             </div>

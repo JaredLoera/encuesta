@@ -69,16 +69,31 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
-                <div class="row">
-                    <div class="col mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Capitulos aplicados</h1>
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="h3 text-gray-800">Respuestas del examen</h1>
                         </div>
-                </div>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                <?php
-                informacionCompany::capitulosRespuestas($_SESSION['id']);
-                ?>
-                </div>
+                    </div>
+                    <div class="row">
+                    <div class="table-responsive">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">pregunta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        Conexion::abrir_conexion();
+                        informacionCompany::getAllAnswers(conexion::obtener_conexion(),$_GET['quizid']);
+                        Conexion::cerrar_conexion();
+                        ?>
+                    </tbody>
+                    </table>
+                    </div>
+                       
+                    </div>
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->

@@ -69,12 +69,32 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
-
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                <?php
-                informacionCompany::capitulosRespuestas($_SESSION['id']);
-                ?>
-                </div>
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="h3 mb-0 text-gray-800">Examenes aplicados</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Fecha aplicacion</th>
+                                <th scope="col">capitulo</th>
+                                <th scope="col">acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <?php
+                                Conexion::abrir_conexion();
+                                informacionCompany::getQuizAnswers(conexion::obtener_conexion(),$_GET['idcap'],$_SESSION['id']);
+                                Conexion::cerrar_conexion();
+                               ?>
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->

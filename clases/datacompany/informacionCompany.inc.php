@@ -190,8 +190,8 @@ class informacionCompany{
             <?php
         }
     }
-    public function getAllAnswers($conexion,$company_id){
-        $consulta = "SELECT * from pregunta";
+    public static function getAllAnswers($conexion,$quiz_id){
+        $consulta = "SELECT * from question join (SELECT quiz.id as quiz_id, quiz.fecha_inicio, capitulo.id as cap_id from quiz join capitulo on quiz.capitulo_id = capitulo.id) as QC on QC.cap_id = question.capitulo_id where QC.quiz_id =". $quiz_id;
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {
             ?>
@@ -206,41 +206,7 @@ class informacionCompany{
                 <tr>
                     <td><?php echo $info->id; ?></td>
                     <td><?php echo $info->pregunta; ?></td>
-                    <td>
-                    <?php 
-                    Conexion::abrir_conexion();
-                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id JOIN user on user.id = respuestasuser.user_id WHERE respuestasuser.respuesta = 'siempre' AND user.company_id= $company_id AND pregunta.id =".$info->id);
-                    Conexion::cerrar_conexion();
-                    ?>
-                    </td>
-                    <td>
-                    <?php 
-                    Conexion::abrir_conexion();
-                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id JOIN user on user.id = respuestasuser.user_id WHERE respuestasuser.respuesta = 'Casi siempre' AND user.company_id= $company_id AND pregunta.id = ".$info->id);
-                    Conexion::cerrar_conexion();
-                    ?>
-                    </td>
-                    <td>
-                    <?php 
-                    Conexion::abrir_conexion();
-                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id JOIN user on user.id = respuestasuser.user_id WHERE respuestasuser.respuesta = 'Algunas veces' AND user.company_id= $company_id  AND pregunta.id = ".$info->id);
-                    Conexion::cerrar_conexion();
-                    ?>
-                    </td>
-                    <td>
-                    <?php 
-                    Conexion::abrir_conexion();
-                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id JOIN user on user.id = respuestasuser.user_id WHERE respuestasuser.respuesta = 'Casi nunca' AND $company_id AND pregunta.id = ".$info->id);
-                    Conexion::cerrar_conexion();
-                    ?>
-                    </td>
-                    <td>
-                    <?php 
-                    Conexion::abrir_conexion();
-                    echo $this->getNum(Conexion::obtener_conexion(),"SELECT COUNT(*) as num FROM respuestasuser JOIN pregunta on respuestasuser.pregunta_id = pregunta.id JOIN user on user.id = respuestasuser.user_id WHERE respuestasuser.respuesta = 'Nunca' AND user.company_id= $company_id AND pregunta.id = ".$info->id);
-                    Conexion::cerrar_conexion();
-                    ?>
-                    </td>
+                    <td></td>
                 </tr>
                 <?php
             }
@@ -271,7 +237,6 @@ class informacionCompany{
         Conexion::abrir_conexion();
         $consulta = "SELECT * from capitulo where company_id =".$company_id.";";
         $resultados = datosCompany::consultas(Conexion::obtener_conexion(),$consulta);
-       
         if (!$resultados) {
             ?>
             <div class="col text-center">
@@ -301,13 +266,34 @@ class informacionCompany{
                                 <br>
                             </div>
                       </div>
-                      <div class="card-footer bg-transparent border-success"><a href="examenesrespuesta.php">Ver examnes del capitulo</a></div>
+                      <div class="card-footer bg-transparent border-success"><a href="examenesrespuesta.php?idcap=<?php echo $info->id ?>">Ver examnes del capitulo</a></div>
                     </div>
                   </div>
             <?php
               Conexion::cerrar_conexion();   
         }
     }
-
 }
+    public static function getQuizAnswers($conexion,$capitulo_id,$company_id){
+        $consulta = "SELECT quiz.id as id_quiz,fecha_inicio,capitulo.id as id_cap from quiz join capitulo on quiz.capitulo_id= capitulo.id WHERE capitulo.company_id=$company_id and capitulo.id =$capitulo_id";
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if (!$resultados) {
+            ?>
+            <tr>
+                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+            </tr>
+            <?php
+        }else {
+            foreach ($resultados as $info) {
+                ?>
+                <tr>
+                    <td><?php echo $info->id_quiz; ?></td>
+                    <td><?php echo $info->fecha_inicio; ?></td>
+                    <td><?php echo $info->id_cap; ?></td>
+                    <td><a href="respuestas.php?quizid=<?php echo $info->id_quiz; ?>" role="button" class="btn btn-primary">Ver respuestas</a></td>
+                </tr>
+                <?php
+            }
+        }  
+    }
 }
