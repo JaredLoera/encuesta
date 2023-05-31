@@ -76,7 +76,7 @@
                         <?php 
                         Conexion::abrir_conexion();
                         //TINE ERRORES AUN FALTA TEMRINAR
-                       // informacionWorker::getAnswer(Conexion::obtener_conexion(),$_GET['idExam']);
+                        informacionWorker::getAnswer(Conexion::obtener_conexion(),$_GET['idExam']);
                         Conexion::cerrar_conexion();
                         ?>
                     </div>
