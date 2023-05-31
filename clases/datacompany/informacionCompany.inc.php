@@ -15,7 +15,7 @@ class informacionCompany{
         foreach($resultados as $resultado){ 
          ?>
            <div class="col">
-            <div class="card">
+             <div class="card h-100">
             <div class="card-body">
                 <h5 class="card-title">Nombre: <?php echo $resultado->nombre ?></h5>
                 <p class="card-text">Descripcion de la encuesta:<?php echo $resultado->descripcion ?></p>
@@ -287,26 +287,21 @@ class informacionCompany{
                <div class="col">
                     <div class="card h-100">
                       <div class="card-body">
-                        <h5 class="card-title">Capitulo <?php echo $info->numcapitulo ?></h5>
+                        <h3 class="card-title">Capitulo <?php echo $info->numcapitulo ?></h3>
                         <p class="card-text">
                             <div class="row">
-                                <div class="col">
+                                <div class="col fs-5">
                                 Descripcion: <?php echo $info->descripcion ?>.</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col">
+                                <div class="col fs-5">
                                     Total exmanes: <?php echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM quiz join capitulo on capitulo.id = quiz.capitulo_id where company_id= $company_id and capitulo.id =$info->id;") ?>
                                 </div>
                                 <br>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    
-                                </div>
-                            </div>
                       </div>
-                      <div class="card-footer bg-transparent border-success"><a href="http://">Ver examnes del capitulo</a></div>
+                      <div class="card-footer bg-transparent border-success"><a href="examenesrespuesta.php">Ver examnes del capitulo</a></div>
                     </div>
                   </div>
             <?php
