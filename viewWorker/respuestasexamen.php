@@ -63,25 +63,22 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-6">
-                            <h4>Preguntas</h4>
+                    <div class="row mb-2">
+                        <div class="col-6 fs-2">
+                            Preguntas
                         </div>
-                        <div class="col-6">
-                            <h4>Respuestas</h4>
+                        <div class="col-6 fs-2">
+                            Respuestas
                         </div>   
                     </div>
-                    <div class="row">
-                        <div class="col"></div>
-                        <?php 
+                    <?php 
                         Conexion::abrir_conexion();
-                        //TINE ERRORES AUN FALTA TEMRINAR
                         informacionWorker::getAnswer(Conexion::obtener_conexion(),$_GET['idExam']);
                         Conexion::cerrar_conexion();
-                        ?>
-                    </div>
+                    ?>
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
+
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
                     
             </div>

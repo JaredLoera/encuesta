@@ -190,7 +190,14 @@ public static function getBlocksWorker($conexion,$user_id){
     else {
         $arreglo = json_decode($resultados->answers);
         foreach ($arreglo as $info) {
-            print_r($info->respuesta);
+            $pregunta = "SELECT * from question where question.id = ".$info->idpregunta;
+            $resultadoPregunta = datosWorker::preguntaOnlyRow($conexion,$pregunta);
+           ?>
+            <div class="row">
+                        <div class="col fs-3"><?php echo $resultadoPregunta->pregunta ?></div>
+                        <div class="col fs-3"><?php echo $info->respuesta ?></div>
+                    </div> 
+           <?php 
         }
     }
     ?> 
