@@ -55,6 +55,7 @@ if (isset($_POST['cerrarsession'])) {
         </div>
     </div>
     <div class="row">
+    <div class="table-responsive">
         <table class="table">
             <thead>
                 <tr>
@@ -76,6 +77,7 @@ if (isset($_POST['cerrarsession'])) {
               ?>
             </tbody>
         </table>
+    </div>
     </div>
 <script src="../assets/js/bootstrap.bundle.js"></script>
 </body>

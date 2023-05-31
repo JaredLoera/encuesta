@@ -71,6 +71,7 @@
                 </nav>
                 <div class="container-fluid">
                           <div class="row">
+                          <div class="table-responsive">
                           <table class="table table-striped">
                           <thead>
                             <tr class="table-dark">
@@ -90,6 +91,7 @@
                           ?>
                           </tbody>
                         </table>
+                          </div>
                           </div>   
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->

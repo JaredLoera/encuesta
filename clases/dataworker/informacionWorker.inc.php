@@ -112,14 +112,25 @@ public static function getBlocksWorker($conexion,$user_id){
              <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                    <h5 class="card-title">Capitulo <?php echo $resultado-> numcapitulo;?></h5>
-                    <p class="card-text">
+                    <h3 class="card-title">Capitulo <?php echo $resultado-> numcapitulo;?></h3>
+                    <p class="card-text fs-5">
                     Descripcion:
                     <?php echo $resultado-> descripcion;?>
                     </p>
+       
+                    <p class="card-text fs-5">
+                    Examenes pendientes:
+                    <?php
+                    Conexion::abrir_conexion();
+                    $dato = datosWorker::preguntaOnlyRow(Conexion::obtener_conexion(),"SELECT count(*)  as num from (select CI.user_id_table,quiz_id,CI.empresa from (select user.id as user_id_table,company_id as empresa from user where contacto_id = $user_id ) as CI join user_answer on user_answer.user_id = CI.user_id_table)as UUA right join quiz on quiz.id = UUA.quiz_id where quiz.capitulo_id= $resultado->idcap and user_id_table is null;");
+                    echo $dato->num;
+                    Conexion::cerrar_conexion();
+                     ?>
                     </div>
                     <div class="card-footer bg-transparent border-success">
-                    <a href="examenes.php?bloque=<?php echo$resultado->idcap; ?>" class="btn btn-success" role="button">Ver examenes</a>
+                        <h3>
+                        <a href="examenes.php?bloque=<?php echo $resultado->idcap; ?>" class="btn btn-success" role="button">Ver examenes</a>
+                        </h3>
                     </div>
                 </div>
                 </div>
@@ -193,10 +204,11 @@ public static function getBlocksWorker($conexion,$user_id){
             $pregunta = "SELECT * from question where question.id = ".$info->idpregunta;
             $resultadoPregunta = datosWorker::preguntaOnlyRow($conexion,$pregunta);
            ?>
-            <div class="row">
-                        <div class="col fs-3"><?php echo $resultadoPregunta->pregunta ?></div>
-                        <div class="col fs-3"><?php echo $info->respuesta ?></div>
-                    </div> 
+            <tr>
+                <th scope="row"><?php echo $info->idpregunta; ?></th>
+                <td><?php echo $resultadoPregunta->pregunta; ?></td>
+                <td><?php echo $info->respuesta; ?></td>
+            </tr>
            <?php 
         }
     }

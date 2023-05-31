@@ -63,19 +63,31 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-6 fs-2">
-                            Preguntas
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="fs-1 text-center">Respuestas de examen</h1>
                         </div>
-                        <div class="col-6 fs-2">
-                            Respuestas
-                        </div>   
                     </div>
+                    <div class="row mt-4">
+                    <div class="table-responsive">
+                    <table class="table table-striped">
+                    <thead class="fs-4">
+                        <tr class="table-dark">
+                        <th scope="col">#</th>
+                        <th scope="col">Pregunta</th>
+                        <th scope="col">Respuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php 
                         Conexion::abrir_conexion();
                         informacionWorker::getAnswer(Conexion::obtener_conexion(),$_GET['idExam']);
                         Conexion::cerrar_conexion();
                     ?>
+                    </tbody>
+                    </table>
+                    </div>
+                    </div>              
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
 

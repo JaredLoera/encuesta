@@ -72,6 +72,7 @@
                 <div class="container-fluid">
                 <!--INICIAN CARDS SUPERIORES-->
                     <div class="row">
+                    <div class="table-responsive">
                         <table class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
@@ -91,6 +92,7 @@
                                ?>
                             </tbody>
                         </table>
+                    </div>
                     </div>          
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->

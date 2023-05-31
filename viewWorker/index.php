@@ -65,7 +65,12 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
-                <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+                    <div class="row">
+                        <div class="col">
+                            <h1 class="h3 text-gray-800">Capitulos de los examenes</h1>
+                        </div>
+                    </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
                   <?php 
                   Conexion::abrir_conexion();
                   informacionWorker::getBlocksWorker(conexion::obtener_conexion(),$_SESSION['id']);

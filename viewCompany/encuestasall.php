@@ -102,6 +102,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
+                        <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -118,6 +119,7 @@
                                ?>     
                             </tbody>
                             </table>
+                        </div>
                         </div>
                     </div>
                 
