@@ -23,7 +23,7 @@ class datosWorker{
     public static function preguntaOnlyRow($conexion,$sql){
         try{
             $sentencia = $conexion->query($sql);
-            $resultado  = $sentencia -> fetch(PDO::FETCH_ASSOC);
+            $resultado  = $sentencia -> fetch(PDO::FETCH_OBJ);
             return $resultado; 
         }catch(PDOException $ex){
             echo "ERROR ".$ex->getMessage() ; 

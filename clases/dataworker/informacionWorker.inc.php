@@ -188,8 +188,10 @@ public static function getBlocksWorker($conexion,$user_id){
         <?php
     }
     else {
-        print_r($resultados);
-        $respuestas = json_decode($resultados->answers,true);
+        $arreglo = json_decode($resultados->answers);
+        foreach ($arreglo as $info) {
+            print_r($info->respuesta);
+        }
     }
     ?> 
         <div class="col">
