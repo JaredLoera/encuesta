@@ -81,6 +81,11 @@
                         <tr>
                         <th scope="col">#</th>
                         <th scope="col">pregunta</th>
+                        <th scope="col">Siempre</th>
+                        <th scope="col">Casi siempre</th>
+                        <th scope="col">Algunas veces</th>
+                        <th scope="col">Casi nunca</th>
+                        <th scope="col">Nunca</th>
                         </tr>
                     </thead>
                     <tbody>
