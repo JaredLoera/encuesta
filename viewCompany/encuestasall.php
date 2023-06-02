@@ -91,7 +91,6 @@
                         <?php
                             if(isset($_POST['aplicarQuiz'])){
                                $quiz = new Quiz();
-                               $quiz->set_fecha(date("Y-m-d"));
                                $quiz->set_capitulo_id($_GET['capId']);
                                $quiz->save();
                             }

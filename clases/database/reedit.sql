@@ -47,8 +47,8 @@ create table capitulo(
 );
 create table quiz(
     id int not null auto_increment,
-    fecha_inicio date not null,
     capitulo_id int not null,
+    fecha_inicio datetime not null default current_timestamp,
     primary key(id),
     foreign key(capitulo_id) references capitulo(id)
 );
@@ -57,6 +57,7 @@ create table question(
     pregunta varchar(255) not null,
     capitulo_id int not null,
     estado boolean not null default true,
+	fecha_pregunta datetime not null default current_timestamp,
     primary key(id),
     foreign key(capitulo_id) references capitulo(id)
 );
@@ -65,22 +66,8 @@ CREATE TABLE user_answer(
     user_id INT NOT NULL,
     quiz_id INT NOT NULL,
     answers JSON NOT NULL,
-    fecha_respondido DATE NOT NULL,
+    fecha_respondido datetime not null default current_timestamp,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES user(id),
     FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 );
-create table answers(
-    id int not null auto_increment,
-    user_id int not null,
-    pregunta_id int not null,
-    respuesta varchar(255) not null,
-    primary key(id),
-    foreign key(user_id) references user(id),
-    foreign key(pregunta_id) references question(id)
-);
-
-alter table user_answer modify answers JSON not null;
-
-
-alter table quiz drop column nombre;
