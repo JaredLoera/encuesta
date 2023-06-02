@@ -48,8 +48,8 @@
           }
         ?>
         <form action="" method="post">
-        <?php 
-        informacionWorker::preguntas($_GET['cap']);
+        <?php
+        informacionWorker::preguntas($_GET['cap'], $_GET['idExam']);
         ?>
         <div class="row mt-3">
           <div class="col text-center">

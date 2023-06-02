@@ -1,11 +1,22 @@
 <?php
 include 'datosWorker.inc.php';
 class informacionWorker{
-    public static function preguntas($capitulo_id){
+    public static function preguntas($capitulo_id, $quiz_id){
         Conexion::abrir_conexion();
         $conexion = Conexion::obtener_conexion();
-        $sql = "SELECT * from question where question.capitulo_id =". $capitulo_id;
+
+        $sql_fecha = "SELECT fecha_inicio FROM quiz WHERE id =". $quiz_id;
+        $resultados_fecha = datosWorker::preguntas($conexion,$sql_fecha);
+
+        $cmm = "comnet";
+        
+        
+        $fecha_inicio = $resultados_fecha[0]->fecha_inicio;
+
+        $sql = "SELECT * FROM question WHERE capitulo_id = ". $capitulo_id . " AND fecha_pregunta < '". $fecha_inicio ."'";
+
         $resultados = datosWorker::preguntas($conexion,$sql);
+
         Conexion::cerrar_conexion();
         if (!$resultados) {
             ?>
