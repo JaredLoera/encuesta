@@ -4,19 +4,11 @@ class informacionWorker{
     public static function preguntas($capitulo_id, $quiz_id){
         Conexion::abrir_conexion();
         $conexion = Conexion::obtener_conexion();
-
         $sql_fecha = "SELECT fecha_inicio FROM quiz WHERE id =". $quiz_id;
-        $resultados_fecha = datosWorker::preguntas($conexion,$sql_fecha);
-
-        $cmm = "comnet";
-        
-        
-        $fecha_inicio = $resultados_fecha[0]->fecha_inicio;
-
+        $resultados_fecha = datosWorker::preguntaOnlyRow($conexion,$sql_fecha);
+        $fecha_inicio = $resultados_fecha->fecha_inicio;
         $sql = "SELECT * FROM question WHERE capitulo_id = ". $capitulo_id . " AND fecha_pregunta < '". $fecha_inicio ."'";
-
         $resultados = datosWorker::preguntas($conexion,$sql);
-
         Conexion::cerrar_conexion();
         if (!$resultados) {
             ?>
@@ -24,6 +16,7 @@ class informacionWorker{
             <?php
         }
         foreach($resultados as $resultado){
+            echo $resultado->id;
             ?> 
         <div class="row align-items-start border border-primary text-center" style="margin-bottom: 2%;">
         <div class="col-md-4 d-flex align-items-center justify-content-center">

@@ -26,11 +26,16 @@
         <?php
         if (isset($_POST['saveAnswers'])) {
             extract($_POST);
+            Conexion::abrir_conexion();
+            $id = datosWorker::preguntas(conexion::obtener_conexion(),"SELECT id FROM question where capitulo_id = ".$_GET['cap']);
+            $inico = $id[0]->id;
+            Conexion::cerrar_conexion();
             $arreglo_respuesta = '';
             $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
-            for ($i = 1; $i <= sizeof($_POST) - 1; $i++) {
-                $inlineRadioOptions = 'inlineRadioOptions' . $i;
-                $arreglo_respuesta[] = ['idpregunta' => $i, 'respuesta' => $$inlineRadioOptions];
+            for ($i = 1; $i <= sizeof($_POST)-1; $i++) {
+                $inlineRadioOptions = 'inlineRadioOptions' . $inico;
+                $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $$inlineRadioOptions];
+                $inico++;
             }
             $json = json_encode($arreglo_respuesta);
             $userrespuesta = new userrespuesta();
