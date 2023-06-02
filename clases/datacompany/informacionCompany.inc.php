@@ -207,7 +207,11 @@ class informacionCompany{
                 <tr>
                     <td><?php echo $info->id; ?></td>
                     <td><?php echo $info->pregunta; ?></td>
-                    <td></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
                 </tr>
                 <?php
             }

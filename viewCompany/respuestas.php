@@ -80,7 +80,7 @@
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">pregunta</th>
+                        <th scope="col">Pregunta</th>
                         <th scope="col">Siempre</th>
                         <th scope="col">Casi siempre</th>
                         <th scope="col">Algunas veces</th>
