@@ -92,11 +92,12 @@
                     <div class="row">
                     <div class="table-responsive">
                     <table class="table">
-                        <thead>
+                        <thead class="table-dark text-center">
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Pregunta</th>
-                            <th scope="col">Estado</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Pregunta</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Fecha de creacion</th>
                             </tr>
                         </thead>
                         <tbody>
