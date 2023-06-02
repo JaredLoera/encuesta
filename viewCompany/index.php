@@ -256,42 +256,42 @@
         <form action="index.php?id=<?php echo $_SESSION['id'] ?>" method="Post" class="needs-validation" novalidate>
             <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre del empleado</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="nombre" required>
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre del empleado" aria-describedby="nombre" name="nombre" required>
                     <div class="invalid-feedback">
                     Escriba el nombre del empleado
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="ap_paterno" class="form-label">Apellido del empleado</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="apellido paterno" aria-describedby="ap_paterno" name="ap_paterno" required>
+                    <label for="ap_paterno" class="form-label">Apellido paterno</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingresa el apellido paterno del empleado" aria-describedby="ap_paterno" name="ap_paterno" required>
                     <div class="invalid-feedback">
                     Escriba el apellido paterno del empleado
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="ap_materno" class="form-label">Apellido del empleado</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="apellido materno" aria-describedby="ap_materno" name="ap_materno" required>
+                    <label for="ap_materno" class="form-label">Apellido materno</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingresa el apellido materno del empleado" aria-describedby="ap_materno" name="ap_materno" required>
                     <div class="invalid-feedback">
                     Escriba el apellido materno del empleado
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="rfc" class="form-label">rfc del empleado</label>
-                    <input type="text" class="form-control" id="rfc" placeholder="Descrpcion" aria-describedby="rfc" name="rfc" required>
+                    <label for="rfc" class="form-label">RFC del empleado</label>
+                    <input type="text" class="form-control" id="rfc" placeholder="RFC del empleado" aria-describedby="rfc" name="rfc" required>
                     <div class="invalid-feedback">
                     Escriba el rfc del empleado
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="telefono" class="form-label">teléfono del empleado</label>
-                    <input type="phone" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="telefono" name="telefono" required>
+                    <label for="telefono" class="form-label">Telefono del empleado</label>
+                    <input type="phone" class="form-control" id="telefono" placeholder="Ingresa el telefono del empleado" aria-describedby="telefono" name="telefono" required>
                     <div class="invalid-feedback">
                     Escriba el telefono del empleado
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="correo" class="form-label">correo del empleado</label>
-                    <input type="email" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="correo" name="correo" required>
+                    <label for="correo" class="form-label">Correo del empleado</label>
+                    <input type="email" class="form-control" id="correo" placeholder="Ingresa el correo del empleado" aria-describedby="correo" name="correo" required>
                     <div class="invalid-feedback">
                     Escriba el correo del empleado
                     </div>

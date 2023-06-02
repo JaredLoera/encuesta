@@ -41,7 +41,7 @@
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-                <a class="nav-link text-white fs-5" href="respuestas.php">Encestas realizadas</a>
+                <a class="nav-link text-white fs-5" href="respuestas.php">Encuestas realizadas</a>
             </nav>
             <hr class="sidebar-divider d-none d-md-block">
         </ul>

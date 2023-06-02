@@ -210,32 +210,32 @@
       <form action="" method="Post" class="needs-validation" novalidate>
         <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre de la empresa</label>
-                <input type="text" class="form-control" id="nombre" placeholder="nombre" aria-describedby="nombre" name="name" required>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre de la empesa" aria-describedby="nombre" name="name" required>
                 <div class="invalid-feedback">
                   Por favor escriba el nombre.
                 </div>
             </div>
             <div class="mb-3">
                 <label for="Refimen" class="form-label">Regimen fiscal</label>
-                <input type="text" class="form-control" id="Refimen" placeholder="Refimen" aria-describedby="emailHelp" name="regimen" required>
+                <input type="text" class="form-control" id="Refimen" placeholder="Ingrese el regimen de la empesa" aria-describedby="emailHelp" name="regimen" required>
                 <div class="invalid-feedback">
                   Por favor escriba el regimen fiscal.
                 </div>
             </div>
             <div class="mb-3">
                 <label for="Domicilio" class="form-label">Domicilio</label>
-                <input type="text" class="form-control" id="Domicilio" placeholder="domicilio" aria-describedby="emailHelp" name="domicilio" required>
+                <input type="text" class="form-control" id="Domicilio" placeholder="Ingrese el domicilio de la empesa" aria-describedby="emailHelp" name="domicilio" required>
             </div>
             <div class="mb-3">
                 <label for="Email" class="form-label">Email de la empresa</label>
-                <input type="email" class="form-control" id="Email" placeholder="Email" aria-describedby="emailHelp" name="email" required>
+                <input type="email" class="form-control" id="Email" placeholder="Ingrese el email de la empesa" aria-describedby="emailHelp" name="email" required>
                 <div class="invalid-feedback">
                   Por favor escriba el domicilio.
                 </div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="passcompany" name="pass" required>
+                <input type="password" class="form-control" id="passcompany" name="pass" placeholder="Ingrese la contraseña" required>
                 <div class="invalid-feedback">
                  La contraseña debe de tener mas de 8 caracteres.
                 </div>
