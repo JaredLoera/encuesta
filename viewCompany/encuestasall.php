@@ -70,22 +70,29 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
-                    <div class="row mb-4">
-                        <div class="col">
-                            <h1 class="h3 mb-0 text-gray-800">Cuestionarios</h1>
-                        </div>
-                        <div class="col">
-                            <a href="preguntas.php?bloque=<?php echo $_GET['bloque']?>&capId=<?php echo $_GET['capId'] ?>" class="btn btn-primary btn-lg">Ver preguntas del bloque</a>
-                        </div>
-                        <div class="col">
-                        <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Previsualizar cuestionario
-                            </button>
-                        </div>
-                        <div class="col">
-                            <form action="" method="post"><button type="submit" class="btn btn-primary btn-lg" name="aplicarQuiz">Aplicar</button></form>
-                        </div>
+                <div class="row mb-4 text-center">
+                    <div class="col-12 col-md mb-2">
+                        <h1 class="h3 mb-0 text-gray-800">Cuestionarios</h1>
                     </div>
+                    <div class="col-12 col-md mb-3 mb-md-0">
+                        <a href="preguntas.php?bloque=<?php echo $_GET['bloque']?>&capId=<?php echo $_GET['capId'] ?>" class="btn btn-primary btn-lg w-100">Ver preguntas del bloque</a>
+                    </div>
+                    <div class="col-12 col-md mb-3 mb-md-0">
+                        <button type="button" class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Previsualizar cuestionario
+                        </button>
+                    </div>
+                    <div class="col-12 col-md mb-3 mb-md-0">
+                        <form action="" method="post">
+                            <button type="submit" class="btn btn-primary btn-lg w-100" name="aplicarQuiz">Aplicar</button>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md">
+                        <form action="encuestas.php" method="post">
+                            <button type="submit" class="btn btn-warning btn-lg w-100" name="regresarPaginaAnterior" >Regresar</button>
+                        </form>
+                    </div>
+                </div>
                     <div class="row">
                         <div class="col">
                         <?php
@@ -102,11 +109,11 @@
                         <div class="col">
                         <div class="table-responsive">
                         <table class="table">
-                            <thead>
+                            <thead class="table-dark text-center">
                                 <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">fecha de aplicación</th>
-                                <th scope="col">capitulo</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Fecha de aplicación</th>
+                                    <th scope="col">Capitulo</th>
                                 </tr>
                             </thead>
                             <tbody>

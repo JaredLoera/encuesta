@@ -25,52 +25,42 @@ class informacionWorker{
         }
         foreach($resultados as $resultado){
             ?> 
-        <div class="row align-items-start border border-primary">
-            <div class="col-4 d-flex align-items-center">
-                <span class="align-middle mt-2">
-               <h6><?php echo $resultado->id ." ";   ?>  <?php echo $resultado->pregunta ?></h6> 
-                </span>
-            </div>
-            <div class="col border border-warning align-items-start">
-            <div class="row mt-3">
-            <div class="col">
-                <div class="row algin-items-start">
-                <div class="col">
-                <div class="form-check form-check-inline mb-1">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="Siempre" required>
-                    <label class="form-check-label" for="inlineRadio1">Siempre</label>
-                </div>
-                </div>
-                <div class="col">
-                <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi siempre" required>
-                    <label class="form-check-label" for="inlineRadio2">Casi siempre</label>
-                </div>
-                </div>
-                <div class="col">
-                <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Algunas veces" required>
-                    <label class="form-check-label" for="inlineRadio2">Algunas veces</label>
-                </div>
-                </div>
-                <div class="col"> 
-                    <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi nunca" required>
-                    <label class="form-check-label" for="inlineRadio2">Casi nunca</label>
+        <div class="row align-items-start border border-primary text-center" style="margin-bottom: 2%;">
+        <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <span class="mt-3">
+                <h6><?php echo $resultado->id ." ";   ?>  <?php echo $resultado->pregunta ?></h6> 
+            </span>
+        </div>
+
+            <div class="col-md border border-warning align-items-start">
+                <div class="form-row mt-3">
+                    <div class="col-md mb-1">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="Siempre" required>
+                            <label class="form-check-label" for="inlineRadio1">Siempre</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Casi siempre" required>
+                            <label class="form-check-label" for="inlineRadio2">Casi siempre</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio3" value="Algunas veces" required>
+                            <label class="form-check-label" for="inlineRadio3">Algunas veces</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio4" value="Casi nunca" required>
+                            <label class="form-check-label" for="inlineRadio4">Casi nunca</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio5" value="Nunca" required>
+                            <label class="form-check-label" for="inlineRadio5">Nunca</label>
+                        </div>
+                        <div class="invalid-feedback">More example invalid feedback text</div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="col form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio2" value="Nunca" required>
-                    <label class="form-check-label" for="inlineRadio2">Nunca</label>
-                    </div>
-                </div>
-                <div class="invalid-feedback">More example invalid feedback text</div>
-                    </div> 
-                </div>
-            </div>
             </div>
         </div>
+
             <?php
         }
     }

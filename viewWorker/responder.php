@@ -17,47 +17,46 @@
     include "nav.php";
     ?>
 
-    <div class="container">
+    <div class="container py-4">
         <div class="row">
-            <div class="col">
-                <h1>Examen del capitulo  </h1>
+            <div class="col text-center">
+                <h1 class="display-4 mb-4">Examen del capitulo</h1>
             </div>
         </div>
-        <?php 
-        if(isset($_POST['saveAnswers'])){
+        <?php
+        if (isset($_POST['saveAnswers'])) {
             extract($_POST);
-            $arreglo_respuesta='';
+            $arreglo_respuesta = '';
             $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
-          for ($i=1; $i <= sizeof($_POST)-1; $i++) {
-            $inlineRadioOptions = 'inlineRadioOptions'.$i;
-            $arreglo_respuesta[] = ['idpregunta' => $i, 'respuesta' => $$inlineRadioOptions];
-          }
-          $json = json_encode($arreglo_respuesta);
-          $userrespuesta = new userrespuesta();
-          $userrespuesta->setUser_id($_SESSION['user_id']);
-          $userrespuesta->setQuiz_id($_GET['idExam']);
-          $userrespuesta->setRespuesta($json);
-          if ($userrespuesta->save()) {
-            echo "<script>alert('Respuestas guardadas');</script>";
-            echo "<script>window.location.replace('examenes.php?bloque=".$_GET['cap']."');</script>";
-          }
-          else {
-            echo "<script>alert('Error al guardar las respuestas');</script>";
-            echo "<script>window.location.replace('examenes.php?bloque=".$_GET['cap']."');</script>";
-          }
-          }
+            for ($i = 1; $i <= sizeof($_POST) - 1; $i++) {
+                $inlineRadioOptions = 'inlineRadioOptions' . $i;
+                $arreglo_respuesta[] = ['idpregunta' => $i, 'respuesta' => $$inlineRadioOptions];
+            }
+            $json = json_encode($arreglo_respuesta);
+            $userrespuesta = new userrespuesta();
+            $userrespuesta->setUser_id($_SESSION['user_id']);
+            $userrespuesta->setQuiz_id($_GET['idExam']);
+            $userrespuesta->setRespuesta($json);
+            if ($userrespuesta->save()) {
+                echo "<script>alert('Respuestas guardadas');</script>";
+                echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['cap'] . "');</script>";
+            } else {
+                echo "<script>alert('Error al guardar las respuestas');</script>";
+                echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['cap'] . "');</script>";
+            }
+        }
         ?>
         <form action="" method="post">
-        <?php
-        informacionWorker::preguntas($_GET['cap'], $_GET['idExam']);
-        ?>
-        <div class="row mt-3">
-          <div class="col text-center">
-            <button type="submit" name="saveAnswers" class="btn btn-success btn-lg">Guardar</button>  
-            <a href="examenes.php?bloque=<?php echo $_GET['cap']?>" class="btn btn-danger btn-lg">Cancelar</a>
-          </div>
-        </div>
-      </form>
+            <?php
+            informacionWorker::preguntas($_GET['cap'], $_GET['idExam']);
+            ?>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <button type="submit" name="saveAnswers" class="btn btn-success btn-lg">Guardar</button>
+                    <a href="examenes.php?bloque=<?php echo $_GET['cap'] ?>" class="btn btn-danger btn-lg">Cancelar</a>
+                </div>
+            </div>
+        </form>
     </div>
    
     <script src="../assets/js/bootstrap.bundle.js"></script>
