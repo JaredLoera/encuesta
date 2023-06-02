@@ -55,6 +55,18 @@ class company{
         $sql = "INSERT INTO company (nombre,refimenFiscal,domicilio,contacto_id) VALUES ('$this->name','$this->regimen','$this->domicilio','$id')";
         $resultado = Conexion::obtener_conexion()->prepare($sql);
         $resultado->execute();
+        $idEmpresa = $conexion->lastInsertId();
+        $call = "CALL crearCapitulos($idEmpresa)";
+        $sentenica = $conexion->query($call);
+        $caps = "Call obtenerCapitulos($idEmpresa)";
+        $sentenica = $conexion->query($caps);
+        $resp = $sentenica->fetchAll(PDO::FETCH_OBJ);
+        $i = 1;
+        foreach ($resp as $ids) {
+         $call =  "CALL preguntasCapitulo$i($ids->id)";
+            $sentenica = $conexion->query($call);
+            $i++;
+        }
         return true;
         Conexion::cerrar_conexion();
         }catch (PDOException $ex) {
