@@ -61,7 +61,7 @@
                         <?php echo $_SESSION['correo']; ?>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fs-5" href="#">Configuracion</a></li>
+                            <li><a class="dropdown-item fs-5" href="#">Configuración</a></li>
                             <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
                         </ul>
                         </div>
@@ -78,7 +78,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Regimen fiscal</th>
-                                <th scope="col">Direccion</th>
+                                <th scope="col">Dirección</th>
                                 <th scope="col">Correo</th>
                                 <th scope="col">Acciones</th>
                                 </tr>
@@ -153,7 +153,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="Refimen" class="form-label">Refimen fiscal</label>
+                <label for="Refimen" class="form-label">Regimen fiscal</label>
                 <input type="text" class="form-control" id="Refimen" placeholder="Refimen" aria-describedby="emailHelp" name="regimen" required>
                 <div class="invalid-feedback">
                   Por favor escriba el regimen fiscal.

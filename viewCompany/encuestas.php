@@ -61,7 +61,7 @@
                         <?php echo $_SESSION['correo']; ?>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fs-5" href="#">Configuracion</a></li>
+                            <li><a class="dropdown-item fs-5" href="#">Configuración</a></li>
                             <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
                         </ul>
                         </div>
@@ -71,7 +71,7 @@
                 <div class="container-fluid">
                     <div class="row mb-4">
                         <div class="col">
-                            <h1 class="h3 mb-0 text-gray-800">Capitulos</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Capítulos</h1>
                         </div>
                         <div class="col">
                             <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir capitulo</button>

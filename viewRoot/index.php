@@ -87,7 +87,7 @@
                                  //$mail->sendMailNewCompany($company);
                                 ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>¡Empresa añadida!</strong> La empresa se añadio correctamente.
+                                    <strong>¡Empresa añadida!</strong> La empresa se añadió correctamente.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                                 <?php
@@ -95,7 +95,7 @@
                             else{
                                 ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <strong>¡Error!</strong> La empresa no se añadio correctamente.
+                                    <strong>¡Error!</strong> La empresa no se añadió correctamente.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                                 <?php
@@ -216,7 +216,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="Refimen" class="form-label">Refimen fiscal</label>
+                <label for="Refimen" class="form-label">Regimen fiscal</label>
                 <input type="text" class="form-control" id="Refimen" placeholder="Refimen" aria-describedby="emailHelp" name="regimen" required>
                 <div class="invalid-feedback">
                   Por favor escriba el regimen fiscal.

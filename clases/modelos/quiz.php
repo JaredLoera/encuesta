@@ -16,14 +16,14 @@ class Quiz{
             if ($resultado) {
                 ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>¡Quiz añadido!</strong> El quiz se añadio correctamente.
+                    <strong>¡Quiz añadido!</strong> El quiz se añadió correctamente.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <?php
             }else{
                 ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>¡Error!</strong> El quiz no se añadio correctamente.
+                    <strong>¡Error!</strong> El quiz no se añadió correctamente.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <?php

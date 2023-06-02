@@ -36,7 +36,7 @@
 </nav>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Configuracion</h5>
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Configuración</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
@@ -51,7 +51,7 @@ if (isset($_POST['cerrarsession'])) {
 <div class="container">
     <div class="row align-items-start">
         <div class="col"> 
-        <h1 class="text-center">estadisticas</h1>
+        <h1 class="text-center">estadísticas</h1>
         </div>
     </div>
     <div class="row">

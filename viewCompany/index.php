@@ -95,14 +95,14 @@
                         if ($worker->save()) {
                             ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>¡Empleado añadido!</strong> El empleado se añadio correctamente.
+                                <strong>¡Empleado añadido!</strong> El empleado se añadió correctamente.
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php
                         }else {
                             ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <strong>¡Error!</strong> El empleado no se añadio correctamente.
+                                <strong>¡Error!</strong> El empleado no se añadió correctamente.
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             <?php
@@ -118,7 +118,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             <h5>
-                                            Capitulos 
+                                            Capítulos 
                                             </h5>  
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
@@ -283,7 +283,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="telefono" class="form-label">telefono del empleado</label>
+                    <label for="telefono" class="form-label">teléfono del empleado</label>
                     <input type="phone" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="telefono" name="telefono" required>
                     <div class="invalid-feedback">
                     Escriba el telefono del empleado

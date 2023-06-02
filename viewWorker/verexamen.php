@@ -74,7 +74,7 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">fecha de aplicacion</th>
+                                    <th scope="col">fecha de aplicación</th>
                                     <th scope="col">acciones</th>
                                     </tr>
                                 </thead>

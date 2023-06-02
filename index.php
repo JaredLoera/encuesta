@@ -55,7 +55,7 @@
         </h1>
         <p class="mb-4 opacity-70">  
         <h3 style="color: hsl(218, 81%, 85%)">
-        Encuestas para tu negocio, para comprender mejor a tus trabajadores para mejorar tu negocio y el servico hacia los clientes.
+        Encuestas para tu negocio, para comprender mejor a tus trabajadores para mejorar tu negocio y el servicio hacia los clientes.
         </h3>
         </p>
       </div>
@@ -64,7 +64,7 @@
           <div class="card-body px-4 py-5 px-md-5">
             <div>
               <p>
-               <h3>Iniciar sesion</h3> 
+               <h3>Iniciar sesión</h3> 
               </p>
             </div>
             <form method="post" class="needs-validation" novalidate>
@@ -91,7 +91,7 @@
                     }
                   ?>
               <button type="submit" class="btn btn-primary btn-block mb-4 btn-lg" name="login">
-              Iniciar sesion
+              Iniciar sesión
               </button>
             </form>
           </div>

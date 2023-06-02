@@ -18,14 +18,14 @@ class question{
         if ($resultado) {
             ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>¡Pregunta añadida!</strong> La pregunta se añadio correctamente.
+                <strong>¡Pregunta añadida!</strong> La pregunta se añadió correctamente.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php
         }else{
             ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>¡Error!</strong> La pregunta no se añadio correctamente.
+                <strong>¡Error!</strong> La pregunta no se añadió correctamente.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php

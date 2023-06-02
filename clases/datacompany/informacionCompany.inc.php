@@ -18,7 +18,7 @@ class informacionCompany{
              <div class="card h-100">
             <div class="card-body">
                 <h5 class="card-title">Nombre: <?php echo $resultado->nombre ?></h5>
-                <p class="card-text">Descripcion de la encuesta:<?php echo $resultado->descripcion ?></p>
+                <p class="card-text">Descripción de la encuesta:<?php echo $resultado->descripcion ?></p>
             </div>
             <div class="card-footer bg-transparent"><a href="http://">Ver detalles</a> </div>
             </div>
@@ -86,7 +86,7 @@ class informacionCompany{
             ?>
            <div class="col">
             <h1>
-            no se encontraron capitulos
+            no se encontraron capítulos
             </h1>
            </div>
             <?php
@@ -106,7 +106,7 @@ class informacionCompany{
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
                                             <h6>
-                                              Descripcion: <?php echo $info->descripcion; ?>
+                                              Descripción: <?php echo $info->descripcion; ?>
                                             </h6>
                                             </div>
                                             <div class="col mt-4">
@@ -241,7 +241,7 @@ class informacionCompany{
             ?>
             <div class="col text-center">
                 <h2>
-                        No se encontraron capitulos
+                        No se encontraron capítulos
                 </h2>
             </div>
             <?php
@@ -256,12 +256,12 @@ class informacionCompany{
                         <p class="card-text">
                             <div class="row">
                                 <div class="col fs-5">
-                                Descripcion: <?php echo $info->descripcion ?>.</p>
+                                Descripción: <?php echo $info->descripcion ?>.</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col fs-5">
-                                    Total exmanes: <?php echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM quiz join capitulo on capitulo.id = quiz.capitulo_id where company_id= $company_id and capitulo.id =$info->id;") ?>
+                                    Total exámenes: <?php echo informacionCompany::getNum(Conexion::obtener_conexion(),"SELECT count(*) as num FROM quiz join capitulo on capitulo.id = quiz.capitulo_id where company_id= $company_id and capitulo.id =$info->id;") ?>
                                 </div>
                                 <br>
                             </div>

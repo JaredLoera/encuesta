@@ -61,7 +61,7 @@
                         <?php echo $_SESSION['correo']; ?>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fs-5" href="#">Configuracion</a></li>
+                            <li><a class="dropdown-item fs-5" href="#">Configuración</a></li>
                             <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
                         </ul>
                         </div>
@@ -78,7 +78,7 @@
                               <th scope="col">Nombre</th>
                               <th scope="col">RFC</th>
                               <th scope="col">Correo</th>
-                              <th scope="col">telefono</th>
+                              <th scope="col">teléfono</th>
                               <th scope="col">acciones</th>
                             </tr>
                           </thead>
@@ -128,14 +128,14 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="ap_paterno" class="form-label">Apellido del empleado</label>
+                <label for="ap_paterno" class="form-label">Apellido paterno del empleado</label>
                 <input type="text" class="form-control" id="nombre" placeholder="apellido paterno" aria-describedby="ap_paterno" name="ap_paterno" required>
                 <div class="invalid-feedback">
                   Escriba el apellido paterno del empleado
                 </div>
             </div>
             <div class="mb-3">
-                <label for="ap_materno" class="form-label">Apellido del empleado</label>
+                <label for="ap_materno" class="form-label">Apellido materno del empleado</label>
                 <input type="text" class="form-control" id="nombre" placeholder="apellido materno" aria-describedby="ap_materno" name="ap_materno" required>
                 <div class="invalid-feedback">
                   Escriba el apellido materno del empleado
@@ -149,10 +149,10 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="telefono" class="form-label">telefono del empleado</label>
+                <label for="telefono" class="form-label">teléfono del empleado</label>
                 <input type="phone" class="form-control" id="rfc" placeholder="correo del empleado" aria-describedby="telefono" name="telefono" required>
                 <div class="invalid-feedback">
-                  Escriba el telefono del empleado
+                  Escriba el teléfono del empleado
                 </div>
             </div>
             <div class="mb-3">

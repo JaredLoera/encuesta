@@ -54,7 +54,7 @@
                         <?php echo $_SESSION['correo']; ?>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fs-5" href="#">Configuracion</a></li>
+                            <li><a class="dropdown-item fs-5" href="#">Configuración</a></li>
                             <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
                         </ul>
                         </div>
@@ -74,7 +74,7 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">fecha de aplicacion</th>
+                    <th scope="col">fecha de aplicación</th>
                     <th scope="col">acciones</th>
                     </tr>
                 </thead>
