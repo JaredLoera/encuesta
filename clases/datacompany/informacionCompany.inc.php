@@ -191,40 +191,80 @@ class informacionCompany{
             <?php
         }
     }
-    public static function getAllAnswers($conexion,$quiz_id,$company_id){
+    public static function getAllAnswers($conexion,$quiz_id){
         $consulta = "SELECT * from question join (SELECT quiz.id as quiz_id, quiz.fecha_inicio, capitulo.id as cap_id from quiz join capitulo on quiz.capitulo_id = capitulo.id) as QC on QC.cap_id = question.capitulo_id where QC.quiz_id =". $quiz_id;
         $resultados = datosCompany::consultas($conexion,$consulta);
 
-        $sql_const = "SELECT * FROM users WHERE company_id = $company_id;
-        ";
-        echo '<pre>';
-        print_r($sql_const);
-        echo '</pre>';
+        $sql_respuestas = "SELECT * FROM user_answer WHERE quiz_id = $quiz_id";
+        $sql_resultados = datosCompany::consultas($conexion,$sql_respuestas);
 
 
+        $conteo_respuestas = [];
+        foreach ($sql_resultados as $objeto) {
+            $respuestas = $objeto->answers;
+
+            $respuestas_decodificadas = json_decode($respuestas);
+
+            foreach($respuestas_decodificadas as $respuesta) {
+                $idPregunta = $respuesta->idpregunta;
+                $respuesta_usuario = $respuesta->respuesta;
+
+                if (!isset($conteo_respuestas[$idPregunta])) {
+                    $conteo_respuestas[$idPregunta] = [
+                        "Siempre" => 0,
+                        "Casi siempre" => 0,
+                        "Algunas veces" => 0,
+                        "Casi nunca" => 0,
+                        "Nunca" => 0,
+                    ];
+                }
+
+                $conteo_respuestas[$idPregunta][$respuesta_usuario]++;
+            }
+        }
+
+
+        // echo '<pre>';
+        // print_r($resultados_sql);
+        // echo '</pre>';
 
         if (!$resultados) {
             ?>
             <tr>
-                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+                <td colspan="7" class="text-center"><?php echo "No hay datos";?></td>
             </tr>
             <?php
-        }
-        else {
+        } else {
             foreach ($resultados as $info) {
-                ?>
-                <tr>
-                    <td><?php echo $info->id; ?></td>
-                    <td><?php echo $info->pregunta; ?></td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                <?php
+                if (isset($conteo_respuestas[$info->id])) {
+                    $respuestas = $conteo_respuestas[$info->id];
+                    ?>
+                    <tr>
+                        <td><?php echo $info->id; ?></td>
+                        <td><?php echo $info->pregunta; ?></td>
+                        <td><?php echo $respuestas["Siempre"]; ?></td>
+                        <td><?php echo $respuestas["Casi siempre"]; ?></td>
+                        <td><?php echo $respuestas["Algunas veces"]; ?></td>
+                        <td><?php echo $respuestas["Casi nunca"]; ?></td>
+                        <td><?php echo $respuestas["Nunca"]; ?></td>
+                    </tr>
+                    <?php
+                } else {
+                    ?>
+                    <tr>
+                        <td><?php echo $info->id; ?></td>
+                        <td><?php echo $info->pregunta; ?></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <?php
+                }
             }
         }
+        
     }
     public static function getQuizBlock($conexion,$id,$company_id){
         $consulta = "SELECT * from quiz join capitulo on quiz.capitulo_id = capitulo.id where company_id =".$company_id ." and capitulo_id =".$id.";";;   
@@ -304,7 +344,7 @@ class informacionCompany{
                     <td><?php echo $info->id_quiz; ?></td>
                     <td><?php echo $info->fecha_inicio; ?></td>
                     <td><?php echo $info->id_cap; ?></td>
-                    <td><a href="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&companyid=<?php echo $company_id; ?>" role="button" class="btn btn-primary">Ver respuestas</a></td>
+                    <td><a href="respuestas.php?quizid=<?php echo $info->id_quiz; ?>" role="button" class="btn btn-primary">Ver respuestas</a></td>
                 </tr>
                 <?php
             }
