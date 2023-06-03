@@ -91,7 +91,7 @@
                     <tbody>
                         <?php 
                         Conexion::abrir_conexion();
-                        informacionCompany::getAllAnswers(conexion::obtener_conexion(),$_GET['quizid'], $_GET['companyid']);
+                        informacionCompany::getAllAnswers(conexion::obtener_conexion(),$_GET['quizid']);
                         Conexion::cerrar_conexion();
                         ?>
                     </tbody>

@@ -16,12 +16,11 @@ class informacionWorker{
             <?php
         }
         foreach($resultados as $resultado){
-            echo $resultado->id;
             ?> 
         <div class="row align-items-start border border-primary text-center" style="margin-bottom: 2%;">
         <div class="col-md-4 d-flex align-items-center justify-content-center">
             <span class="mt-3">
-                <h6><?php echo $resultado->id ." ";   ?>  <?php echo $resultado->pregunta ?></h6> 
+                <h6><?php echo $resultado->id .". ";   ?>  <?php echo $resultado->pregunta ?></h6> 
             </span>
         </div>
 
