@@ -100,6 +100,7 @@
                                 </div>
                                 <?php
                             }
+                            $company = null;
                         }
                     ?>
                     </div>
