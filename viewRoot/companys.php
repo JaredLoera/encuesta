@@ -41,8 +41,7 @@
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-                <a class="nav-link text-white" href="#">Empresas</a>
-                <a class="nav-link text-white" href="#">Encuestas</a>
+                <?php include('links.php')?>
             </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
