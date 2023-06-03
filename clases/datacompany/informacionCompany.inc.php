@@ -191,9 +191,18 @@ class informacionCompany{
             <?php
         }
     }
-    public static function getAllAnswers($conexion,$quiz_id){
+    public static function getAllAnswers($conexion,$quiz_id,$company_id){
         $consulta = "SELECT * from question join (SELECT quiz.id as quiz_id, quiz.fecha_inicio, capitulo.id as cap_id from quiz join capitulo on quiz.capitulo_id = capitulo.id) as QC on QC.cap_id = question.capitulo_id where QC.quiz_id =". $quiz_id;
         $resultados = datosCompany::consultas($conexion,$consulta);
+
+        $sql_const = "SELECT * FROM users WHERE company_id = $company_id;
+        ";
+        echo '<pre>';
+        print_r($sql_const);
+        echo '</pre>';
+
+
+
         if (!$resultados) {
             ?>
             <tr>
@@ -295,7 +304,7 @@ class informacionCompany{
                     <td><?php echo $info->id_quiz; ?></td>
                     <td><?php echo $info->fecha_inicio; ?></td>
                     <td><?php echo $info->id_cap; ?></td>
-                    <td><a href="respuestas.php?quizid=<?php echo $info->id_quiz; ?>" role="button" class="btn btn-primary">Ver respuestas</a></td>
+                    <td><a href="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&companyid=<?php echo $company_id; ?>" role="button" class="btn btn-primary">Ver respuestas</a></td>
                 </tr>
                 <?php
             }
