@@ -42,7 +42,7 @@
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
                 <a class="nav-link text-white" href="companys.php">Empresas</a>
-                <a class="nav-link text-white" href="#">Encuestas</a>
+                <a class="nav-link text-white" href="#">Capitulos de encuestas</a>
             </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -112,7 +112,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             <h5>
-                                            Encuestas  
+                                            Capitulos de encuestas  
                                             </h5>  
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800 text-center mt-3">
@@ -126,8 +126,8 @@
                                             </div>
                                             <div class="col mt-4">
                                                 <div class="row">
-                                                <div class="col">
-                                                    <button type="button" class="btn btn-success">Ver encuestas</button>
+                                                <div class="col">   
+                                                    <a href="encuestasall.php" class="btn btn-success" role="button">Ver capitulos de encuestas</a>
                                                 </div>
                                                 </div>
                                             </div>
