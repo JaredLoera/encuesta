@@ -18,16 +18,16 @@ class informacionWorker{
         }
         foreach($resultados as $resultado){
             ?> 
-        <div class="row align-items-start border border-primary text-center" style="margin-bottom: 2%;">
+        <div class="row align-items-start border border-primary text-center fs-5 mt-1" >
         <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <span class="mt-3">
+            <span class="">
                 <h6><?php echo $contador .". ";   ?>  <?php echo $resultado->pregunta ?></h6> 
             </span>
         </div>
 
-            <div class="col-md border border-warning align-items-start">
-                <div class="form-row mt-3">
-                    <div class="col-md mb-1">
+            <div class="col-md align-items-start">
+                <div class="form-row">
+                    <div class="col">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="inlineRadioOptions<?php echo $resultado->id;?>" id="inlineRadio1" value="Siempre" required>
                             <label class="form-check-label" for="inlineRadio1">Siempre</label>
