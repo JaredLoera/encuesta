@@ -23,7 +23,7 @@ class Worker{
         return $this->rfc;
     }
     function set_correo($correo){
-        $this->correo = $correo;
+        $this->correo = $correo->ToLower();
     }
     function get_correo(){
         return $this->correo;

@@ -24,6 +24,46 @@
             </div>
         </div>
         <?php
+        if (isset($_POST['randWay'])) {
+            extract($_POST);
+            Conexion::abrir_conexion();
+            $id = datosWorker::preguntas(conexion::obtener_conexion(),"SELECT id FROM question where capitulo_id = ".$_GET['cap']);
+            $inico = $id[0]->id;
+            Conexion::cerrar_conexion();
+            $arreglo_respuesta = '';
+            $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
+            echo $inico;
+            for ($i = 1; $i <= sizeof($_POST)-1; $i++) {
+                $selct = rand(1, 4);
+                switch ($variable) {
+                    case 1:
+                        $randomRepuesta="Siempre";
+                        break;
+                    case 2:
+                        $randomRepuesta="Casi siempre";
+                        break;
+                    case 3:
+                        $randomRepuesta="A veces";
+                        break;
+                    case 4:
+                        $randomRepuesta="Casi nunca";
+                        break;
+                    case 5:
+                        $randomRepuesta="Nunca";
+                        break;
+                    default:
+                        echo "Error";
+                        break;
+                }
+                $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $randomRepuesta];
+                $inico++;
+            }
+            $json = json_encode($arreglo_respuesta);
+            print_r($json);
+            echo "<br>";
+            echo $_GET['cap'];
+        }
+
         if (isset($_POST['saveAnswers'])) {
             extract($_POST);
             Conexion::abrir_conexion();
@@ -57,11 +97,21 @@
             ?>
             <div class="row mt-3">
                 <div class="col text-center">
+                    <div class="col">
+                        <h3>¿Desea terminar el examen?</h3>
+                    </div>
                     <button type="submit" name="saveAnswers" class="btn btn-success btn-lg">Guardar</button>
                     <a href="examenes.php?bloque=<?php echo $_GET['cap'] ?>" class="btn btn-danger btn-lg">Cancelar</a>
-                </div>
-            </div>
+                    
         </form>
+                </div>
+            <div class="text-center mt-3">
+                <form action="" method="post">
+                    <button type="submit" class="btn btn-warning btn-lg" name="randWay">Terminar de manera random</button>
+                </form>
+            </div>
+                
+            </div>
     </div>
    
     <script src="../assets/js/bootstrap.bundle.js"></script>
