@@ -194,21 +194,17 @@ class informacionCompany{
     public static function getAllAnswers($conexion,$quiz_id){
         $consulta = "SELECT * from question join (SELECT quiz.id as quiz_id, quiz.fecha_inicio, capitulo.id as cap_id from quiz join capitulo on quiz.capitulo_id = capitulo.id) as QC on QC.cap_id = question.capitulo_id where QC.quiz_id =". $quiz_id;
         $resultados = datosCompany::consultas($conexion,$consulta);
-
         $sql_respuestas = "SELECT * FROM user_answer WHERE quiz_id = $quiz_id";
         $sql_resultados = datosCompany::consultas($conexion,$sql_respuestas);
-
-
         $conteo_respuestas = [];
+        $contador = 1;
         foreach ($sql_resultados as $objeto) {
             $respuestas = $objeto->answers;
-
             $respuestas_decodificadas = json_decode($respuestas);
-
+            
             foreach($respuestas_decodificadas as $respuesta) {
                 $idPregunta = $respuesta->idpregunta;
                 $respuesta_usuario = $respuesta->respuesta;
-
                 if (!isset($conteo_respuestas[$idPregunta])) {
                     $conteo_respuestas[$idPregunta] = [
                         "Siempre" => 0,
@@ -240,28 +236,29 @@ class informacionCompany{
                     $respuestas = $conteo_respuestas[$info->id];
                     ?>
                     <tr>
-                        <td><?php echo $info->id; ?></td>
+                        <td><?php echo $contador ?></td>
                         <td><?php echo $info->pregunta; ?></td>
-                        <td><?php echo $respuestas["Siempre"]; ?></td>
-                        <td><?php echo $respuestas["Casi siempre"]; ?></td>
-                        <td><?php echo $respuestas["Algunas veces"]; ?></td>
-                        <td><?php echo $respuestas["Casi nunca"]; ?></td>
-                        <td><?php echo $respuestas["Nunca"]; ?></td>
+                        <td class="text-center"><?php echo $respuestas["Siempre"]; ?></td>
+                        <td class="text-center"><?php echo $respuestas["Casi siempre"]; ?></td>
+                        <td class="text-center"><?php echo $respuestas["Algunas veces"]; ?></td>
+                        <td class="text-center"><?php echo $respuestas["Casi nunca"]; ?></td>
+                        <td class="text-center"><?php echo $respuestas["Nunca"]; ?></td>
                     </tr>
                     <?php
                 } else {
                     ?>
                     <tr>
-                        <td><?php echo $info->id; ?></td>
+                        <td><?php echo $contador; ?></td>
                         <td><?php echo $info->pregunta; ?></td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
+                        <td class="text-center">0</td>
                     </tr>
                     <?php
                 }
+                $contador++;
             }
         }
         
