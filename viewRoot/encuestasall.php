@@ -41,7 +41,7 @@ login::sessionRoot();
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-                <?php include('links.php')?>
+                <?php include('links.php') ?>
             </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -53,6 +53,9 @@ login::sessionRoot();
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
+                        <?php
+                        include 'boton.php'
+                        ?>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="dropdown" style="margin-right: 30px;">
