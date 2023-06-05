@@ -78,7 +78,7 @@ class informacionRoot
                 <td><?php echo $resultados_trabajadores[0]->num; ?></td>
                 <td><?php echo $resultado->domicilio; ?></td>
                 <td>
-                    <form action="viewcapitulos.php?id=<?php echo $resultado->id_company; ?>&companyname=<?php echo $resultado->nombre; ?>" method="post">
+                    <form action="viewcapitulos.php?id=<?php echo $resultado->id_company; ?>" method="post">
                         <button type="submit" class="btn btn-outline-primary">Ver Capitulos</button>
                     </form>
                 </td>

@@ -31,7 +31,7 @@ login::sessionRoot();
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">ENCUESTAS DE <?php echo $_GET['companyname']; ?></div>
+                <div class="sidebar-brand-text mx-3">ENCUESTAS DE LA EMPRESA</div>
             </a>
             <hr class="border border-1 opacity-75">
             <li class="nav-item active">
