@@ -64,7 +64,7 @@
                 <div class="container-fluid">
                 <div class="row">
                     <div class="col">
-                        <h1>Encuesta del capitulo </h1>
+                        <h1>Respuestas de las encuestas </h1>
                     </div>
                 </div>
                 <div class="row">
@@ -74,8 +74,8 @@
                                 <thead>
                                     <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">fecha de aplicación</th>
-                                    <th scope="col">acciones</th>
+                                    <th scope="col">Fecha de aplicación</th>
+                                    <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>

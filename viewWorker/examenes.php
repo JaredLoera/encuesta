@@ -39,7 +39,7 @@
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-                <a class="nav-link text-white fs-5" href="respuestas.php">Encestas realizadas</a>
+                <a class="nav-link text-white fs-5" href="respuestas.php">Encuestas Finalizadas</a>
             </nav>
             <hr class="sidebar-divider d-none d-md-block">
         </ul>
@@ -74,8 +74,8 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">fecha de aplicación</th>
-                    <th scope="col">acciones</th>
+                    <th scope="col">Fecha de aplicación</th>
+                    <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
