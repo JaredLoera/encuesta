@@ -55,9 +55,7 @@ login::sessionRoot();
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
-                        <?php
-                        include 'boton.php'
-                        ?>
+                        <a href="" class="btn btn-warning">Regresar</a>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="dropdown" style="margin-right: 30px;">
