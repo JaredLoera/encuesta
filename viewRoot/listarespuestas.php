@@ -18,8 +18,7 @@
 <?php
 include '../clases/login.inc.php';
 include '../clases/dataroot/informacionRoot.inc.php';
-include '../clases/database/conexion.inc.php';
-include '../clases/modelos/company.php';
+include '../clases/database/conexion.inc.php';;
 include '../clases/correos/correos.php';
 login::sessionRoot();
 ?>
@@ -31,7 +30,7 @@ login::sessionRoot();
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">ENCUESTAS DE <?php echo $_GET['companyname']; ?></div>
+                <div class="sidebar-brand-text mx-3">Examenes Realizados</div>
             </a>
             <hr class="border border-1 opacity-75">
             <li class="nav-item active">
@@ -72,15 +71,34 @@ login::sessionRoot();
                 </nav>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Capítulos aplicados</h1>
+                        <div class="col">
+                            <h1 class="h3 mb-0 text-gray-800">Exámenes aplicados</h1>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-striped" style="text-align: center;">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th></th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Fecha de aplicación</th>
+                                        <th scope="col">Núm del Capitulo</th>
+                                        <th scope="col">Acciones</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    Conexion::abrir_conexion();
+                                    informacionRoot::getQuizAnswers(conexion::obtener_conexion(), $_GET['idcap'], $_GET['compyid']);
+                                    Conexion::cerrar_conexion();
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <?php
-                        informacionRoot::capitulosRespuestas($_GET['id']);
-                        ?>
-                    </div>
+                    
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->

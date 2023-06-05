@@ -19,7 +19,6 @@
 include '../clases/login.inc.php';
 include '../clases/dataroot/informacionRoot.inc.php';
 include '../clases/database/conexion.inc.php';
-include '../clases/modelos/company.php';
 include '../clases/correos/correos.php';
 login::sessionRoot();
 ?>
@@ -31,7 +30,7 @@ login::sessionRoot();
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">ENCUESTAS DE <?php echo $_GET['companyname']; ?></div>
+                <div class="sidebar-brand-text mx-3">Respuestas del quiz <?php echo $_GET['quizid']?></div>
             </a>
             <hr class="border border-1 opacity-75">
             <li class="nav-item active">
@@ -72,14 +71,34 @@ login::sessionRoot();
                 </nav>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Capítulos aplicados</h1>
+                        <div class="col">
+                            <h1 class="h3 text-gray-800">Respuestas del examen</h1>
                         </div>
                     </div>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <?php
-                        informacionRoot::capitulosRespuestas($_GET['id']);
-                        ?>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Pregunta</th>
+                                        <th scope="col" class="text-center">Siempre</th>
+                                        <th scope="col" class="text-center">Casi siempre</th>
+                                        <th scope="col" class="text-center">Algunas veces</th>
+                                        <th scope="col" class="text-center">Casi nunca</th>
+                                        <th scope="col" class="text-center">Nunca</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    Conexion::abrir_conexion();
+                                    informacionRoot::getAllAnswers(conexion::obtener_conexion(), $_GET['quizid'], $_GET['compyid']);
+                                    Conexion::cerrar_conexion();
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
