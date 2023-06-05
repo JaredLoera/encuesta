@@ -31,7 +31,7 @@ login::sessionRoot();
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">ENCUESTAS DE <?php echo $_GET['companyname']; ?></div>
+                <div class="sidebar-brand-text mx-3">ENCUESTAS DE LA EMPRESA</div>
             </a>
             <hr class="border border-1 opacity-75">
             <li class="nav-item active">
@@ -56,9 +56,7 @@ login::sessionRoot();
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
-                        <?php
-                        include 'boton.php'
-                        ?>
+                        <a href="encuestasall.php" class="btn btn-warning">Regresar</a>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="dropdown" style="margin-right: 30px;">
