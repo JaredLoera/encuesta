@@ -69,11 +69,16 @@ class informacionRoot
         <?php
         }
         foreach ($resultados as $resultado) {
+            $sql_trbajadores = "SELECT count(*) as num FROM user where company_id = $resultado->id_company;";
+            $resultados_trabajadores = datosRoot::consultas($conexion, $sql_trbajadores);
+            // echo '<pre>';
+            // var_dump($resultados_trabajadores);
+            // echo '</pre>';
         ?>
             <tr>
                 <td style="font-weight: bold;"><?php echo $resultado->id_company; ?></td>
                 <td><?php echo $resultado->nombre; ?></td>
-                <td><?php echo "<p>Conteo</p>" ?></td>
+                <td><?php echo $resultados_trabajadores[0]->num; ?></td>
                 <td><?php echo $resultado->domicilio; ?></td>
                 <td>
                     <form action="viewcapitulos.php?id=<?php echo $resultado->id_company; ?>&companyname=<?php echo $resultado->nombre; ?>" method="post">
@@ -117,7 +122,7 @@ class informacionRoot
                                 <br>
                             </div>
                         </div>
-                        <div class="card-footer bg-transparent border-success"><a href="examenesrespuesta.php?idcap=<?php echo $info->id ?>">Ver examnes del capitulo</a></div>
+                        <div class="card-footer bg-transparent border-success"><a href="examenesrespuesta.php?idcap=<?php echo $info->id ?>">Ver exámenes del capitulo</a></div>
                     </div>
                 </div>
 <?php

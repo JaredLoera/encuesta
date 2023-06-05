@@ -76,7 +76,7 @@ login::sessionRoot();
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre de la empresa</th>
-                                        <th scope="col">Trabajadores</th>
+                                        <th scope="col"># de Trabajadores</th>
                                         <th scope="col">Dirección</th>
                                         <th scope="col">Ver Capitulos Existentes</th>
                                     </tr>
