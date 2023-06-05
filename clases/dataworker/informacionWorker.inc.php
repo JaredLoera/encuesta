@@ -20,11 +20,10 @@ class informacionWorker{
             ?> 
         <div class="row align-items-start border border-primary text-center fs-5 mt-1" >
         <div class="col-md-4 d-flex align-items-center justify-content-center">
-            <span class="">
-                <h6><?php echo $contador .". ";   ?>  <?php echo $resultado->pregunta ?></h6> 
+            <span>
+                <h5><?php echo $contador .". ";   ?>  <?php echo $resultado->pregunta ?></h5> 
             </span>
         </div>
-
             <div class="col-md align-items-start">
                 <div class="form-row">
                     <div class="col">
