@@ -36,7 +36,7 @@ class informacionCompany{
         if (!$resultados) {
             ?>
             <tr>
-                <td colspan="5" class="text-center"><?php echo "No hay datos";?></td>
+                <td colspan="" class="text-center"><?php echo "No hay datos";?></td>
             </tr>
             <?php
         }
@@ -136,6 +136,7 @@ class informacionCompany{
     public static function getQuestions($conexion,$capitulo_id,$company_id){
         $consulta = "SELECT question.id as id, pregunta, estado, fecha_pregunta from (SELECT capitulo.id from company join capitulo on company.id = capitulo.company_id where capitulo.id = $capitulo_id and company.id =$company_id) as CC join question on CC.id = question.capitulo_id  ;";
         $resultados = datosCompany::consultas($conexion,$consulta);
+        $contador = 1;
         if (!$resultados) {
             ?>
             <tr>
@@ -147,7 +148,7 @@ class informacionCompany{
             foreach($resultados as $info){
                 ?>
                 <tr class="text-center">
-                    <td><?php echo $info->id; ?></td>
+                    <td><?php echo $contador ?></td>
                     <td><?php echo $info->pregunta; ?></td>
                     <td>
                     <input class="form-check-input" type="checkbox" value="<?php echo $info->estado; ?>" id="flexCheckDefault">
@@ -157,6 +158,7 @@ class informacionCompany{
                     <td><?php echo $info->fecha_pregunta; ?></td>
                 </tr>
             <?php
+            $contador++;
             }
         }
     }
