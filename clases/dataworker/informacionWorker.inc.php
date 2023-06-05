@@ -2,6 +2,7 @@
 include 'datosWorker.inc.php';
 class informacionWorker{
     public static function preguntas($capitulo_id, $quiz_id){
+        $contador = 1;
         Conexion::abrir_conexion();
         $conexion = Conexion::obtener_conexion();
         $sql_fecha = "SELECT fecha_inicio FROM quiz WHERE id =". $quiz_id;
@@ -20,7 +21,7 @@ class informacionWorker{
         <div class="row align-items-start border border-primary text-center" style="margin-bottom: 2%;">
         <div class="col-md-4 d-flex align-items-center justify-content-center">
             <span class="mt-3">
-                <h6><?php echo $resultado->id .". ";   ?>  <?php echo $resultado->pregunta ?></h6> 
+                <h6><?php echo $contador .". ";   ?>  <?php echo $resultado->pregunta ?></h6> 
             </span>
         </div>
 
@@ -52,8 +53,8 @@ class informacionWorker{
                 </div>
             </div>
         </div>
-
             <?php
+            $contador++;
         }
     }
     public static function getNum($conexion,$sql){
