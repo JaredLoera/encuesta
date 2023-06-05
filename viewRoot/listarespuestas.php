@@ -55,6 +55,9 @@ login::sessionRoot();
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
+                        <?php
+                        include 'boton.php'
+                        ?>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="dropdown" style="margin-right: 30px;">
@@ -98,7 +101,7 @@ login::sessionRoot();
                             </table>
                         </div>
                     </div>
-                    
+
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
@@ -117,6 +120,11 @@ login::sessionRoot();
     </a>
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 
 </html>
