@@ -122,7 +122,11 @@ public static function getBlocksWorker($conexion,$user_id){
                     </div>
                     <div class="card-footer bg-transparent border-success">
                         <h3>
-                        <a href="examenes.php?bloque=<?php echo $resultado->idcap; ?>" class="btn btn-success" role="button">Ver examenes</a>
+                            <?php if($dato->num == 0): ?>
+                                <a href="examenes.php?bloque=<?php echo $resultado->idcap; ?>" class="btn btn-warning disabled" role="button">No hay examenes pendientes</a>
+                            <?php else: ?>
+                                    <a href="examenes.php?bloque=<?php echo $resultado->idcap; ?>" class="btn btn-success" role="button">Ver examenes</a>
+                            <?php endif; ?>
                         </h3>
                     </div>
                 </div>

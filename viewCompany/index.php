@@ -219,7 +219,6 @@
                         </div>
                     </div> 
                     <div class="row">
-                        cosa
                     </div>          
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
