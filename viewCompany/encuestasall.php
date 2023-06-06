@@ -55,6 +55,11 @@
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
+                    <a href="encuestas.php" class="btn btn-outline-warning" style="border-radius: 35%;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"></path>
+                            </svg>
+                        </a>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                         <div class="dropdown" style="margin-right: 30px;">
@@ -85,11 +90,6 @@
                     <div class="col-12 col-md mb-3 mb-md-0">
                         <form action="" method="post">
                             <button type="submit" class="btn btn-primary btn-lg w-100" name="aplicarQuiz">Aplicar</button>
-                        </form>
-                    </div>
-                    <div class="col-12 col-md">
-                        <form action="encuestas.php" method="post">
-                            <button type="submit" class="btn btn-warning btn-lg w-100" name="regresarPaginaAnterior" >Regresar</button>
                         </form>
                     </div>
                 </div>
