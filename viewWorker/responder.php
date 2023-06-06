@@ -20,7 +20,17 @@
     <div class="container py-4">
         <div class="row">
             <div class="col text-center">
-                <h1 class="display-4 mb-4">Examen del capitulo</h1>
+                <h1 class="display-4 mb-2">Examen del capitulo</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h5 class="display-6">Titulo: <?php echo informacionWorker::titulo($_GET['cap']) ?></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h5 class="display-7 mb-5">Descripcion: <?php echo informacionWorker::descripcion($_GET['cap']) ?></h5>
             </div>
         </div>
         <?php
