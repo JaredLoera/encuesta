@@ -62,31 +62,41 @@
                     </ul>
                 </nav>
                 <div class="container-fluid">
+                <div class="row mb-3">
+                    <div class="col">
+                        <h1>Encuesta del capitulo  <?php echo informacionWorker::capitulo($_GET['bloque']) ?></h1>
+                    </div>
+                </div>
                 <div class="row">
-        <div class="col">
-            <h1>Encuesta del capitulo  </h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Fecha de aplicación</th>
-                    <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php
-                informacionWorker::quizNoFinished($_SESSION['id'],$_GET['bloque']);
-                ?>
-                </tbody>
-            </table>
-        </div>
-        </div>
-    </div>    
+                    <div class="col">
+                        <h3>Titulo: <?php echo informacionWorker::titulo($_GET['bloque']) ?></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-5">
+                        <h5>Descripción: <?php echo informacionWorker::descripcion($_GET['bloque']) ?></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Fecha de aplicación</th>
+                                <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            informacionWorker::quizNoFinished($_SESSION['id'],$_GET['bloque']);
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>    
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
