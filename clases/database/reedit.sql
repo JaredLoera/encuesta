@@ -43,6 +43,7 @@ create table capitulo(
     numcapitulo int not null,
     company_id int not null,
     descripcion varchar(255) not null,
+    nombre_examen varchar(255) not null,
     primary key(id),
     foreign key(company_id) references company(id)
 );
@@ -73,18 +74,20 @@ CREATE TABLE user_answer(
     FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 );
 
-alter table capitulo add column nombre_examen varchar(255) not null;
 
 DELIMITER $$ 
 DROP PROCEDURE IF EXISTS `crearCapitulos` $$
 CREATE PROCEDURE `crearCapitulos`(IN empresa_id INT)
 BEGIN
-    DECLARE i INT DEFAULT 1;
-    WHILE i <= 6 DO
-        INSERT INTO capitulo (numcapitulo, company_id, descripcion) 
-        VALUES (i, empresa_id, CONCAT('Capítulo ', i));
-        SET i = i + 1;
-    END WHILE;
+    INSERT INTO capitulo (numcapitulo, company_id, descripcion, nombre_examen) VALUES 
+    (1, empresa_id, "El trabajador considerara las condiciones de su centro de trabajo asi como la calidad y ritmo de trabajo", "Condiciones del centro de trabajo"),
+    (2, empresa_id, "Las siguientes preguntas están relacionadas con las actividades que realiza en us trabajo y las responsabilidades que tiene", "responsabilidades- del trabajo"),
+    (3, empresa_id, "Las siguientes preguntas están relacionadas con el tiempo destinado a su trabajo y a sus responsabilidades familiares", "Tiempo en el trabajo y casa"),
+    (4, empresa_id, "Las siguientes preguntas están relacionadas con las decisiones que puede tomar en su trabajo", "Decisiones en el trabajo"),
+    (5, empresa_id, "Las preguntas siguientes están relacionadas con la capacitación e información que recibe su trabajo", "Capacitación e información en el trabajo"),
+    (6, empresa_id, "Las preguntas siguientes están relacionadas con las relaciones con sus compañeros de trabajo y su jefe", "Relaciones en el trabajo"),
+    (7, empresa_id, "Las siguientes preguntas están relacionadas con las actitudes de los trabajadores que supervisa","Supervisiones con empelados")
+      
 END$$
 DELIMITER ;
 
@@ -92,7 +95,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS `preguntasCapitulo1` $$
 CREATE PROCEDURE `preguntasCapitulo1`(IN capitulo_id INT)
 BEGIN
-	INSERT INTO question (pregunta,capitulo_id) VALUE("mi trabajo me exige hacer mucho esfuerzo fisico",capitulo_id);
+	INSERT INTO question (pregunta,capitulo_id) VALUE("mi trabajo me exige hacer mucho esfuerzo físico",capitulo_id);
     INSERT INTO question (pregunta,capitulo_id) VALUE("me preocupa sufrir un accidente en mi trabajo",capitulo_id);
     INSERT INTO question (pregunta,capitulo_id) VALUE("considero que las actividades que realizo son peligrosas",capitulo_id);
     INSERT INTO question (pregunta,capitulo_id) VALUE("por la cantidad de trabajo que tengo debo quedarme tiempo adicional a mi turno",capitulo_id);

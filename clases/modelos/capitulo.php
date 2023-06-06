@@ -3,6 +3,7 @@ class Capitulo{
     public $numcapitulo;
     public $descripcion;
     public $company_id;
+    public $nombre_examen;
     //methods
     function set_numcapitulo($numcapitulo){
         $this->numcapitulo = $numcapitulo;
@@ -21,6 +22,12 @@ class Capitulo{
     }
     function get_company_id(){
         return $this->company_id;
+    }
+    function set_nombre_examen($nombre_examen){
+        $this->nombre_examen = $nombre_examen;
+    }
+    function get_nombre_examen(){
+        return $this->nombre_examen;
     }
     function save(){
         try {
