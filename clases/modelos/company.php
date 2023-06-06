@@ -45,29 +45,38 @@ class company{
         try {
         Conexion::abrir_conexion();
         $conexion = Conexion::obtener_conexion();
-        $correo = "INSERT INTO contacto (correo,pass,tipo_user_id) VALUES ('$this->correo','$this->pass',2)";
-        $resultado = Conexion::obtener_conexion()->prepare($correo);
-        $resultado->execute();
-        $consutla = "SELECT id FROM contacto WHERE correo = '$this->correo'";
-        $sentenica = $conexion->query($consutla);
-        $resp = $sentenica->fetch(PDO::FETCH_OBJ);
-        $id = $resp->id;
-        $sql = "INSERT INTO company (nombre,refimenFiscal,domicilio,contacto_id) VALUES ('$this->name','$this->regimen','$this->domicilio','$id')";
-        $resultado = Conexion::obtener_conexion()->prepare($sql);
-        $resultado->execute();
-        $idEmpresa = $conexion->lastInsertId();
-        $call = "CALL crearCapitulos($idEmpresa)";
-        $sentenica = $conexion->query($call);
-        $caps = "Call obtenerCapitulos($idEmpresa)";
-        $sentenica = $conexion->query($caps);
-        $resp = $sentenica->fetchAll(PDO::FETCH_OBJ);
-        $i = 1;
-        foreach ($resp as $ids) {
-         $call =  "CALL preguntasCapitulo$i($ids->id)";
-            $sentenica = $conexion->query($call);
-            $i++;
+        try {
+            $correo = "INSERT INTO contacto (correo,pass,tipo_user_id) VALUES ('$this->correo','$this->pass',2)";
+            $resultado = $conexion->prepare($correo);
+            $resultado->execute();
+            $id = $conexion->lastInsertId();
+            try {
+                $sql = "INSERT INTO company (nombre,refimenFiscal,domicilio,contacto_id) VALUES ('$this->name','$this->regimen','$this->domicilio','$id')";
+                $resultado = Conexion::obtener_conexion()->prepare($sql);
+                $resultado->execute();
+                $idEmpresa = $conexion->lastInsertId();
+                $call = "CALL crearCapitulos($idEmpresa)";
+                $sentenica = $conexion->query($call);
+                $caps = "Call obtenerCapitulos($idEmpresa)";
+                $sentenica = $conexion->query($caps);
+                $resp = $sentenica->fetchAll(PDO::FETCH_OBJ);
+                $i = 1;
+                foreach ($resp as $ids) {
+                $call =  "CALL preguntasCapitulo$i($ids->id)";
+                    $sentenica = $conexion->query($call);
+                    $i++;
+                }
+                return true;
+            } catch (PDOException $th) {
+                $deleteContacto = "DELETE FROM contacto WHERE id = $id";
+                $resultado = $conexion->prepare($deleteContacto);
+                $resultado->execute();
+                echo "ERROR ".$th->getMessage() ;
+            }
+        } catch (PDOException $err) {
+          
+            echo "ERROR ".$err->getMessage() ; 
         }
-        return true;
         Conexion::cerrar_conexion();
         }catch (PDOException $ex) {
             echo "ERROR ".$ex->getMessage() ; 

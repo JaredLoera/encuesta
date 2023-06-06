@@ -66,13 +66,25 @@ class Worker{
         try{
             Conexion::abrir_conexion();
             $conexion = Conexion::obtener_conexion();
-            $sqlContacto = "INSERT INTO contacto (correo,pass,tipo_user_id) VALUES ('$this->correo','$this->pass',3)";
-            $resultadoContacto = $conexion->prepare($sqlContacto);
-            $resultadoContacto->execute();
-            $idContacto = $conexion->lastInsertId();
-            $sql = "INSERT INTO user (nombre,ap_paterno,ap_materno,rfc,telefono,contacto_id,company_id) VALUES ('$this->nombre', '$this->ap_paterno', '$this->ap_materno', '$this->rfc', '$this->telefono', $idContacto,$this->idCompany)";
-            $resultado = $conexion->prepare($sql);
-            $resultado->execute();
+            try {
+                $sqlContacto = "INSERT INTO contacto (correo,pass,tipo_user_id) VALUES ('$this->correo','$this->pass',3)";
+                $resultadoContacto = $conexion->prepare($sqlContacto);
+                $resultadoContacto->execute(); 
+                $idContacto = $conexion->lastInsertId();
+            try {
+                $sql = "INSERT INTO user (nombre,ap_paterno,ap_materno,rfc,telefono,contacto_id,company_id) VALUES ('$this->nombre', '$this->ap_paterno', '$this->ap_materno', '$this->rfc', '$this->telefono', $idContacto,$this->idCompany)";
+                $resultado = $conexion->prepare($sql);
+                $resultado->execute();    
+            } catch (PDOException $Pdox) {
+                $deleteContacto = "DELETE FROM contacto WHERE id = $idContacto";
+                $resultadoDelete = $conexion->prepare($deleteContacto);
+                $resultadoDelete->execute();
+                print "ERROR: ". $Pdox ->getMessage();
+            }
+            } catch (PDOException $x) {
+                print "ERROR: ". $x ->getMessage();
+            }
+         
             Conexion::cerrar_conexion();
             return true;
         } catch (PDOException $ex){
