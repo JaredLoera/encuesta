@@ -1,6 +1,30 @@
 <?php
 include 'datosWorker.inc.php';
 class informacionWorker{
+    public static function capitulo($capitulo_id){
+        Conexion::abrir_conexion();
+        $conexion = Conexion::obtener_conexion();
+        $sql = "SELECT * FROM capitulo WHERE id = ". $capitulo_id;
+        $resultados = datosWorker::preguntaOnlyRow($conexion,$sql);
+        Conexion::cerrar_conexion();
+        return $resultados->numcapitulo;
+    }
+    public static function titulo($capitulo_id){
+        Conexion::abrir_conexion();
+        $conexion = Conexion::obtener_conexion();
+        $sql = "SELECT * FROM capitulo WHERE id = ". $capitulo_id;
+        $resultados = datosWorker::preguntaOnlyRow($conexion,$sql);
+        Conexion::cerrar_conexion();
+        return $resultados->nombre_examen;
+    }
+    public static function descripcion($capitulo_id){
+        Conexion::abrir_conexion();
+        $conexion = Conexion::obtener_conexion();
+        $sql = "SELECT * FROM capitulo WHERE id = ". $capitulo_id;
+        $resultados = datosWorker::preguntaOnlyRow($conexion,$sql);
+        Conexion::cerrar_conexion();
+        return $resultados->descripcion;
+    }
     public static function preguntas($capitulo_id, $quiz_id){
         $contador = 1;
         Conexion::abrir_conexion();
