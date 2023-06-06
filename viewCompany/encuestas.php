@@ -84,6 +84,7 @@
                             $capitulo = new Capitulo();
                             $capitulo->set_numcapitulo($numcapitulo);
                             $capitulo->set_descripcion($descripcion);
+                            $capitulo->set_nombre_examen($nombre_examen);
                             $capitulo->set_company_id($_SESSION['id']);
                             if ($capitulo->save()) {
                                 ?>
@@ -138,14 +139,17 @@
                 <div class="modal-body">
                 <form method="post" action="">
                     <div class="mb-3">
-                        <label for="numcapitulo" class="form-label">Numero de capitulo</label>
-                        <input type="number" class="form-control" id="numcapitulo" aria-describedby="emailHelp" name="numcapitulo">
+                        <label for="numcapitulo" class="form-label">Numero del siguiente capitulo</label>
+                        <input type="number" class="form-control" id="numcapitulo" aria-describedby="emailHelp" name="numcapitulo" require>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombreexamen" class="form-label">Nombre del examen</label>
+                        <input type="text" class="form-control" id="nombre_examen" aria-describedby="emailHelp" name="nombre_examen" require>
                     </div>
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">descripcion</label>
-                        <input type="text" class="form-control" id="descripcion" aria-describedby="emailHelp" name="descripcion">
-                    </div>
-                    
+                        <input type="text" class="form-control" id="descripcion" aria-describedby="emailHelp" name="descripcion" require>
+                    </div>      
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
