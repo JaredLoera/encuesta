@@ -23,7 +23,7 @@
             login::sessionCompany();
             if (isset($_POST['IdCaph'])) {
                 $capId = $_POST['IdCaph'];
-                echo $capId;  // Mostrará IdCap"
+                //echo $capId;  // Mostrará IdCap"
             }
             ?>
 <body id="page-top">

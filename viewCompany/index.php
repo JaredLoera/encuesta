@@ -308,6 +308,12 @@ login::sessionCompany();
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
     <script>
+
+const inputCorreo = document.getElementById('correo');
+inputCorreo.addEventListener('keyup', function() {
+    console.log(inputCorreo.value);
+});
+
         (() => {
             'use strict'
 

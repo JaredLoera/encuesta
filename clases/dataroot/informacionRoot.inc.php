@@ -241,4 +241,43 @@ class informacionRoot
             }
         }
     }
+    public static function ramdom($conexion, $id_company)
+    {
+        $consulta = "SELECT u.* FROM user u LEFT JOIN user_answer ua ON u.id = ua.user_id WHERE u.company_id = $id_company AND ua.user_id IS NULL;";
+        $resultados = datosRoot::consultas($conexion, $consulta);
+        echo '<pre>';
+        var_dump($resultados);
+        echo '</pre>';
+        if (!$resultados) {
+            ?>
+            <tr>
+                <td colspan="7" class="text-center"><?php echo "No hay datos"; ?></td>
+            </tr>
+            <?php
+        } else {
+            foreach ($resultados as $info) {
+            ?>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <form action="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&compyid=<?php echo $id_company; ?>" method="post">
+                            <input type="hidden" value="<?php echo $id_company; ?>" id="IdCaph<?php echo $info->id_quiz; ?>" name="IdCaph">
+                            <input type="submit" id="submitForm<?php echo $info->id_quiz; ?>" value="Enviar" style="display: none;">
+                            <a href="javascript:void(0);" id="verRespuestas<?php echo $info->id_quiz; ?>" role="button" class="btn btn-warning">Ramdom</a>
+                        </form>
+                    </td>
+                    <td></td>
+                </tr>
+                <script>
+                    document.getElementById('verRespuestas<?php echo $info->id_quiz; ?>').addEventListener('click', function() {
+                        document.getElementById('submitForm<?php echo $info->id_quiz; ?>').click();
+                    });
+                </script>
+            <?php
+            }
+        }
+    }
 }

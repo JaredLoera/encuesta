@@ -100,6 +100,30 @@ login::sessionRoot();
                                     Conexion::cerrar_conexion();
                                     ?>
                                 </tbody>
+                            </table><br><br>
+                            <div class="row">
+                                <div class="col">
+                                    <h1 class="h3 mb-0 text-gray-800">Exámenes NO finalizados</h1>
+                                </div>
+                            </div><br>
+                            <table class="table table-striped" style="text-align: center;">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th></th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nombre del empleado</th>
+                                        <th scope="col">Núm del Capitulo</th>
+                                        <th scope="col">Finalizar Ramdom</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    Conexion::abrir_conexion();
+                                    informacionRoot::ramdom(conexion::obtener_conexion(), $_GET['compyid']);
+                                    Conexion::cerrar_conexion();
+                                    ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
