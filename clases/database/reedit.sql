@@ -72,6 +72,9 @@ CREATE TABLE user_answer(
     FOREIGN KEY(user_id) REFERENCES user(id),
     FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 );
+
+alter table capitulo add column nombre_examen varchar(255) not null;
+
 DELIMITER $$ 
 DROP PROCEDURE IF EXISTS `crearCapitulos` $$
 CREATE PROCEDURE `crearCapitulos`(IN empresa_id INT)
