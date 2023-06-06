@@ -227,17 +227,20 @@ login::sessionRoot();
                         <div class="mb-3">
                             <label for="Domicilio" class="form-label">Domicilio</label>
                             <input type="text" class="form-control" id="Domicilio" placeholder="Ingrese el domicilio de la empesa" aria-describedby="emailHelp" name="domicilio" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Email" class="form-label">Email de la empresa</label>
-                            <input type="email" class="form-control" id="Email" placeholder="Ingrese el email de la empesa" aria-describedby="emailHelp" name="email" required>
                             <div class="invalid-feedback">
                                 Por favor escriba el domicilio.
                             </div>
                         </div>
                         <div class="mb-3">
+                            <label for="Email" class="form-label">Email de la empresa</label>
+                            <input type="email" class="form-control" id="Email" placeholder="Ingrese el email de la empesa" aria-describedby="emailHelp" name="email" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba el email.
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="passcompany" name="pass" placeholder="Ingrese la contraseña" required>
+                            <input type="password" class="form-control" id="passcompany" name="pass" placeholder="Ingrese la contraseña" required minlength="8">
                             <div class="invalid-feedback">
                                 La contraseña debe de tener mas de 8 caracteres.
                             </div>
