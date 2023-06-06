@@ -319,7 +319,7 @@ class informacionCompany{
                                 <br>
                             </div>
                       </div>
-                      <div class="card-footer bg-transparent border-success"><a href="examenesrespuesta.php?idcap=<?php echo $info->id ?>">Ver examnes del capitulo</a></div>
+                      <div class="card-footer bg-transparent border-success"><a href="examenesrespuesta.php?idcap=<?php echo $info->id ?>">Ver exámenes del capitulo</a></div>
                     </div>
                   </div>
             <?php
@@ -343,8 +343,19 @@ class informacionCompany{
                     <td><?php echo $info->id_quiz; ?></td>
                     <td><?php echo $info->fecha_inicio; ?></td>
                     <td><?php echo $info->id_cap; ?></td>
-                    <td><a href="respuestas.php?quizid=<?php echo $info->id_quiz; ?>" role="button" class="btn btn-primary">Ver respuestas</a></td>
+                    <td>
+                        <form action="respuestas.php?quizid=<?php echo $info->id_quiz; ?>" method="post">
+                            <input type="hidden" value="<?php echo $capitulo_id; ?>" id="IdCaph<?php echo $info->id_quiz; ?>" name="IdCaph">
+                            <input type="submit" id="submitForm<?php echo $info->id_quiz; ?>" value="Enviar" style="display: none;">
+                            <a href="javascript:void(0);" id="verRespuestas<?php echo $info->id_quiz; ?>" role="button" class="btn btn-primary">Ver respuestas</a>
+                        </form>
+                    </td>
                 </tr>
+                <script>
+                    document.getElementById('verRespuestas<?php echo $info->id_quiz; ?>').addEventListener('click', function() {
+                        document.getElementById('submitForm<?php echo $info->id_quiz; ?>').click();
+                    });
+                </script>
                 <?php
             }
         }  
