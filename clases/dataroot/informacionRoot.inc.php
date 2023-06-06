@@ -151,25 +151,37 @@ class informacionRoot
                     <td><?php echo $info->id_quiz; ?></td>
                     <td><?php echo $info->fecha_inicio; ?></td>
                     <td><?php echo $info->numcapitulo; ?></td>
-                    <td><a href="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&compyid=<?php echo $company_id; ?>" role="button" class="btn btn-primary">Ver respuestas</a></td>
+                    <td>
+                        <form action="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&compyid=<?php echo $company_id; ?>" method="post">
+                            <input type="hidden" value="<?php echo $capitulo_id; ?>" id="IdCaph<?php echo $info->id_quiz; ?>" name="IdCaph">
+                            <input type="submit" id="submitForm<?php echo $info->id_quiz; ?>" value="Enviar" style="display: none;">
+                            <a href="javascript:void(0);" id="verRespuestas<?php echo $info->id_quiz; ?>" role="button" class="btn btn-primary">Ver respuestas</a>
+                        </form>
+                    </td>
                     <td></td>
                 </tr>
-<?php
+                <script>
+                    document.getElementById('verRespuestas<?php echo $info->id_quiz; ?>').addEventListener('click', function() {
+                        document.getElementById('submitForm<?php echo $info->id_quiz; ?>').click();
+                    });
+                </script>
+            <?php
             }
         }
     }
-    public static function getAllAnswers($conexion,$quiz_id,$company_id){
-        $consulta = "SELECT * from question join (SELECT quiz.id as quiz_id, quiz.fecha_inicio, capitulo.id as cap_id from quiz join capitulo on quiz.capitulo_id = capitulo.id) as QC on QC.cap_id = question.capitulo_id where QC.quiz_id =". $quiz_id;
-        $resultados = datosRoot::consultas($conexion,$consulta);
+    public static function getAllAnswers($conexion, $quiz_id, $company_id)
+    {
+        $consulta = "SELECT * from question join (SELECT quiz.id as quiz_id, quiz.fecha_inicio, capitulo.id as cap_id from quiz join capitulo on quiz.capitulo_id = capitulo.id) as QC on QC.cap_id = question.capitulo_id where QC.quiz_id =" . $quiz_id;
+        $resultados = datosRoot::consultas($conexion, $consulta);
         $sql_respuestas = "SELECT * FROM user_answer WHERE quiz_id = $quiz_id";
-        $sql_resultados = datosRoot::consultas($conexion,$sql_respuestas);
+        $sql_resultados = datosRoot::consultas($conexion, $sql_respuestas);
         $conteo_respuestas = [];
         $contador = 1;
         foreach ($sql_resultados as $objeto) {
             $respuestas = $objeto->answers;
             $respuestas_decodificadas = json_decode($respuestas);
-            
-            foreach($respuestas_decodificadas as $respuesta) {
+
+            foreach ($respuestas_decodificadas as $respuesta) {
                 $idPregunta = $respuesta->idpregunta;
                 $respuesta_usuario = $respuesta->respuesta;
                 if (!isset($conteo_respuestas[$idPregunta])) {
@@ -194,14 +206,14 @@ class informacionRoot
         if (!$resultados) {
             ?>
             <tr>
-                <td colspan="7" class="text-center"><?php echo "No hay datos";?></td>
+                <td colspan="7" class="text-center"><?php echo "No hay datos"; ?></td>
             </tr>
             <?php
         } else {
             foreach ($resultados as $info) {
                 if (isset($conteo_respuestas[$info->id])) {
                     $respuestas = $conteo_respuestas[$info->id];
-                    ?>
+            ?>
                     <tr>
                         <td><?php echo $contador ?></td>
                         <td><?php echo $info->pregunta; ?></td>
@@ -211,9 +223,9 @@ class informacionRoot
                         <td class="text-center"><?php echo $respuestas["Casi nunca"]; ?></td>
                         <td class="text-center"><?php echo $respuestas["Nunca"]; ?></td>
                     </tr>
-                    <?php
+                <?php
                 } else {
-                    ?>
+                ?>
                     <tr>
                         <td><?php echo $contador; ?></td>
                         <td><?php echo $info->pregunta; ?></td>
@@ -223,11 +235,10 @@ class informacionRoot
                         <td class="text-center">0</td>
                         <td class="text-center">0</td>
                     </tr>
-                    <?php
+<?php
                 }
                 $contador++;
             }
         }
-        
-    }    
+    }
 }

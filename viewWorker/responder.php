@@ -84,7 +84,7 @@
             $userrespuesta->setRespuesta($json);
             if ($userrespuesta->save()) {
                 echo "<script>alert('Respuestas guardadas');</script>";
-                echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['cap'] . "');</script>";
+                echo "<script>window.location.replace('index.php');</script>";
             } else {
                 echo "<script>alert('Error al guardar las respuestas');</script>";
                 echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['cap'] . "');</script>";

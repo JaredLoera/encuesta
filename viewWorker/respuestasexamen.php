@@ -39,7 +39,7 @@
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-                <a class="nav-link text-white fs-5" href="respuestas.php">Encestas realizadas</a>
+                <a class="nav-link text-white fs-5" href="respuestas.php">Encuestas Finalizadas</a>
             </nav>
             <hr class="sidebar-divider d-none d-md-block">
         </ul>
@@ -64,7 +64,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col">
-                            <h1 class="fs-1 text-center">Respuestas de examen</h1>
+                            <h1 class="fs-1 text-center">Respuestas del examen</h1>
                         </div>
                     </div>
                     <div class="row mt-4">

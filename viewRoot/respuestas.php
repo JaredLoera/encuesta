@@ -21,8 +21,11 @@ include '../clases/dataroot/informacionRoot.inc.php';
 include '../clases/database/conexion.inc.php';
 include '../clases/correos/correos.php';
 login::sessionRoot();
-$capId = substr($_SESSION['previous_page'], 26, -10);
-//var_dump(substr($_SESSION['previous_page'], 26, -10))
+if(isset($_POST['IdCaph'])) {
+    $capId = $_POST['IdCaph'];
+    //echo $capId;  // Mostrará IdCap"
+}
+
 ?>
 
 <body id="page-top">
@@ -57,7 +60,7 @@ $capId = substr($_SESSION['previous_page'], 26, -10);
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
-                        <a href="listarespuestas.php?idcap=<?php  echo $capId; ?>&compyid=<?php echo $_GET['compyid']?>" class="btn btn-warning">Regresar</a>
+                        <a href="listarespuestas.php?idcap=<?php echo $capId; ?>&compyid=<?php echo $_GET['compyid'] ?>" class="btn btn-warning">Regresar</a>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                             <div class="dropdown" style="margin-right: 30px;">
