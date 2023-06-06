@@ -74,7 +74,8 @@ class Worker{
             try {
                 $sql = "INSERT INTO user (nombre,ap_paterno,ap_materno,rfc,telefono,contacto_id,company_id) VALUES ('$this->nombre', '$this->ap_paterno', '$this->ap_materno', '$this->rfc', '$this->telefono', $idContacto,$this->idCompany)";
                 $resultado = $conexion->prepare($sql);
-                $resultado->execute();    
+                $resultado->execute();   
+                return true; 
             } catch (PDOException $Pdox) {
                 $deleteContacto = "DELETE FROM contacto WHERE id = $idContacto";
                 $resultadoDelete = $conexion->prepare($deleteContacto);
@@ -86,7 +87,7 @@ class Worker{
             }
          
             Conexion::cerrar_conexion();
-            return true;
+           
         } catch (PDOException $ex){
             print "ERROR: ". $ex ->getMessage();
            
