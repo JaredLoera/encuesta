@@ -243,32 +243,34 @@ class informacionRoot
     }
     public static function ramdom($conexion, $id_company)
     {
-        //consulta que trae a los que no han hecho el examen
-        $consulta = "SELECT u.id as userid, u.nombre as unombre, u.ap_paterno, u.ap_materno, u.rfc, u.telefono, u.company_id as ucompaid, u.contacto_id as contactoId, ua.id as user_answerid, ua.user_id as user_answeruserid, ua.quiz_id as user_answerquizid, ua.answers as user_answeranswers, ua.fecha_respondido as user_answerfecha FROM user u LEFT JOIN user_answer ua ON u.id = ua.user_id WHERE u.company_id = $id_company AND ua.user_id IS NULL;";
-        $resultados = datosRoot::consultas($conexion, $consulta);
-
-
-        echo '<pre>';
-        var_dump($resultados);
-        echo '</pre>';
-
-
-        if (!$resultados) {
+        $sql_users = "SELECT * FROM user WHERE company_id = $id_company";
+        $resultados = datosRoot::consultas($conexion, $sql_users);
+        if ($resultados == null) {
             ?>
             <tr>
                 <td colspan="7" class="text-center"><?php echo "No hay datos"; ?></td>
             </tr>
             <?php
         } else {
-            foreach ($resultados as $info) {
+            foreach ($resultados as $user) {
+                $sql_nohechos = "SELECT *, quiz.id as quizid FROM
+                (SELECT user_answer.id as uaid, user_id, quiz_id, answers, fecha_respondido, UC.id as userid, UC.nombre, UC.ap_paterno, UC.ap_materno, UC.rfc, UC.telefono, UC.company_id, UC.contacto_id FROM
+                (SELECT * FROM user WHERE id = $user->id) AS UC
+                JOIN user_answer
+                ON user_answer.user_id = UC.id) AS UAUC
+                RIGHT JOIN quiz ON quiz.id = UAUC.quiz_id
+                WHERE capitulo_id = " . $_GET['idcap'] . " AND answers IS NULL";
+                $resultados_nohechos = datosRoot::consultas($conexion, $sql_nohechos);
+                if ($resultados_nohechos == null) {
             ?>
-                <tr>
-                    <td></td>
-                    <td><?php echo $info->userid ?></td>
-                    <td><?php echo $info->unombre  . " " . $info->ap_paterno . " " . $info->ap_materno; ?></td>
-                    <td><?php echo $_GET['idcap']; ?></td>
-                    <td>
-                        <?php
+                    <tr>
+                        <td colspan="7" class="text-center"><?php echo "No hay datos"; ?></td>
+                    </tr>
+                    <?php
+                } else {
+
+                    $indice = 0;
+                    foreach ($resultados_nohechos as $nohecho) {
 
                         if (isset($_POST['saveAnswers'])) {
 
@@ -335,69 +337,47 @@ class informacionRoot
                             }
 
                             $json = json_encode($arreglo_respuesta);
-                            print_r($json);
-                            /* $userrespuesta = new userrespuesta();
-                            $userrespuesta->setUser_id($_SESSION['user_id']);
-                            $userrespuesta->setQuiz_id($_GET['idExam']);
+                            //print_r($json);
+                            $userrespuesta = new userrespuesta();
+                            $userrespuesta->setUser_id($user->id);
+                            $userrespuesta->setQuiz_id($nohecho->quizid);
                             $userrespuesta->setRespuesta($json);
+                            
                             if ($userrespuesta->save()) {
                                 echo "<script>alert('Respuestas guardadas');</script>";
-                                echo "<script>window.location.replace('index.php');</script>";
+                                echo "<script>window.location.replace('listarespuestas.php?idcap=<?php echo " .  $_GET['idcap'] . "; ?>&compyid=<?php echo " .  $_GET['compyid'] . "; ?>');</script>";
                             } else {
                                 echo "<script>alert('Error al guardar las respuestas');</script>";
-                                echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['idcap'] . "');</script>";
-                            }*/
+                                echo "<script>window.location.replace('listarespuestas.php?idcap=<?php echo " .  $_GET['idcap'] . "; ?>&compyid=<?php echo " .  $_GET['compyid'] . "; ?>');</script>";
+                            }
                         }
-                        ?>
-                        <form action="" method="post">
-                            <?php
-                            $sql2 = "SELECT *, quiz.id as quizid 
-                            FROM 
-                                (
-                                    SELECT 
-                                        CI.user_id_table,
-                                        quiz_id,
-                                        CI.empresa 
-                                    FROM 
-                                        (
-                                            SELECT 
-                                                user.id AS user_id_table,
-                                                company_id AS empresa 
-                                            FROM 
-                                                user 
-                                            WHERE 
-                                                id = $info->contactoId
-                                        ) AS CI 
-                                    JOIN 
-                                        user_answer 
-                                    ON 
-                                        user_answer.user_id = CI.user_id_table
-                                ) AS UUA 
-                            RIGHT JOIN 
-                                quiz 
-                            ON 
-                                quiz.id = UUA.quiz_id 
-                            WHERE 
-                                quiz.capitulo_id = " .  $_GET['idcap'] . "
-                                AND user_id_table IS NULL;
-                            ";
-                            Conexion::abrir_conexion();
-                            $resultados2 = datosRoot::consultas(Conexion::obtener_conexion(), $sql2);
+                    ?>
+                        <tr>
+                            <td></td>
+                            <td><?php echo $user->id; ?></td>
+                            <td><?php echo $user->nombre . " " . $user->ap_paterno . " " . $user->ap_materno;; ?></td>
+                            <td><?php echo $nohecho->fecha_inicio; ?></td>
+                            <td>
+                                <form action="" method="post">
+                                    <?php
+                                    // echo '<pre>';
+                                    // var_dump($resultados2);
+                                    // echo '</pre>';
 
-                            echo '<pre>';
-                            var_dump($resultados2);
-                            echo '</pre>';
+                                    $quiz_id = $nohecho->quizid;
+                                    Conexion::cerrar_conexion();
+                                    informacionRoot::preguntas($_GET['idcap'], $quiz_id);
 
-                            $quiz_id = $resultados2[0]->quizid;
-                            Conexion::cerrar_conexion();
-                            informacionRoot::preguntas($_GET['idcap'], $quiz_id);
-                            ?>
-                            <button type="submit" name="saveAnswers" class="btn btn-warning btn">Finalizar</button>
-                        </form>
-                    </td>
-                    <td></td>
-                </tr>
+                                    ?>
+                                    <button type="submit" name="saveAnswers" class="btn btn-warning btn">Finalizar</button>
+                                </form>
+                            </td>
+                            <td></td>
+                        </tr>
 <?php
+                        $indice++;
+                    }
+                }
             }
         }
     }
