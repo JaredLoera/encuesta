@@ -15,10 +15,6 @@ Array.from(forms).forEach(form =>{
     }, false);
 })
 passcompany.addEventListener('keyup', function() {
-    if (passcompany.value.length > 8) {
-        passcompany.classList.add('is-valid');
-    }
-    else {
-        passcompany.classList.remove('is-valid');
-    }
+   
 });
+
