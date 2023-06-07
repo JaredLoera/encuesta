@@ -76,6 +76,15 @@ login::sessionRoot();
                     </ul>
                 </nav>
                 <div class="container-fluid">
+                    <?php 
+                    if(isset($_POST['radWay'])){
+                      extract($_POST);
+                      echo $idQuiz;
+                      echo "<br>";
+                      echo $_GET['compyid'];
+                      die();
+                    }
+                    ?>
                     <div class="row">
                         <div class="col">
                             <h1 class="h3 mb-0 text-gray-800">Exámenes aplicados</h1>
@@ -91,6 +100,7 @@ login::sessionRoot();
                                         <th scope="col">Fecha de aplicación</th>
                                         <th scope="col">Núm del Capitulo</th>
                                         <th scope="col">Acciones</th>
+                                        <th scope="col">#</th>
                                         <th></th>
                                     </tr>
                                 </thead>
