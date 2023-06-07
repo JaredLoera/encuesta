@@ -235,7 +235,7 @@ class informacionRoot
                         <td class="text-center">0</td>
                         <td class="text-center">0</td>
                     </tr>
-<?php
+            <?php
                 }
                 $contador++;
             }
@@ -243,7 +243,7 @@ class informacionRoot
     }
     public static function ramdom($conexion, $id_company)
     {
-        $consulta = "SELECT u.* FROM user u LEFT JOIN user_answer ua ON u.id = ua.user_id WHERE u.company_id = $id_company AND ua.user_id IS NULL;";
+        $consulta = "SELECT u.*, u.id as userId, ua.* FROM user u LEFT JOIN user_answer ua ON u.id = ua.user_id WHERE u.company_id = $id_company AND ua.user_id IS NULL;";
         $resultados = datosRoot::consultas($conexion, $consulta);
         echo '<pre>';
         var_dump($resultados);
@@ -259,9 +259,9 @@ class informacionRoot
             ?>
                 <tr>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo $info->userId ?></td>
+                    <td><?php echo $info->nombre  . " " . $info->ap_paterno . " " . $info->ap_materno; ?></td>
+                    <td><?php echo $_GET['idcap'];?></td>
                     <td>
                         <form action="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&compyid=<?php echo $id_company; ?>" method="post">
                             <input type="hidden" value="<?php echo $id_company; ?>" id="IdCaph<?php echo $info->id_quiz; ?>" name="IdCaph">
@@ -276,7 +276,7 @@ class informacionRoot
                         document.getElementById('submitForm<?php echo $info->id_quiz; ?>').click();
                     });
                 </script>
-            <?php
+<?php
             }
         }
     }
