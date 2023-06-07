@@ -49,8 +49,8 @@ class informacionCompany{
                 <td><?php echo $info->correo; ?></td>
                 <td><?php echo $info->telefono; ?></td>
                 <td>
-                    <form action="respuestasWorker.php?id=<?php echo $info->id; ?>" method="post">
-                        <button type="submit" class="btn btn-outline-primary">Ver encuesta</button>
+                    <form action="vistaresultados.php?id=<?php echo $info->id; ?>" method="post">
+                        <button type="submit" class="btn btn-outline-primary">Ver Resultados de Encuesta</button>
                     </form>
                 </td>
             </tr>
@@ -361,5 +361,14 @@ class informacionCompany{
                 <?php
             }
         }  
+    }
+    public static function getAllSingleAnswers($conexion, $quiz_id, $user_id)
+    {
+        $consulta = "SELECT * from question join (SELECT quiz.id as quiz_id, quiz.fecha_inicio, capitulo.id as cap_id from quiz join capitulo on quiz.capitulo_id = capitulo.id) as QC on QC.cap_id = question.capitulo_id where QC.quiz_id =". $quiz_id;
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        $sql_respuestas = "SELECT * FROM user_answer WHERE quiz_id = $quiz_id";
+        $sql_resultados = datosCompany::consultas($conexion,$sql_respuestas);
+        $conteo_respuestas = [];
+        $contador = 1;
     }
 }

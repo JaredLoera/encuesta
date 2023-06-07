@@ -23,8 +23,8 @@ class informacionRoot
                 <td><?php echo $resultado->domicilio; ?></td>
                 <td><?php echo $resultado->correo; ?></td>
                 <td>
-                    <form action="companyquiz.php?id=<?php echo $resultado->id_company; ?>" method="post">
-                        <button type="submit" class="btn btn-outline-primary">Ver encuestas</button>
+                    <form action="viewcapitulos.php?id=<?php echo $resultado->id_company; ?>" method="post">
+                        <button type="submit" class="btn btn-outline-primary">Ver Capitulos</button>
                     </form>
                 </td>
             </tr>
@@ -342,7 +342,7 @@ class informacionRoot
                             $userrespuesta->setUser_id($user->id);
                             $userrespuesta->setQuiz_id($nohecho->quizid);
                             $userrespuesta->setRespuesta($json);
-                            
+
                             if ($userrespuesta->save()) {
                                 echo "<script>alert('Respuestas guardadas');</script>";
                                 echo "<script>window.location.replace('listarespuestas.php?idcap=<?php echo " .  $_GET['idcap'] . "; ?>&compyid=<?php echo " .  $_GET['compyid'] . "; ?>');</script>";
@@ -381,6 +381,128 @@ class informacionRoot
             }
         }
     }
+    public static function ramdom2($conexion, $id_company)
+    {
+        $sql_users = "SELECT * FROM user WHERE company_id = :company_id";
+        $stmt_users = $conexion->prepare($sql_users);
+        $stmt_users->execute([':company_id' => $id_company]);
+        $resultados = $stmt_users->fetchAll(PDO::FETCH_OBJ);
+
+        if (!$resultados) {
+            echo "<tr><td colspan='7' class='text-center'>No hay datos</td></tr>";
+            return;
+        }
+
+        foreach ($resultados as $user) {
+            $sql_nohechos = "SELECT *, quiz.id as quizid FROM
+        (SELECT user_answer.id as uaid, user_id, quiz_id, answers, fecha_respondido, UC.id as userid, UC.nombre, UC.ap_paterno, UC.ap_materno, UC.rfc, UC.telefono, UC.company_id, UC.contacto_id FROM
+        (SELECT * FROM user WHERE id = :user_id) AS UC
+        JOIN user_answer
+        ON user_answer.user_id = UC.id) AS UAUC
+        RIGHT JOIN quiz ON quiz.id = UAUC.quiz_id
+        WHERE capitulo_id = :cap_id AND answers IS NULL";
+
+            $stmt_nohechos = $conexion->prepare($sql_nohechos);
+            $stmt_nohechos->execute([':user_id' => $user->id, ':cap_id' => $_GET['idcap']]);
+            $resultados_nohechos = $stmt_nohechos->fetchAll(PDO::FETCH_OBJ);
+
+            if (!$resultados_nohechos) {
+                echo "<tr><td colspan='7' class='text-center'>No hay datos</td></tr>";
+                continue;
+            }
+
+            $indice = 0;
+            foreach ($resultados_nohechos as $nohecho) {
+                if (isset($_POST['saveAnswers'])) {
+                    extract($_POST);
+
+                    $id = datosRoot::consultas($conexion, "SELECT id FROM question where capitulo_id = " . $_GET['idcap']);
+
+                    $inicio = $id[0]->id;
+
+                    $arreglo_respuesta = '';
+                    $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
+                    for ($i = 1; $i <= sizeof($_POST) - 1; $i++) {
+                        $tipo = datosRoot::preguntaOnlyRow($conexion, "SELECT calsificacion FROM question where id=$inicio");
+                        $inlineRadioOptions = 'inlineRadioOptions' . $inicio;
+                        // Definir mapeo
+                        $respuestas_calsificacion_1 = [
+                            'Siempre' => 4,
+                            'Casi siempre' => 3,
+                            'Algunas veces' => 2,
+                            'Casi nunca' => 1,
+                            'Nunca' => 0,
+                        ];
+
+                        $respuestas_calsificacion_otro = [
+                            'Siempre' => 0,
+                            'Casi siempre' => 1,
+                            'A veces' => 2,
+                            'Casi nunca' => 3,
+                            'Nunca' => 4,
+                        ];
+
+                        // mapeo a usar
+                        $mapeo_respuestas = ($tipo->calsificacion == 1) ? $respuestas_calsificacion_1 : $respuestas_calsificacion_otro;
+
+                        // Asignar valor
+                        if (array_key_exists($$inlineRadioOptions, $mapeo_respuestas)) {
+                            $valor = $mapeo_respuestas[$$inlineRadioOptions];
+                        } else {
+                            echo "Error";
+                            die();
+                        }
+
+
+                        $arreglo_respuesta[] = ['idpregunta' => $inicio, 'respuesta' => $$inlineRadioOptions, 'valor' => $valor];
+                        $inicio++;
+                    }
+
+                    $json = json_encode($arreglo_respuesta);
+
+                    $userrespuesta = new userrespuesta();
+                    $userrespuesta->setUser_id($user->id);
+                    $userrespuesta->setQuiz_id($nohecho->quizid);
+                    $userrespuesta->setRespuesta($json);
+
+                    if ($userrespuesta->save()) {
+                        echo "<script>alert('Respuestas guardadas');</script>";
+                        echo "<script>window.location.href='index.php';</script>";
+                    } else {
+                        echo "<script>alert('Error al guardar las respuestas');</script>";
+                        echo "<script>window.location.href='index.php';</script>";
+                    }
+                }
+
+                echo "<tr>
+            <td></td>
+            <td>" . htmlentities($user->id) . "</td>
+            <td>" . htmlentities($user->nombre . " " . $user->ap_paterno . " " . $user->ap_materno) . "</td>
+            <td>" . htmlentities($nohecho->fecha_inicio) . "</td>
+            <td>
+                <form action=\"\" method=\"post\">";
+
+                // echo '<pre>';
+                // var_dump($resultados2);
+                // echo '</pre>';
+
+                $quiz_id = $nohecho->quizid;
+                informacionRoot::preguntas($_GET['idcap'], $quiz_id);
+
+                echo "<button type=\"submit\" name=\"saveAnswers\" class=\"btn btn-warning btn\">Finalizar</button>
+                </form>
+            </td>
+            <td></td>
+        </tr>";
+
+                $indice++;
+            }
+        }
+
+        Conexion::cerrar_conexion();
+    }
+
+
     public static function preguntas($capitulo_id, $quiz_id)
     {
         $contador = 1;

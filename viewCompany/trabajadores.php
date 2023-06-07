@@ -77,7 +77,7 @@
                           <div class="row">
                           <div class="table-responsive">
                           <table class="table table-striped">
-                          <thead>
+                          <thead class="text-center">
                             <tr class="table-dark">
                               <th scope="col">#</th>
                               <th scope="col">Nombre</th>
@@ -87,7 +87,7 @@
                               <th scope="col">acciones</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody class="text-center">
                           <?php
                           Conexion::abrir_conexion();
                           informacionCompany::getWorkers(Conexion::obtener_conexion(),$_SESSION['id']);
