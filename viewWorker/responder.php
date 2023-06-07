@@ -83,6 +83,10 @@
             $arreglo_respuesta = '';
             $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
             for ($i = 1; $i <= sizeof($_POST)-1; $i++) {
+                $tipo = datosWorker::preguntas(conexion::obtener_conexion(), "SELECT id FROM question where and id=$inico");
+                $tipo = $tipo[$i]->tipo;
+                print_r($tipo);
+                die();
                 $inlineRadioOptions = 'inlineRadioOptions' . $inico;
                 $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $$inlineRadioOptions];
                 $inico++;
