@@ -74,7 +74,7 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <h5 class="display-7 mb-3">Descripcion: <?php echo informacionWorker::descripcion($_GET['idExam']) ?></h5>
+                            <h5 class="display-7 mb-3">Descripción: <?php echo informacionWorker::descripcion($_GET['idExam']) ?></h5>
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -88,11 +88,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php 
-                        Conexion::abrir_conexion();
-                        informacionWorker::getAnswer(Conexion::obtener_conexion(),$_GET['idExam']);
-                        Conexion::cerrar_conexion();
-                    ?>
+                            <?php 
+                                Conexion::abrir_conexion();
+                                informacionWorker::getAnswer(Conexion::obtener_conexion(),$_GET['idExam'],$_SESSION['user_id']);
+                                Conexion::cerrar_conexion();
+                            ?>
                     </tbody>
                     </table>
                     </div>

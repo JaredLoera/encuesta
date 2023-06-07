@@ -94,8 +94,7 @@
                 $inico++;
             }
             $json = json_encode($arreglo_respuesta);
-            print_r($json);
-           /* $userrespuesta = new userrespuesta();
+            $userrespuesta = new userrespuesta();
             $userrespuesta->setUser_id($_SESSION['user_id']);
             $userrespuesta->setQuiz_id($_GET['idExam']);
             $userrespuesta->setRespuesta($json);
@@ -105,7 +104,7 @@
             } else {
                 echo "<script>alert('Error al guardar las respuestas');</script>";
                 echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['cap'] . "');</script>";
-            }*/
+            }
         }?>
         <form action="" method="post">
             <?php
