@@ -243,11 +243,16 @@ class informacionRoot
     }
     public static function ramdom($conexion, $id_company)
     {
-        $consulta = "SELECT u.*, u.id as userId, ua.* FROM user u LEFT JOIN user_answer ua ON u.id = ua.user_id WHERE u.company_id = $id_company AND ua.user_id IS NULL;";
+        //consulta que trae a los que no han hecho el examen
+        $consulta = "SELECT u.id as userid, u.nombre as unombre, u.ap_paterno, u.ap_materno, u.rfc, u.telefono, u.company_id as ucompaid, u.contacto_id as contactoId, ua.id as user_answerid, ua.user_id as user_answeruserid, ua.quiz_id as user_answerquizid, ua.answers as user_answeranswers, ua.fecha_respondido as user_answerfecha FROM user u LEFT JOIN user_answer ua ON u.id = ua.user_id WHERE u.company_id = $id_company AND ua.user_id IS NULL;";
         $resultados = datosRoot::consultas($conexion, $consulta);
+
+
         echo '<pre>';
         var_dump($resultados);
         echo '</pre>';
+
+
         if (!$resultados) {
             ?>
             <tr>
@@ -259,25 +264,172 @@ class informacionRoot
             ?>
                 <tr>
                     <td></td>
-                    <td><?php echo $info->userId ?></td>
-                    <td><?php echo $info->nombre  . " " . $info->ap_paterno . " " . $info->ap_materno; ?></td>
-                    <td><?php echo $_GET['idcap'];?></td>
+                    <td><?php echo $info->userid ?></td>
+                    <td><?php echo $info->unombre  . " " . $info->ap_paterno . " " . $info->ap_materno; ?></td>
+                    <td><?php echo $_GET['idcap']; ?></td>
                     <td>
-                        <form action="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&compyid=<?php echo $id_company; ?>" method="post">
-                            <input type="hidden" value="<?php echo $id_company; ?>" id="IdCaph<?php echo $info->id_quiz; ?>" name="IdCaph">
-                            <input type="submit" id="submitForm<?php echo $info->id_quiz; ?>" value="Enviar" style="display: none;">
-                            <a href="javascript:void(0);" id="verRespuestas<?php echo $info->id_quiz; ?>" role="button" class="btn btn-warning">Ramdom</a>
+                        <?php
+
+                        if (isset($_POST['saveAnswers'])) {
+
+                            extract($_POST);
+                            Conexion::abrir_conexion();
+                            //consulta que trae el id de la pregunta del capitulo en especifico
+                            $id = datosRoot::consultas(conexion::obtener_conexion(), "SELECT id FROM question where capitulo_id = " . $_GET['idcap']);
+
+                            $inico = $id[0]->id;
+                            Conexion::cerrar_conexion();
+
+                            $arreglo_respuesta = '';
+                            $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
+                            for ($i = 1; $i <= sizeof($_POST) - 1; $i++) {
+                                $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$inico");
+                                $inlineRadioOptions = 'inlineRadioOptions' . $inico;
+                                if ($tipo->calsificacion == 1) {
+                                    switch ($$inlineRadioOptions) {
+                                        case 'Siempre':
+                                            $valor = 4;
+                                            break;
+                                        case 'Casi siempre':
+                                            $valor = 3;
+                                            break;
+                                        case 'Algunas veces':
+                                            $valor = 2;
+                                            break;
+                                        case 'Casi nunca':
+                                            $valor = 1;
+                                            break;
+                                        case 'Nunca':
+                                            $valor = 0;
+                                            break;
+                                        default:
+                                            echo "Error";
+                                            die();
+                                            break;
+                                    }
+                                } else {
+                                    switch ($$inlineRadioOptions) {
+                                        case 'Siempre':
+                                            $valor = 0;
+                                            break;
+                                        case 'Casi siempre':
+                                            $valor = 1;
+                                            break;
+                                        case 'A veces':
+                                            $valor = 2;
+                                            break;
+                                        case 'Casi nunca':
+                                            $valor = 3;
+                                            break;
+                                        case 'Nunca':
+                                            $valor = 4;
+                                            break;
+                                        default:
+                                            echo "Error";
+                                            die();
+                                            break;
+                                    }
+                                }
+                                $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $$inlineRadioOptions, 'valor' => $valor];
+                                $inico++;
+                            }
+
+                            $json = json_encode($arreglo_respuesta);
+                            print_r($json);
+                            /* $userrespuesta = new userrespuesta();
+                            $userrespuesta->setUser_id($_SESSION['user_id']);
+                            $userrespuesta->setQuiz_id($_GET['idExam']);
+                            $userrespuesta->setRespuesta($json);
+                            if ($userrespuesta->save()) {
+                                echo "<script>alert('Respuestas guardadas');</script>";
+                                echo "<script>window.location.replace('index.php');</script>";
+                            } else {
+                                echo "<script>alert('Error al guardar las respuestas');</script>";
+                                echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['idcap'] . "');</script>";
+                            }*/
+                        }
+                        ?>
+                        <form action="" method="post">
+                            <?php
+                            $sql2 = "SELECT *, quiz.id as quizid 
+                            FROM 
+                                (
+                                    SELECT 
+                                        CI.user_id_table,
+                                        quiz_id,
+                                        CI.empresa 
+                                    FROM 
+                                        (
+                                            SELECT 
+                                                user.id AS user_id_table,
+                                                company_id AS empresa 
+                                            FROM 
+                                                user 
+                                            WHERE 
+                                                id = $info->contactoId
+                                        ) AS CI 
+                                    JOIN 
+                                        user_answer 
+                                    ON 
+                                        user_answer.user_id = CI.user_id_table
+                                ) AS UUA 
+                            RIGHT JOIN 
+                                quiz 
+                            ON 
+                                quiz.id = UUA.quiz_id 
+                            WHERE 
+                                quiz.capitulo_id = " .  $_GET['idcap'] . "
+                                AND user_id_table IS NULL;
+                            ";
+                            Conexion::abrir_conexion();
+                            $resultados2 = datosRoot::consultas(Conexion::obtener_conexion(), $sql2);
+
+                            echo '<pre>';
+                            var_dump($resultados2);
+                            echo '</pre>';
+
+                            $quiz_id = $resultados2[0]->quizid;
+                            Conexion::cerrar_conexion();
+                            informacionRoot::preguntas($_GET['idcap'], $quiz_id);
+                            ?>
+                            <button type="submit" name="saveAnswers" class="btn btn-warning btn">Finalizar</button>
                         </form>
                     </td>
                     <td></td>
                 </tr>
-                <script>
-                    document.getElementById('verRespuestas<?php echo $info->id_quiz; ?>').addEventListener('click', function() {
-                        document.getElementById('submitForm<?php echo $info->id_quiz; ?>').click();
-                    });
-                </script>
 <?php
             }
+        }
+    }
+    public static function preguntas($capitulo_id, $quiz_id)
+    {
+        $contador = 1;
+        Conexion::abrir_conexion();
+        $conexion = Conexion::obtener_conexion();
+        $sql_fecha = "SELECT fecha_inicio FROM quiz WHERE id =" . $quiz_id;
+        $resultados_fecha = datosRoot::preguntaOnlyRow($conexion, $sql_fecha);
+        $fecha_inicio = $resultados_fecha->fecha_inicio;
+        $sql = "SELECT * FROM question WHERE capitulo_id = " . $capitulo_id . " AND fecha_pregunta < '" . $fecha_inicio . "'";
+        $resultados = datosRoot::consultas($conexion, $sql);
+        Conexion::cerrar_conexion();
+        if (!$resultados) {
+            echo "No se encontraron preguntas";
+            return;
+        }
+
+        $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
+        $respuestasFinales = array();
+
+        foreach ($resultados as $resultado) {
+            // seleccionar aleatoriamente
+            $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
+            array_push($respuestasFinales, $respuesta_aleatoria);
+
+            // echo "Pregunta #" . $contador . ": " . $resultado->pregunta . "<br>";
+            // echo "Respuesta: " . end($respuestasFinales) . "<br>";
+            echo "<input type='hidden' name='inlineRadioOptions" . $contador . "' value='" . $respuesta_aleatoria . "'>";
+
+            $contador++;
         }
     }
 }
