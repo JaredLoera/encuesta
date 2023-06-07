@@ -20,6 +20,7 @@ include '../clases/login.inc.php';
 include '../clases/dataroot/informacionRoot.inc.php';
 include '../clases/database/conexion.inc.php';;
 include '../clases/correos/correos.php';
+include '../clases/modelos/userrespuesta.php';
 login::sessionRoot();
 ?>
 
@@ -112,8 +113,8 @@ login::sessionRoot();
                                         <th></th>
                                         <th scope="col">#</th>
                                         <th scope="col">Nombre del empleado</th>
-                                        <th scope="col">Núm del Capitulo</th>
-                                        <th scope="col">Finalizar Ramdom</th>
+                                        <th scope="col">Fecha de aplicación</th>
+                                        <th scope="col">Finalizar Random</th>
                                         <th></th>
                                     </tr>
                                 </thead>
