@@ -87,10 +87,12 @@
                         if (isset($_POST['guardarCapitulo'])) {
                            extract($_POST);
                             $capitulo = new Capitulo();
-                            $capitulo->set_numcapitulo($numcapitulo);
+                            $capitulo->set_numcapitulo(informacionCompany::nextCap($_SESSION['id']));
                             $capitulo->set_descripcion($descripcion);
                             $capitulo->set_nombre_examen($nombre_examen);
                             $capitulo->set_company_id($_SESSION['id']);
+                          
+                            die();
                             if ($capitulo->save()) {
                                 ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -143,9 +145,8 @@
                 </div>
                 <div class="modal-body">
                 <form method="post" action="">
-                    <div class="mb-3">
-                        <label for="numcapitulo" class="form-label">Numero del siguiente capitulo</label>
-                        <input type="number" class="form-control" id="numcapitulo" aria-describedby="emailHelp" name="numcapitulo" require>
+                    <div class="mb-3 text-center">
+                       <h4>Se va a añadir el capitulo No# "<?php echo informacionCompany::nextCap($_SESSION['id'])?>" </h4>
                     </div>
                     <div class="mb-3">
                         <label for="nombreexamen" class="form-label">Nombre del examen</label>

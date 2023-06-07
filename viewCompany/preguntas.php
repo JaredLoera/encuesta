@@ -101,7 +101,6 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Pregunta</th>
-                                <th scope="col">Estado</th>
                                 <th scope="col">Fecha de creacion</th>
                             </tr>
                         </thead>

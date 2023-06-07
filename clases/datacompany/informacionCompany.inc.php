@@ -79,6 +79,13 @@ class informacionCompany{
             }
         }
     }
+    public static function nextCap($id){
+        $consulta = "SELECT count(id) as num from capitulo where company_id=".$id;
+        Conexion::abrir_conexion();
+        $resultados = datosCompany::preguntaOnlyRow(Conexion::obtener_conexion(),$consulta);
+        Conexion::cerrar_conexion();
+        return $resultados->num + 1;
+    }
     public static function getCapitulos($conexion,$id){
         $consulta = "SELECT * from capitulo where company_id=".$id;
         $resultados = datosCompany::consultas($conexion,$consulta);
@@ -150,11 +157,6 @@ class informacionCompany{
                 <tr class="text-center">
                     <td><?php echo $contador ?></td>
                     <td><?php echo $info->pregunta; ?></td>
-                    <td>
-                    <input class="form-check-input" type="checkbox" value="<?php echo $info->estado; ?>" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                    </label>
-                    </td>
                     <td><?php echo $info->fecha_pregunta; ?></td>
                 </tr>
             <?php
