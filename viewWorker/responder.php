@@ -43,12 +43,59 @@
             $arreglo_respuesta = '';
             $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
             for ($i = 1; $i <= sizeof($_POST)-1; $i++) {
+                $tipo = datosWorker::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$inico");
                 $inlineRadioOptions = 'inlineRadioOptions' . $inico;
-                $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $$inlineRadioOptions];
+                if($tipo->calsificacion==1){
+                      switch ($$inlineRadioOptions) {
+                        case 'Siempre':
+                            $valor = 4;
+                            break;
+                        case 'Casi siempre':
+                            $valor = 3;
+                            break;
+                        case 'Algunas veces':
+                            $valor = 2;
+                            break;
+                        case 'Casi nunca':
+                            $valor = 1;
+                            break;
+                        case 'Nunca':
+                            $valor = 0;
+                            break;
+                        default:
+                            echo "Error";
+                            die();
+                            break;
+                      }
+                }else {
+                    switch ($$inlineRadioOptions) {
+                        case 'Siempre':
+                            $valor = 0;
+                            break;
+                        case 'Casi siempre':
+                            $valor = 1;
+                            break;
+                        case 'A veces':
+                            $valor = 2;
+                            break;
+                        case 'Casi nunca':
+                            $valor = 3;
+                            break;
+                        case 'Nunca':
+                            $valor = 4;
+                            break;
+                        default:
+                            echo "Error";
+                            die();
+                            break;
+                    }
+                }  
+                $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $$inlineRadioOptions, 'valor' => $valor];
                 $inico++;
             }
             $json = json_encode($arreglo_respuesta);
-            $userrespuesta = new userrespuesta();
+            print_r($json);
+           /* $userrespuesta = new userrespuesta();
             $userrespuesta->setUser_id($_SESSION['user_id']);
             $userrespuesta->setQuiz_id($_GET['idExam']);
             $userrespuesta->setRespuesta($json);
@@ -58,9 +105,8 @@
             } else {
                 echo "<script>alert('Error al guardar las respuestas');</script>";
                 echo "<script>window.location.replace('examenes.php?bloque=" . $_GET['cap'] . "');</script>";
-            }
-        }
-        ?>
+            }*/
+        }?>
         <form action="" method="post">
             <?php
             informacionWorker::preguntas($_GET['cap'], $_GET['idExam']);
