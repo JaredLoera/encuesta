@@ -67,6 +67,16 @@
                             <h1 class="fs-1 text-center">Respuestas del examen</h1>
                         </div>
                     </div>
+                    <div class="row mt-1">
+                        <div class="col">
+                            <h5 class="display-6">Titulo: <?php echo informacionWorker::titulo($_GET['idExam']) ?></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="display-7 mb-3">Descripcion: <?php echo informacionWorker::descripcion($_GET['idExam']) ?></h5>
+                        </div>
+                    </div>
                     <div class="row mt-4">
                     <div class="table-responsive">
                     <table class="table table-striped">

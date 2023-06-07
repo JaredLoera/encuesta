@@ -68,6 +68,16 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col">
+                        <h5 class="display-6">Titulo: <?php echo informacionWorker::titulo($_GET['bloque']) ?></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h5 class="display-7 mb-5">Descripcion: <?php echo informacionWorker::descripcion($_GET['bloque']) ?></h5>
+                    </div>
+                </div>
+                <div class="row">
                         <div class="col">
                         <div class="table-responsive">
                             <table class="table">
