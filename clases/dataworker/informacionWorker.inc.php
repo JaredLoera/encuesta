@@ -99,6 +99,9 @@ public static function quizNoFinished($contacto_id,$capitulo_id){
     Conexion::abrir_conexion();
     $resultados = datosWorker::preguntas(Conexion::obtener_conexion(),$sql);
     Conexion::cerrar_conexion();
+    echo "<pre>";
+    var_dump($resultados);
+    echo "</pre>";
     if (!$resultados) {
         ?>
        <h1 style="color:#DC797F;">No se encontraron examenes</h1>
