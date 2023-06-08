@@ -90,9 +90,10 @@ login::sessionRoot();
                             $idsPreguntas = datosRoot::consultas(Conexion::obtener_conexion(),$QuerynumQuestion);
                             foreach ($idsPreguntas as $idsPregunta) {
                                  $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$idsPregunta->id");
+                                 $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
+                                 $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
                                  if($tipo->calsificacion==1){
-                                      $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
-                                      $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
+                                      
                                     switch ($respuesta_aleatoria) {
                                         case 'Siempre':
                                             $valor = 4;
