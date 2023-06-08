@@ -3,14 +3,8 @@ class userrespuesta{
     public  $user_id;
     public  $quiz_id;
     public  $respuesta;
-    public  $fecha_respondido;
+ 
    //metods
-    public function __construct(){
-         $this-> fecha_respondido = date("Y-m-d");
-    }
-    public function getUser_id(){
-        return $this->user_id;
-    }
     public function getQuiz_id(){
         return $this->quiz_id;
     }
@@ -30,7 +24,7 @@ class userrespuesta{
         try{
             Conexion::abrir_conexion();
             $conexion = Conexion::obtener_conexion();
-            $sql = "INSERT INTO user_answer (user_id, quiz_id, answers,fecha_respondido) VALUES ('$this->user_id','$this->quiz_id','$this->respuesta','$this->fecha_respondido');";
+            $sql = "INSERT INTO user_answer (user_id, quiz_id, answers) VALUES ('$this->user_id','$this->quiz_id','$this->respuesta');";
             $resultado = $conexion->prepare($sql);
             $resultado->execute();
             Conexion::cerrar_conexion();

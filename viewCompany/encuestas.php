@@ -54,6 +54,11 @@
             <div id="content">
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                     <ul class="navbar-nav ml-auto">
+                        <a href="index.php" class="btn btn-outline-warning" style="border-radius: 35%;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"></path>
+                            </svg>
+                        </a>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
                         <div class="dropdown" style="margin-right: 30px;">
@@ -82,10 +87,12 @@
                         if (isset($_POST['guardarCapitulo'])) {
                            extract($_POST);
                             $capitulo = new Capitulo();
-                            $capitulo->set_numcapitulo($numcapitulo);
+                            $capitulo->set_numcapitulo(informacionCompany::nextCap($_SESSION['id']));
                             $capitulo->set_descripcion($descripcion);
                             $capitulo->set_nombre_examen($nombre_examen);
                             $capitulo->set_company_id($_SESSION['id']);
+                          
+                            die();
                             if ($capitulo->save()) {
                                 ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -138,9 +145,8 @@
                 </div>
                 <div class="modal-body">
                 <form method="post" action="">
-                    <div class="mb-3">
-                        <label for="numcapitulo" class="form-label">Numero del siguiente capitulo</label>
-                        <input type="number" class="form-control" id="numcapitulo" aria-describedby="emailHelp" name="numcapitulo" require>
+                    <div class="mb-3 text-center">
+                       <h4>Se va a añadir el capitulo No# "<?php echo informacionCompany::nextCap($_SESSION['id'])?>" </h4>
                     </div>
                     <div class="mb-3">
                         <label for="nombreexamen" class="form-label">Nombre del examen</label>

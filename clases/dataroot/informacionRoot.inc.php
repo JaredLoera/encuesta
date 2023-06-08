@@ -133,9 +133,10 @@ class informacionRoot
         return $resultado[0]->num;
     }
     public static function getQuizAnswers($conexion, $capitulo_id, $company_id)
-    {
-        $consulta = "SELECT quiz.id as id_quiz,fecha_inicio,capitulo.id as id_cap, numcapitulo from quiz join capitulo on quiz.capitulo_id= capitulo.id WHERE capitulo.company_id=$company_id and capitulo.id =$capitulo_id";
-
+    {   
+        $queryNumEmpleados = "SELECT count(id) as num from user where user.company_id=". $company_id .";";
+        $numEmpleados = datosRoot::preguntaOnlyRow($conexion,$queryNumEmpleados);
+        $consulta = "SELECT Qdates.id as id_quiz,fecha_inicio,capitulo.id as id_cap, numcapitulo from (select * from quiz)as Qdates join capitulo on Qdates.capitulo_id = capitulo.id WHERE capitulo.company_id=$company_id and capitulo.id=$capitulo_id ORDER BY fecha_inicio DESC;";
         $resultados = datosRoot::consultas($conexion, $consulta);
         if (!$resultados) {
             ?>
@@ -151,6 +152,26 @@ class informacionRoot
                     <td><?php echo $info->id_quiz; ?></td>
                     <td><?php echo $info->fecha_inicio; ?></td>
                     <td><?php echo $info->numcapitulo; ?></td>
+                    <td>
+                    <?php 
+                    $queryNumAnswersQuiz="SELECT count(*) as num FROM user_answer where quiz_id =$info->id_quiz;";
+                    $numAnswersQuiz = datosRoot::preguntaOnlyRow($conexion,$queryNumAnswersQuiz);
+                    if ($numAnswersQuiz->num == $numEmpleados->num) {
+                        ?>
+                            <button class="btn btn-success disabled">Todos terminados</button>
+                         <?php
+                    }else{
+                        ?>
+                       <form action="" method="post">
+                            <input type="hidden" value="<?php echo $info->id_quiz; ?>" name="idQuiz">
+                            <input type="hidden" value="<?php echo $info->id_cap; ?>" name="idCap">
+                            <button type="submit" name="radWay" class="btn btn-warning">Terminar random</button>
+                        </form>
+                        <?php
+                    }
+                    ?> 
+                    
+                    </td>
                     <td>
                         <form action="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&compyid=<?php echo $company_id; ?>" method="post">
                             <input type="hidden" value="<?php echo $capitulo_id; ?>" id="IdCaph<?php echo $info->id_quiz; ?>" name="IdCaph">
@@ -198,11 +219,6 @@ class informacionRoot
             }
         }
 
-
-        // echo '<pre>';
-        // print_r($resultados_sql);
-        // echo '</pre>';
-
         if (!$resultados) {
             ?>
             <tr>
@@ -235,10 +251,27 @@ class informacionRoot
                         <td class="text-center">0</td>
                         <td class="text-center">0</td>
                     </tr>
-<?php
+            <?php
                 }
                 $contador++;
             }
         }
+    }
+    public static function conprobarExamenesPendientes($user_id,$quiz_id){
+        Conexion::abrir_conexion();
+        $query = "SELECT * FROM user_answer WHERE user_id = $user_id AND quiz_id = $quiz_id";
+        $resultado = datosRoot::consultas(conexion::obtener_conexion(),$query);
+        Conexion::cerrar_conexion();
+        if(!$resultado){
+            return false;
+        }
+        return true;
+    }
+    public static function workersCompany($company_id){
+        Conexion::abrir_conexion();
+        $query = "SELECT id FROM user WHERE company_id = $company_id";
+        $resultado = datosRoot::consultas(conexion::obtener_conexion(),$query);
+        Conexion::cerrar_conexion();
+        return $resultado;
     }
 }

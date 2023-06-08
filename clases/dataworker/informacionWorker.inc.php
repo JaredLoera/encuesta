@@ -188,7 +188,7 @@ public static function getBlocksWorker($conexion,$user_id){
     }   
  }
  public static function getAnswersBlock($conexion,$capitulo_id,$user_id){
-    $consulta ="SELECT * from (select CI.user_id_table,quiz_id,CI.empresa from (select user.id as user_id_table,company_id as empresa from user where contacto_id =  $user_id) as CI join user_answer on user_answer.user_id = CI.user_id_table)as UUA join quiz on quiz.id = UUA.quiz_id where quiz.capitulo_id= $capitulo_id;
+    $consulta ="SELECT * from (select CI.user_id_table,quiz_id,CI.empresa from (select user.id as user_id_table,company_id as empresa from user where contacto_id =  $user_id) as CI join user_answer on user_answer.user_id = CI.user_id_table)as UUA join quiz on quiz.id = UUA.quiz_id where quiz.capitulo_id= $capitulo_id ORDER BY fecha_inicio DESC;
     ";
     $resultados = datosWorker::preguntas($conexion,$consulta);
     if (!$resultados) {
@@ -209,8 +209,8 @@ public static function getBlocksWorker($conexion,$user_id){
     }
  }
  //TRABAJANDING EN ESTA FUNCION
- public static function getAnswer($conexion,$quiz_id){
-    $consulta = "SELECT answers FROM user_answer where user_answer.id = ".$quiz_id;
+ public static function getAnswer($conexion,$quiz_id,$user_id){
+    $consulta = "SELECT answers FROM user_answer where quiz_id = ".$quiz_id." and user_id = ".$user_id.";";
     $resultados = datosWorker::preguntaOnlyRow($conexion,$consulta);
     if(!$resultados){
         ?>
