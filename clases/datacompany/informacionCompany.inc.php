@@ -30,7 +30,7 @@ class informacionCompany{
             $resultado = datosCompany::count($conexion,$sql);
             return $resultado[0]->num;
     }
-    public static function getWorkers($conexion,$id){
+    public static function getWorkers($conexion, $id){
         $consulta = "SELECT user.id ,concat(nombre, ' ',ap_paterno,' ',ap_materno) as nombre ,telefono,correo,rfc FROM user join contacto on  contacto.id = user.contacto_id where user.company_id=".$id;
         $resultados = datosCompany::consultas($conexion,$consulta);
         if (!$resultados) {
@@ -49,8 +49,8 @@ class informacionCompany{
                 <td><?php echo $info->correo; ?></td>
                 <td><?php echo $info->telefono; ?></td>
                 <td>
-                    <form action="respuestasWorker.php?id=<?php echo $info->id; ?>" method="post">
-                        <button type="submit" class="btn btn-outline-primary">Ver encuesta</button>
+                    <form action="vistaresultados.php?id=<?php echo $info->id; ?>" method="post">
+                        <button type="submit" class="btn btn-outline-primary">Ver Resultados de Encuesta</button>
                     </form>
                 </td>
             </tr>
@@ -361,5 +361,29 @@ class informacionCompany{
                 <?php
             }
         }  
+    }
+    public static function getAllSingleAnswers($user_id)
+    {
+        $consulta = "SELECT * FROM user WHERE id = $user_id";
+        Conexion::abrir_conexion();
+        $resultados = datosCompany::consultas(Conexion::obtener_conexion(), $consulta);
+        Conexion::cerrar_conexion();
+    }
+    public static function getCapitulosCount($conexion, $company_id, $bloque_id){
+        $consulta = "SELECT * from capitulo where company_id=".$company_id;
+        $resultados = datosCompany::consultas($conexion,$consulta);
+        if ($resultados) {
+            foreach ($resultados as $info) {
+                //echo $info->id;
+                $quiz = new Quiz();
+                $quiz->set_capitulo_id($info->id);
+                $quiz->set_bloque_id($bloque_id);
+                $quiz->saveBloque();  
+            }
+        ?>
+        <?php
+        return true;
+        }
+        return false;
     }
 }
