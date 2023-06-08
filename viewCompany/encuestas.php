@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,15 +14,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
 </head>
-            <?php 
-            include '../clases/login.inc.php';
-            include '../clases/database/conexion.inc.php';  
-            include '../clases/datacompany/informacionCompany.inc.php';
-            include '../clases/correos/correos.php';
-            include '../clases/modelos/worker.php';
-            include '../clases/modelos/capitulo.php';
-            login::sessionCompany();
-            ?>
+<?php
+include '../clases/login.inc.php';
+include '../clases/database/conexion.inc.php';
+include '../clases/datacompany/informacionCompany.inc.php';
+include '../clases/correos/correos.php';
+include '../clases/modelos/worker.php';
+include '../clases/modelos/capitulo.php';
+include '../clases/modelos/bloque.php';
+include '../clases/modelos/quiz.php';
+login::sessionCompany();
+?>
+
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -33,16 +37,16 @@
             </a>
             <hr class="border border-1 opacity-75">
             <li class="nav-item active">
-           <a class="nav-link fs-5" href="index.php"> Panel principal </a>
+                <a class="nav-link fs-5" href="index.php"> Panel principal </a>
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading fs-5">
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-            <?php
-               include 'links.php'; 
-            ?>
+                <?php
+                include 'links.php';
+                ?>
             </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -61,15 +65,15 @@
                         </a>
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <li class="nav-item dropdown no-arrow">
-                        <div class="dropdown" style="margin-right: 30px;">
-                        <a class="fs-5 mt-1 icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo $_SESSION['correo']; ?>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item fs-5" href="#">Configuración</a></li>
-                            <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
-                        </ul>
-                        </div>
+                            <div class="dropdown" style="margin-right: 30px;">
+                                <a class="fs-5 mt-1 icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <?php echo $_SESSION['correo']; ?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item fs-5" href="#">Configuración</a></li>
+                                    <li><a class="dropdown-item fs-5 link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="../clases/cerrar.inc.php">Salir</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </nav>
@@ -81,42 +85,75 @@
                         <div class="col">
                             <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Añadir capitulo</button>
                         </div>
+                        <div class="col-12 col-md mb-3 mb-md-0">
+                            <form action="" method="post">
+                                <button type="submit" class="btn btn-warning btn-lg w-100" name="aplicarBloque">Aplicar bloque de preguntas</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="row">
-                        <?php 
+                        <?php
+                        if (isset($_POST['aplicarBloque'])) {
+
+                            date_default_timezone_set('America/Mexico_City');
+                            $tiempo_en_segundos = time();
+                            $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
+
+                            $bloque = new Bloque();
+                            $bloque->set_folio("Encuesta-1 " . $fecha_actual);
+                            $bloque->set_company_id($_SESSION['id']);
+                            $resultado = $bloque->save();
+                            //var_dump($resultado);
+                            
+                            Conexion::abrir_conexion();
+                            $var = informacionCompany::getCapitulosCount(Conexion::obtener_conexion(), $_SESSION['id'], $resultado);
+                            Conexion::cerrar_conexion();
+
+                            if ($var == true){
+                                ?>
+
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>¡Bloque añadido!</strong> El bloque se añadio correctamente.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+
+                                <?php
+                            }
+                            
+                        }
+
                         if (isset($_POST['guardarCapitulo'])) {
-                           extract($_POST);
+                            extract($_POST);
                             $capitulo = new Capitulo();
                             $capitulo->set_numcapitulo(informacionCompany::nextCap($_SESSION['id']));
                             $capitulo->set_descripcion($descripcion);
                             $capitulo->set_nombre_examen($nombre_examen);
                             $capitulo->set_company_id($_SESSION['id']);
-                          
+
                             die();
                             if ($capitulo->save()) {
-                                ?>
+                        ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <strong>¡Capitulo añadido!</strong> El capitulo se añadio correctamente.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                                <?php
-                            }
-                            else{
-                                ?>
+                            <?php
+                            } else {
+                            ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>¡Error!</strong> El capitulo no se añadio correctamente.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
-                                <?php
+                        <?php
                             }
                         }
                         Conexion::abrir_conexion();
-                        informacionCompany::getCapitulos(Conexion::obtener_conexion(),$_SESSION['id']);
+                        informacionCompany::getCapitulos(Conexion::obtener_conexion(), $_SESSION['id']);
                         Conexion::cerrar_conexion();
                         ?>
-                           
+
                     </div>
-                
+
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
                 <!--MENSAJES DE CONFIRMACION EMPRESA AÑADIDAD-->
@@ -135,35 +172,36 @@
     </a>
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir Capitulo</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="">
-                    <div class="mb-3 text-center">
-                       <h4>Se va a añadir el capitulo No# "<?php echo informacionCompany::nextCap($_SESSION['id'])?>" </h4>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nombreexamen" class="form-label">Nombre del examen</label>
-                        <input type="text" class="form-control" id="nombre_examen" aria-describedby="emailHelp" name="nombre_examen" require>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">descripcion</label>
-                        <input type="text" class="form-control" id="descripcion" aria-describedby="emailHelp" name="descripcion" require>
-                    </div>      
+                    <form method="post" action="">
+                        <div class="mb-3 text-center">
+                            <h4>Se va a añadir el capitulo No# "<?php echo informacionCompany::nextCap($_SESSION['id']) ?>" </h4>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombreexamen" class="form-label">Nombre del examen</label>
+                            <input type="text" class="form-control" id="nombre_examen" aria-describedby="emailHelp" name="nombre_examen" require>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">descripcion</label>
+                            <input type="text" class="form-control" id="descripcion" aria-describedby="emailHelp" name="descripcion" require>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary" name="guardarCapitulo">Guardar</button>
                     </form>
                 </div>
-                </div>
             </div>
-            </div>
+        </div>
+    </div>
 </body>
+
 </html>

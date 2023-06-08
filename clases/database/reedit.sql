@@ -73,6 +73,17 @@ CREATE TABLE user_answer(
     FOREIGN KEY(user_id) REFERENCES user(id),
     FOREIGN KEY(quiz_id) REFERENCES quiz(id)
 );
+CREATE TABLE bloque(
+    id INT NOT NULL AUTO_INCREMENT,
+    folio VARCHAR(255) NOT NULL,
+    company_id INT NOT NULL,
+    fecha_ingreso datetime not null default current_timestamp,
+    PRIMARY KEY(id),
+    FOREIGN KEY(company_id) REFERENCES company(id)
+);
+
+ALTER TABLE quiz ADD COLUMN bloque_id INT NULL;
+ALTER TABLE quiz ADD FOREIGN KEY(bloque_id) REFERENCES bloque(id);
 
 
 DELIMITER $$ 

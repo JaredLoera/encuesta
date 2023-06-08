@@ -85,10 +85,7 @@ if (isset($_POST['IdCaph'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="table-responsive">
-                            <?php informacionCompany::getRespuestas($capId); ?>
-                        </div>
-
+                        <?php informacionCompany::getAllSingleAnswers($_GET['id']); ?>
                     </div>
                 </div>
 
