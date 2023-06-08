@@ -135,7 +135,6 @@ class informacionRoot
     public static function getQuizAnswers($conexion, $capitulo_id, $company_id)
     {
         $consulta = "SELECT quiz.id as id_quiz,fecha_inicio,capitulo.id as id_cap, numcapitulo from quiz join capitulo on quiz.capitulo_id= capitulo.id WHERE capitulo.company_id=$company_id and capitulo.id =$capitulo_id";
-
         $resultados = datosRoot::consultas($conexion, $consulta);
         if (!$resultados) {
             ?>
@@ -151,6 +150,12 @@ class informacionRoot
                     <td><?php echo $info->id_quiz; ?></td>
                     <td><?php echo $info->fecha_inicio; ?></td>
                     <td><?php echo $info->numcapitulo; ?></td>
+                    <td>
+                        <form action="" method="post">
+                            <input type="hidden" value="<?php echo $info->id_quiz; ?>" name="idQuiz">
+                            <button type="submit" name="radWay" class="btn btn-warning">Terminar random</button>
+                        </form>
+                    </td>
                     <td>
                         <form action="respuestas.php?quizid=<?php echo $info->id_quiz; ?>&compyid=<?php echo $company_id; ?>" method="post">
                             <input type="hidden" value="<?php echo $capitulo_id; ?>" id="IdCaph<?php echo $info->id_quiz; ?>" name="IdCaph">
@@ -197,11 +202,6 @@ class informacionRoot
                 $conteo_respuestas[$idPregunta][$respuesta_usuario]++;
             }
         }
-
-
-        // echo '<pre>';
-        // print_r($resultados_sql);
-        // echo '</pre>';
 
         if (!$resultados) {
             ?>
@@ -261,6 +261,7 @@ class informacionRoot
                 RIGHT JOIN quiz ON quiz.id = UAUC.quiz_id
                 WHERE capitulo_id = " . $_GET['idcap'] . " AND answers IS NULL";
                 $resultados_nohechos = datosRoot::consultas($conexion, $sql_nohechos);
+                die();
                 if ($resultados_nohechos == null) {
             ?>
                     <tr>
