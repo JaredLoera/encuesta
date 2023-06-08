@@ -78,11 +78,82 @@ login::sessionRoot();
                 <div class="container-fluid">
                     <?php 
                     if(isset($_POST['radWay'])){
-                      extract($_POST);
-                      echo $idQuiz;
-                      echo "<br>";
-                      echo $_GET['compyid'];
-                      die();
+                        extract($_POST);
+                        $idsWorkers = informacionRoot::workersCompany($_GET['compyid']);
+                        foreach ($idsWorkers as $ifids)
+                        {   
+                         if(!informacionRoot::conprobarExamenesPendientes($ifids->id,$idQuiz)){
+                            $QuerynumQuestion ="SELECT * FROM question where capitulo_id = ".$idCap;
+                            Conexion::abrir_conexion();
+                            $arreglo_respuesta = '';
+                            $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
+                            $idsPreguntas = datosRoot::consultas(Conexion::obtener_conexion(),$QuerynumQuestion);
+                            foreach ($idsPreguntas as $idsPregunta) {
+                                 $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$idsPregunta->id");
+                                 if($tipo->calsificacion==1){
+                                      $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
+                                      $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
+                                    switch ($respuesta_aleatoria) {
+                                        case 'Siempre':
+                                            $valor = 4;
+                                            break;
+                                        case 'Casi siempre':
+                                            $valor = 3;
+                                            break;
+                                        case 'Algunas veces':
+                                            $valor = 2;
+                                            break;
+                                        case 'Casi nunca':
+                                            $valor = 1;
+                                            break;
+                                        case 'Nunca':
+                                            $valor = 0;
+                                            break;
+                                        default:
+                                            echo "Error";
+                                            die();
+                                            break;
+                                      }
+                                 }else{
+                                    switch ($respuesta_aleatoria) {
+                                        case 'Siempre':
+                                            $valor = 0;
+                                            break;
+                                        case 'Casi siempre':
+                                            $valor = 1;
+                                            break;
+                                        case 'A veces':
+                                            $valor = 2;
+                                            break;
+                                        case 'Casi nunca':
+                                            $valor = 3;
+                                            break;
+                                        case 'Nunca':
+                                            $valor = 4;
+                                            break;
+                                        default:
+                                            echo "Error";
+                                            die();
+                                            break;
+                                    }
+                                 }
+                                 $arreglo_respuesta[] = ['idpregunta' => $idsPregunta->id, 'respuesta' => $respuesta_aleatoria, 'valor' => $valor];
+                            }
+                            Conexion::cerrar_conexion();
+                            $json = json_encode($arreglo_respuesta);
+                            $userrespuesta = new userrespuesta();
+                            $userrespuesta->setUser_id($ifids->id);
+                            $userrespuesta->setQuiz_id($idQuiz);
+                            $userrespuesta->setRespuesta($json);
+                            if ($userrespuesta->save()) {
+                                echo "<script>alert('Respuestas guardadas');</script>";
+                                echo "<script>window.location.replace('encuestasall.php');</script>";
+                            } else {
+                                echo "<script>alert('Error al guardar las respuestas');</script>";
+                                echo "<script>window.location.replace('encuestasall.php');</script>";
+                            }
+                         }
+                        }  
                     }
                     ?>
                     <div class="row">
@@ -108,30 +179,6 @@ login::sessionRoot();
                                     <?php
                                     Conexion::abrir_conexion();
                                     informacionRoot::getQuizAnswers(conexion::obtener_conexion(), $_GET['idcap'], $_GET['compyid']);
-                                    Conexion::cerrar_conexion();
-                                    ?>
-                                </tbody>
-                            </table><br><br>
-                            <div class="row">
-                                <div class="col">
-                                    <h1 class="h3 mb-0 text-gray-800">Exámenes NO finalizados</h1>
-                                </div>
-                            </div><br>
-                            <table class="table table-striped" style="text-align: center;">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th></th>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nombre del empleado</th>
-                                        <th scope="col">Fecha de aplicación</th>
-                                        <th scope="col">Finalizar Random</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    Conexion::abrir_conexion();
-                                    informacionRoot::ramdom(conexion::obtener_conexion(), $_GET['compyid']);
                                     Conexion::cerrar_conexion();
                                     ?>
                                 </tbody>

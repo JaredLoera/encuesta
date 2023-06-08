@@ -107,10 +107,12 @@ BEGIN
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi trabajo exige que esté muy concentrado",capitulo_id,1);/*7*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi trabajo requiere que memorice mucha información",capitulo_id,1);/*8*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi trabajo exige que atienda varios asuntos al mismo tiempo",capitulo_id,1);/*9*/
+
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("en mi trabajo soy responsable de cosas de mucho valor",capitulo_id,1);/*10*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("respondo ante mi jefe por los resultados de toda mi área de trabajo",capitulo_id,1);/*11*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("en mi trabajo me dan órdenes contradictorias",capitulo_id,1);/*12*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("considero que en mi trabajo me piden hacer cosas innecesarias",capitulo_id,1);/*13*/
+    
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("trabajo horas extras más de tres veces a la semana",capitulo_id,1);/*14*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi trabajo me exige laborar en días de descanso, festivos o fines de semana",capitulo_id,1);/*15*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales",capitulo_id,1);/*16*/
