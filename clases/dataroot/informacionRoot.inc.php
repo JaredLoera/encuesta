@@ -156,7 +156,7 @@ class informacionRoot
                     <?php 
                     $queryNumAnswersQuiz="SELECT count(*) as num FROM user_answer where quiz_id =$info->id_quiz;";
                     $numAnswersQuiz = datosRoot::preguntaOnlyRow($conexion,$queryNumAnswersQuiz);
-                    if ($numAnswersQuiz->num = $numEmpleados->num) {
+                    if ($numAnswersQuiz->num == $numEmpleados->num) {
                         ?>
                             <button class="btn btn-success disabled">Todos terminados</button>
                          <?php
