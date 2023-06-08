@@ -57,6 +57,14 @@ class informacionCompany{
             <?php
         }
     }
+    //para ver los bloques que ya estan hechos
+    public static function getWorkersId($conexion, $companyid){
+        Conexion::abrir_conexion();
+        $query = "SELECT id FROM user WHERE company_id = $companyid";
+        $resultado = datosCompany::consultas(conexion::obtener_conexion(),$query);
+        Conexion::cerrar_conexion();
+        return $resultado;
+    }
     public static function getAnswersUser($conexion,$id){
         $consulta ="SELECT pregunta.id as id_pregunta,pregunta.pregunta as pregunta,respuestasuser.respuesta as respuesta FROM pregunta join respuestasuser on pregunta.id = respuestasuser.pregunta_id where respuestasuser.user_id=" .$id;
         $resultados = datosCompany::consultas($conexion,$consulta);
