@@ -77,39 +77,70 @@ login::sessionCompany();
         </nav>
         <div class="container-fluid">
           <div class="row">
-            <form action="" class="form-inline" name="listaTrabajadores">
+            <form action="" method="post" class="form-inline">
               <select class="form-select form-select-lg mb-3" name="filtrarDatos" aria-label=".form-select-lg example">
-                <option selected disabled>Seleccione de que manera quiere ver los datos</option>
-                <option value="1">Trabajador individual</option>
+                <option value="1" selected>Trabajador individual</option>
                 <option value="2">Todos los trabajadores</option>
               </select>
-              <button type="submit" class="btn btn-primary btn-block mb-4">Filtrar</button>
+              <button type="submit" class="btn btn-primary btn-block mb-4" name="listaTrabajadores">Filtrar</button>
             </form>
             <div class="table-responsive">
               <table class="table table-striped">
-                <thead class="text-center">
-                  <tr class="table-dark">
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">RFC</th>
-                    <th scope="col">Correo</th>
-                    <th scope="col">teléfono</th>
-                    <th scope="col">acciones</th>
-                  </tr>
-                </thead>
-                <tbody class="text-center">
-                  <?php
-                  if (isset($_POST['listraTrabajadores'])) {
-                    $value = $_POST['filtrarDatos'];
-                    if($value == '1'){
-                      Conexion::abrir_conexion();
-                      informacionCompany::getWorkers(Conexion::obtener_conexion(), $_SESSION['id']);
-                      Conexion::cerrar_conexion();
-                    }
-                  }
+                <?php
 
-                  ?>
-                </tbody>
+                if (isset($_POST['listaTrabajadores'])) {
+
+                  $value = $_POST['filtrarDatos'];
+                  if ($value == '1') {
+                ?>
+                    <thead class="text-center">
+                      <tr class="table-dark">
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">RFC</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">teléfono</th>
+                        <th scope="col">acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    <?php
+                    Conexion::abrir_conexion();
+                    informacionCompany::getWorkers(Conexion::obtener_conexion(), $_SESSION['id']);
+                    Conexion::cerrar_conexion();
+                  } else {
+                    ?>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                    <?php
+                  }
+                } else {
+                    ?>
+                    <thead class="text-center">
+                      <tr class="table-dark">
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">RFC</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">teléfono</th>
+                        <th scope="col">acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    <?php
+                    Conexion::abrir_conexion();
+                    informacionCompany::getWorkers(Conexion::obtener_conexion(), $_SESSION['id']);
+                    Conexion::cerrar_conexion();
+                  }
+                    ?>
+                    </tbody>
               </table>
             </div>
           </div>
