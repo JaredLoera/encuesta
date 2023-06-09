@@ -21,6 +21,7 @@ include '../clases/dataroot/informacionRoot.inc.php';
 include '../clases/database/conexion.inc.php';
 include '../clases/modelos/company.php';
 include '../clases/correos/correos.php';
+include '../clases/modelos/bloque.php';
 login::sessionRoot();
 ?>
 
@@ -78,9 +79,39 @@ login::sessionRoot();
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Capítulos aplicados</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Información de la encuesta</h1>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Capítulos aplicados</h1>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Termianar encuesta
+                            </button>
+                        </div>
+                    </div>
+                    <?php
+                    if (isset($_POST['aplicarBloqueRandom'])) {
+
+                        date_default_timezone_set('America/Mexico_City');
+                            $tiempo_en_segundos = time();
+                            $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
+                            $bloque = new Bloque();
+                            $bloque->set_folio("Encuesta-1 " . $fecha_actual);
+                            $bloque->set_company_id($_SESSION['id']);
+                            print_r($bloque);
+                            die();
+                     ?> 
+                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>¡Quiz aplicado a la empresa!</strong> Se aplico aplico el bloque de quiz correctamente y se finalizaron correctamente.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                     <?php
+                    } 
+                    ?>
+                    
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <?php
                         informacionRoot::capitulosRespuestas($_GET['id']);
@@ -102,8 +133,27 @@ login::sessionRoot();
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                   <h4>¿Aplicar bloque y finalizar?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <form action="" method="post">
+                    <button type="submit" class="btn btn-primary" name="aplicarBloqueRandom">Save changes</button>
+                  </form>  
+                </div>
+                </div>
+            </div>
+            </div>
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
 </body>
-
 </html>

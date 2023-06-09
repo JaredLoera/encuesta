@@ -75,7 +75,7 @@
                         case 'Casi siempre':
                             $valor = 1;
                             break;
-                        case 'A veces':
+                        case 'Algunas veces':
                             $valor = 2;
                             break;
                         case 'Casi nunca':
