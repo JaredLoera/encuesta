@@ -385,7 +385,7 @@ class informacionCompany{
                 //echo $info->id;
                 $quiz = new Quiz();
                 $quiz->set_capitulo_id($info->id);
-                $quiz->set_bloque_id($bloque_id);
+                $quiz->set_bloqueinfo_id($bloque_id);
                 $quiz->saveBloque();  
             }
         ?>
@@ -402,19 +402,21 @@ class informacionCompany{
         WHERE bi.id = 1 AND bi.company_id = 1 AND c.company_id = 1
         GROUP BY bi.id, bi.nombre;
         ";
+
         $consulta = "SELECT bi.id, bi.nombre, COUNT(*) as num_capitulos
         FROM tercerEjemplo.bloque_info AS bi
         JOIN tercerEjemplo.capitulo AS c ON bi.id = c.bloqueinfo_id
         WHERE bi.id = $bloqueinfo_id AND bi.company_id = $company_id AND c.company_id = $company_id
         GROUP BY bi.id, bi.nombre;";
         $resultados = datosCompany::consultas($conexion,$consulta);
+        //var_dump($resultados);
 
         if ($resultados) {
             foreach ($resultados as $info) {
                 //echo $info->id;
                 $quiz = new Quiz();
                 $quiz->set_capitulo_id($info->id);
-                $quiz->set_bloque_id($bloque_id);
+                $quiz->set_bloqueinfo_id($bloque_id);
                 $quiz->saveBloque();  
             }
         ?>
