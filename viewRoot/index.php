@@ -232,8 +232,8 @@ login::sessionRoot();
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="Email" class="form-label">Email de la empresa</label>
-                            <input type="email" class="form-control" id="Email" placeholder="Ingrese el email de la empesa" aria-describedby="emailHelp" name="email" required>
+                            <label for="email" class="form-label">Email de la empresa</label>
+                            <input type="email" class="form-control" id="email" placeholder="Ingrese el email de la empesa" aria-describedby="emailHelp" name="email" required>
                             <div class="invalid-feedback">
                                 Por favor escriba el email.
                             </div>
