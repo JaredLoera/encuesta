@@ -94,28 +94,34 @@ login::sessionCompany();
                     <div class="row">
                         <?php
                         if (isset($_POST['aplicarBloque'])) {
-                            date_default_timezone_set('America/Mexico_City');
-                            $tiempo_en_segundos = time();
-                            $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
-                            $bloque = new Bloque();
-                            $bloque->set_folio("Encuesta-1 " . $fecha_actual);
-                            $bloque->set_company_id($_SESSION['id']);
-                            $resultado = $bloque->save();
                             Conexion::abrir_conexion();
-                            $var = informacionCompany::getCapitulosCount(Conexion::obtener_conexion(), $_SESSION['id'], $resultado);
+                            $idBloque = informacionCompany::getIdBloqueInfo("Encuesta-1", $_SESSION['id']);
                             Conexion::cerrar_conexion();
 
-                            if ($var == true){
-                                ?>
+                            if ($idBloque[0]->id == 1) {
+                                date_default_timezone_set('America/Mexico_City');
 
-                                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                    <strong>¡Bloque añadido!</strong> El bloque se añadio correctamente.
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
+                                $tiempo_en_segundos = time();
+                                $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
+                                $bloque = new Bloque();
+                                $bloque->set_folio($idBloque[0]->nombre . " " . $fecha_actual);
+                                $bloque->set_company_id($_SESSION['id']);
+                                $bloque->set_bloqueinfo_id($idBloque[0]->id);
+                                $resultado = $bloque->save();
+                                Conexion::abrir_conexion();
+                                $var = informacionCompany::getCapitulosPorBloque(Conexion::obtener_conexion(), $resultado, $_SESSION['id'], $idBloque[0]->id);
+                                Conexion::cerrar_conexion();
+
+                                if ($var == true) {
+                        ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <strong>¡Bloque añadido!</strong> El bloque se añadio correctamente.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
 
                                 <?php
+                                }
                             }
-                            
                         }
 
                         if (isset($_POST['guardarCapitulo'])) {
@@ -128,7 +134,7 @@ login::sessionCompany();
 
                             die();
                             if ($capitulo->save()) {
-                        ?>
+                                ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <strong>¡Capitulo añadido!</strong> El capitulo se añadio correctamente.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
