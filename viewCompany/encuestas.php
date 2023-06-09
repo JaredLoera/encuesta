@@ -95,21 +95,21 @@ login::sessionCompany();
                         <?php
                         if (isset($_POST['aplicarBloque'])) {
                             Conexion::abrir_conexion();
-                            $idBloque = informacionCompany::getIdBloqueInfo("Encuesta-1", $_SESSION['id']);
+                            $idBloqueInfo = informacionCompany::getIdBloqueInfo("Encuesta-1", $_SESSION['id']);
                             Conexion::cerrar_conexion();
 
-                            if ($idBloque[0]->id == 1) {
+                            if ($idBloqueInfo[0]->id == 1) {
                                 date_default_timezone_set('America/Mexico_City');
 
                                 $tiempo_en_segundos = time();
                                 $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
                                 $bloque = new Bloque();
-                                $bloque->set_folio($idBloque[0]->nombre . " " . $fecha_actual);
+                                $bloque->set_folio($idBloqueInfo[0]->nombre . " " . $fecha_actual);
                                 $bloque->set_company_id($_SESSION['id']);
-                                $bloque->set_bloqueinfo_id($idBloque[0]->id);
-                                $resultado = $bloque->save();
+                                $bloque->set_bloqueinfo_id($idBloqueInfo[0]->id);
+                                $idBloque = $bloque->save();
                                 Conexion::abrir_conexion();
-                                $var = informacionCompany::getCapitulosPorBloque(Conexion::obtener_conexion(), $resultado, $_SESSION['id'], $idBloque[0]->id);
+                                $var = informacionCompany::getCapitulosCount(Conexion::obtener_conexion(), $_SESSION['id'], $idBloque);
                                 Conexion::cerrar_conexion();
 
                                 if ($var == true) {

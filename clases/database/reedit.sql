@@ -100,30 +100,29 @@ ALTER TABLE capitulo ADD FOREIGN KEY(bloqueinfo_id) REFERENCES bloque_info(id);
 ALTER TABLE bloque ADD COLUMN bloqueinfo_id INT NULL;
 ALTER TABLE bloque ADD FOREIGN KEY(bloqueinfo_id) REFERENCES bloque_info(id);
 
-
 DELIMITER $$ 
-DROP PROCEDURE IF EXISTS `crearBloquesInfo` $$
-CREATE PROCEDURE `crearBloquesInfo`(IN empresa_id INT)
+DROP PROCEDURE IF EXISTS `crearBloquesInfoYRetornarId` $$ 
+CREATE PROCEDURE `crearBloquesInfoYRetornarId`(IN empresa_id INT, OUT blockinfo_id INT)
 BEGIN
-    INSERT INTO capitulo (nombre, company_id) VALUES 
-    ("Encuesta-1", empresa_id),
-    ("Encuesta-2", empresa_id),
-      
+    INSERT INTO bloque_info (nombre, company_id) VALUES ("Encuesta-1", empresa_id);
+    SET blockinfo_id = LAST_INSERT_ID();
 END$$
 DELIMITER ;
 
+
+
 DELIMITER $$ 
 DROP PROCEDURE IF EXISTS `crearCapitulos` $$
-CREATE PROCEDURE `crearCapitulos`(IN empresa_id INT)
+CREATE PROCEDURE `crearCapitulos`(IN empresa_id INT, IN blockinfo_id INT)
 BEGIN
     INSERT INTO capitulo (numcapitulo, company_id, descripcion, nombre_examen, bloqueinfo_id) VALUES 
-    (1, empresa_id, "El trabajador considerara las condiciones de su centro de trabajo asi como la calidad y ritmo de trabajo", "Condiciones del centro de trabajo", 1),
-    (2, empresa_id, "Las siguientes preguntas están relacionadas con las actividades que realiza en us trabajo y las responsabilidades que tiene", "responsabilidades- del trabajo", 1),
-    (3, empresa_id, "Las siguientes preguntas están relacionadas con el tiempo destinado a su trabajo y a sus responsabilidades familiares", "Tiempo en el trabajo y casa", 1),
-    (4, empresa_id, "Las siguientes preguntas están relacionadas con las decisiones que puede tomar en su trabajo", "Decisiones en el trabajo", 1),
-    (5, empresa_id, "Las preguntas siguientes están relacionadas con la capacitación e información que recibe su trabajo", "Capacitación e información en el trabajo", 1),
-    (6, empresa_id, "Las preguntas siguientes están relacionadas con las relaciones con sus compañeros de trabajo y su jefe", "Relaciones en el trabajo", 1),
-    (7, empresa_id, "Las siguientes preguntas están relacionadas con las actitudes de los trabajadores que supervisa","Supervisiones con empelados", 1)
+    (1, empresa_id, "El trabajador considerara las condiciones de su centro de trabajo asi como la calidad y ritmo de trabajo", "Condiciones del centro de trabajo", blockinfo_id),
+    (2, empresa_id, "Las siguientes preguntas están relacionadas con las actividades que realiza en us trabajo y las responsabilidades que tiene", "responsabilidades- del trabajo", blockinfo_id),
+    (3, empresa_id, "Las siguientes preguntas están relacionadas con el tiempo destinado a su trabajo y a sus responsabilidades familiares", "Tiempo en el trabajo y casa", blockinfo_id),
+    (4, empresa_id, "Las siguientes preguntas están relacionadas con las decisiones que puede tomar en su trabajo", "Decisiones en el trabajo", blockinfo_id),
+    (5, empresa_id, "Las preguntas siguientes están relacionadas con la capacitación e información que recibe su trabajo", "Capacitación e información en el trabajo", blockinfo_id),
+    (6, empresa_id, "Las preguntas siguientes están relacionadas con las relaciones con sus compañeros de trabajo y su jefe", "Relaciones en el trabajo", blockinfo_id),
+    (7, empresa_id, "Las siguientes preguntas están relacionadas con las actitudes de los trabajadores que supervisa","Supervisiones con empelados", blockinfo_id);
       
 END$$
 DELIMITER ;
@@ -222,10 +221,18 @@ END$$
 DELIMITER ;
 
 DELIMITER $$ 
-    DROP PROCEDURE IF EXISTS `obtenerCapitulos ` $$
-    CREATE PROCEDURE `obtenerCapitulos `(IN empresa_id INT)
+DROP PROCEDURE IF EXISTS `obtenerCapitulos` $$ 
+CREATE PROCEDURE `obtenerCapitulos`(IN empresa_id INT)
 BEGIN
-    SELECT * FROM capitulo WHERE empresa_id = empresa_id;
+    SELECT * FROM capitulo WHERE company_id = empresa_id;
+END$$
+DELIMITER ;
+
+DELIMITER $$ 
+DROP PROCEDURE IF EXISTS `obtenerBloquesInfo` $$ 
+CREATE PROCEDURE `obtenerBloquesInfo`(IN empresa_id INT)
+BEGIN
+    SELECT * FROM bloques_info WHERE company_id = empresa_id;
 END$$
 DELIMITER ;
 

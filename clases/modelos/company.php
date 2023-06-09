@@ -55,7 +55,15 @@ class company{
                 $resultado = Conexion::obtener_conexion()->prepare($sql);
                 $resultado->execute();
                 $idEmpresa = $conexion->lastInsertId();
-                $call = "CALL crearCapitulos($idEmpresa)";
+
+                $stmt = $conexion->prepare("CALL crearBloquesInfoYRetornarId(?, @blockinfo_id)");
+                $stmt->bindParam(1, $idEmpresa, PDO::PARAM_INT);
+                $stmt->execute();
+                $stmt = $conexion->query("SELECT @blockinfo_id AS blockinfo_id");
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $blockinfo_id = $row['blockinfo_id'];
+
+                $call = "CALL crearCapitulos($idEmpresa, $blockinfo_id)";
                 $sentenica = $conexion->query($call);
                 $caps = "Call obtenerCapitulos($idEmpresa)";
                 $sentenica = $conexion->query($caps);
