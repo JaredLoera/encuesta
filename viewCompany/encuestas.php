@@ -94,17 +94,13 @@ login::sessionCompany();
                     <div class="row">
                         <?php
                         if (isset($_POST['aplicarBloque'])) {
-
                             date_default_timezone_set('America/Mexico_City');
                             $tiempo_en_segundos = time();
                             $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
-
                             $bloque = new Bloque();
                             $bloque->set_folio("Encuesta-1 " . $fecha_actual);
                             $bloque->set_company_id($_SESSION['id']);
                             $resultado = $bloque->save();
-                            //var_dump($resultado);
-                            
                             Conexion::abrir_conexion();
                             $var = informacionCompany::getCapitulosCount(Conexion::obtener_conexion(), $_SESSION['id'], $resultado);
                             Conexion::cerrar_conexion();
