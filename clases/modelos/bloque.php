@@ -3,6 +3,7 @@ class Bloque
 {
     public $folio;
     public $company_id;
+    public $bloqueinfo_id;
 
     public function set_folio($folio)
     {
@@ -20,6 +21,14 @@ class Bloque
     {
         return $this->company_id;
     }
+    public function set_bloqueinfo_id($bloqueinfo_id)
+    {
+        $this->bloqueinfo_id = $bloqueinfo_id;
+    }
+    public function get_bloqueinfo_id()
+    {
+        return $this->bloqueinfo_id;
+    }
 
 
     //Metodos
@@ -28,12 +37,13 @@ class Bloque
         try {
             Conexion::abrir_conexion();
             $pdo = Conexion::obtener_conexion();
-            $sql = "INSERT INTO bloque (folio,company_id) VALUES ('$this->folio','$this->company_id')";
+
+            $sql = "INSERT INTO bloque (folio,company_id,bloqueinfo_id) VALUES ('$this->folio',$this->company_id, $this->bloqueinfo_id)";
             $consulta = $pdo->prepare($sql);
             $resultado = $consulta->execute();
-            Conexion::cerrar_conexion();
             if ($resultado) {
                 $lastInsertId = $pdo->lastInsertId();
+                Conexion::cerrar_conexion();
                 return $lastInsertId;
             } else {
 ?>

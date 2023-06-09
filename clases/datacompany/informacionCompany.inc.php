@@ -57,6 +57,14 @@ class informacionCompany{
             <?php
         }
     }
+    //para ver los bloques que ya estan hechos
+    public static function getWorkersId($conexion, $companyid){
+        Conexion::abrir_conexion();
+        $query = "SELECT id FROM user WHERE company_id = $companyid";
+        $resultado = datosCompany::consultas(conexion::obtener_conexion(),$query);
+        Conexion::cerrar_conexion();
+        return $resultado;
+    }
     public static function getAnswersUser($conexion,$id){
         $consulta ="SELECT pregunta.id as id_pregunta,pregunta.pregunta as pregunta,respuestasuser.respuesta as respuesta FROM pregunta join respuestasuser on pregunta.id = respuestasuser.pregunta_id where respuestasuser.user_id=" .$id;
         $resultados = datosCompany::consultas($conexion,$consulta);
@@ -385,5 +393,39 @@ class informacionCompany{
         return true;
         }
         return false;
+    }
+
+    public static function getCapitulosPorBloque($conexion, $bloque_id, $company_id, $bloqueinfo_id){
+        $prueba = "SELECT bi.id, bi.nombre, COUNT(*) as num_capitulos
+        FROM tercerEjemplo.bloque_info AS bi
+        JOIN tercerEjemplo.capitulo AS c ON bi.id = c.bloqueinfo_id
+        WHERE bi.id = 1 AND bi.company_id = 1 AND c.company_id = 1
+        GROUP BY bi.id, bi.nombre;
+        ";
+        $consulta = "SELECT bi.id, bi.nombre, COUNT(*) as num_capitulos
+        FROM tercerEjemplo.bloque_info AS bi
+        JOIN tercerEjemplo.capitulo AS c ON bi.id = c.bloqueinfo_id
+        WHERE bi.id = $bloqueinfo_id AND bi.company_id = $company_id AND c.company_id = $company_id
+        GROUP BY bi.id, bi.nombre;";
+        $resultados = datosCompany::consultas($conexion,$consulta);
+
+        if ($resultados) {
+            foreach ($resultados as $info) {
+                //echo $info->id;
+                $quiz = new Quiz();
+                $quiz->set_capitulo_id($info->id);
+                $quiz->set_bloque_id($bloque_id);
+                $quiz->saveBloque();  
+            }
+        ?>
+        <?php
+        return true;
+        }
+        return false;
+    }
+    public static function getIdBloqueInfo($nombre_bloque, $company_id){
+        $consulta = "SELECT * from bloque_info where nombre = ". "'$nombre_bloque'" . " AND company_id = $company_id";
+        $resultados = datosCompany::consultas(Conexion::obtener_conexion(),$consulta);
+        return $resultados;
     }
 }

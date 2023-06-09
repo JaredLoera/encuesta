@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="../assets/css/bootstrap-reboot.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="../assets/css/bootstrap.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <?php
 include '../clases/login.inc.php';
@@ -77,70 +76,25 @@ login::sessionCompany();
         </nav>
         <div class="container-fluid">
           <div class="row">
-            <form action="" method="post" class="form-inline">
-              <select class="form-select form-select-lg mb-3" name="filtrarDatos" aria-label=".form-select-lg example">
-                <option value="1" selected>Trabajador individual</option>
-                <option value="2">Todos los trabajadores</option>
-              </select>
-              <button type="submit" class="btn btn-primary btn-block mb-4" name="listaTrabajadores">Filtrar</button>
-            </form>
             <div class="table-responsive">
               <table class="table table-striped">
-                <?php
-
-                if (isset($_POST['listaTrabajadores'])) {
-
-                  $value = $_POST['filtrarDatos'];
-                  if ($value == '1') {
-                ?>
-                    <thead class="text-center">
-                      <tr class="table-dark">
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">RFC</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">teléfono</th>
-                        <th scope="col">acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    <?php
-                    Conexion::abrir_conexion();
-                    informacionCompany::getWorkers(Conexion::obtener_conexion(), $_SESSION['id']);
-                    Conexion::cerrar_conexion();
-                  } else {
-                    ?>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                    <?php
-                  }
-                } else {
-                    ?>
-                    <thead class="text-center">
-                      <tr class="table-dark">
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">RFC</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">teléfono</th>
-                        <th scope="col">acciones</th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    <?php
-                    Conexion::abrir_conexion();
-                    informacionCompany::getWorkers(Conexion::obtener_conexion(), $_SESSION['id']);
-                    Conexion::cerrar_conexion();
-                  }
-                    ?>
-                    </tbody>
+                <thead class="text-center">
+                  <tr class="table-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">RFC</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">teléfono</th>
+                    <th scope="col">acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <?php
+                  Conexion::abrir_conexion();
+                  informacionCompany::getWorkers(Conexion::obtener_conexion(), $_SESSION['id']);
+                  Conexion::cerrar_conexion();
+                  ?>
+                </tbody>
               </table>
             </div>
           </div>
@@ -223,11 +177,8 @@ login::sessionCompany();
       </div>
     </div>
   </div>
-
   <script src="../assets/js/bootstrap.bundle.js"></script>
   <script src="../assets/js/validaciones.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-
 </body>
 
 </html>

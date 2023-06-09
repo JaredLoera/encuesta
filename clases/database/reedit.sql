@@ -85,19 +85,45 @@ CREATE TABLE bloque(
 ALTER TABLE quiz ADD COLUMN bloque_id INT NULL;
 ALTER TABLE quiz ADD FOREIGN KEY(bloque_id) REFERENCES bloque(id);
 
+CREATE TABLE bloque_info(
+id INT NOT NULL AUTO_INCREMENT,
+nombre VARCHAR(255) NOT NULL,
+company_id INT NOT NULL,
+fecha_ingreso datetime not null default current_timestamp,
+PRIMARY KEY(id),
+FOREIGN KEY(company_id) REFERENCES company(id)
+);
+
+ALTER TABLE capitulo ADD COLUMN bloqueinfo_id INT NULL;
+ALTER TABLE capitulo ADD FOREIGN KEY(bloqueinfo_id) REFERENCES bloque_info(id);
+
+ALTER TABLE bloque ADD COLUMN bloqueinfo_id INT NULL;
+ALTER TABLE bloque ADD FOREIGN KEY(bloqueinfo_id) REFERENCES bloque_info(id);
+
+
+DELIMITER $$ 
+DROP PROCEDURE IF EXISTS `crearBloquesInfo` $$
+CREATE PROCEDURE `crearBloquesInfo`(IN empresa_id INT)
+BEGIN
+    INSERT INTO capitulo (nombre, company_id) VALUES 
+    ("Encuesta-1", empresa_id),
+    ("Encuesta-2", empresa_id),
+      
+END$$
+DELIMITER ;
 
 DELIMITER $$ 
 DROP PROCEDURE IF EXISTS `crearCapitulos` $$
 CREATE PROCEDURE `crearCapitulos`(IN empresa_id INT)
 BEGIN
-    INSERT INTO capitulo (numcapitulo, company_id, descripcion, nombre_examen) VALUES 
-    (1, empresa_id, "El trabajador considerara las condiciones de su centro de trabajo asi como la calidad y ritmo de trabajo", "Condiciones del centro de trabajo"),
-    (2, empresa_id, "Las siguientes preguntas están relacionadas con las actividades que realiza en us trabajo y las responsabilidades que tiene", "responsabilidades- del trabajo"),
-    (3, empresa_id, "Las siguientes preguntas están relacionadas con el tiempo destinado a su trabajo y a sus responsabilidades familiares", "Tiempo en el trabajo y casa"),
-    (4, empresa_id, "Las siguientes preguntas están relacionadas con las decisiones que puede tomar en su trabajo", "Decisiones en el trabajo"),
-    (5, empresa_id, "Las preguntas siguientes están relacionadas con la capacitación e información que recibe su trabajo", "Capacitación e información en el trabajo"),
-    (6, empresa_id, "Las preguntas siguientes están relacionadas con las relaciones con sus compañeros de trabajo y su jefe", "Relaciones en el trabajo"),
-    (7, empresa_id, "Las siguientes preguntas están relacionadas con las actitudes de los trabajadores que supervisa","Supervisiones con empelados")
+    INSERT INTO capitulo (numcapitulo, company_id, descripcion, nombre_examen, bloqueinfo_id) VALUES 
+    (1, empresa_id, "El trabajador considerara las condiciones de su centro de trabajo asi como la calidad y ritmo de trabajo", "Condiciones del centro de trabajo", 1),
+    (2, empresa_id, "Las siguientes preguntas están relacionadas con las actividades que realiza en us trabajo y las responsabilidades que tiene", "responsabilidades- del trabajo", 1),
+    (3, empresa_id, "Las siguientes preguntas están relacionadas con el tiempo destinado a su trabajo y a sus responsabilidades familiares", "Tiempo en el trabajo y casa", 1),
+    (4, empresa_id, "Las siguientes preguntas están relacionadas con las decisiones que puede tomar en su trabajo", "Decisiones en el trabajo", 1),
+    (5, empresa_id, "Las preguntas siguientes están relacionadas con la capacitación e información que recibe su trabajo", "Capacitación e información en el trabajo", 1),
+    (6, empresa_id, "Las preguntas siguientes están relacionadas con las relaciones con sus compañeros de trabajo y su jefe", "Relaciones en el trabajo", 1),
+    (7, empresa_id, "Las siguientes preguntas están relacionadas con las actitudes de los trabajadores que supervisa","Supervisiones con empelados", 1)
       
 END$$
 DELIMITER ;
