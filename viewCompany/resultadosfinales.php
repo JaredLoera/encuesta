@@ -87,29 +87,23 @@ login::sessionCompany();
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <?php
-
                                 if (isset($_POST['listaTrabajadores'])) {
-
                                     $value = $_POST['filtrarDatos'];
                                     if ($value == '1') {
                                 ?>
                                         <thead class="text-center">
                                             <tr class="table-dark">
+                                                <th></th>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">RFC</th>
+                                                <th scope="col">Nombre completo</th>
+                                                <th scope="col">Folio de Encuesta</th>
                                                 <th scope="col">Correo</th>
-                                                <th scope="col">teléfono</th>
-                                                <th scope="col">acciones</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-center">
                                             <?php
-                                            $tIds = informacionCompany::getWorkersId(Conexion::obtener_conexion(), $_SESSION['id']);
-                                            foreach ($tIds as $tId) {
-                                                $id = $tId['id'];
-                                                $tInfo = informacionCompany::getWorkers(Conexion::obtener_conexion(), $id);
-                                            }
+                                            informacionCompany::getAllWorkersWhoHasAQuizBlock($_SESSION['id']);
                                             ?>
                                         </tbody>
                                     <?php
@@ -131,22 +125,22 @@ login::sessionCompany();
                                     ?>
                                     <thead class="text-center">
                                         <tr class="table-dark">
+                                            <th></th>
                                             <th scope="col">#</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">RFC</th>
-                                            <th scope="col">Correo</th>
-                                            <th scope="col">teléfono</th>
-                                            <th scope="col">acciones</th>
+                                            <th scope="col">Nombre completo</th>
+                                            <th scope="col">Folio de Encuesta</th>
+                                            <th scope="col">Resultados</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
-                                    <?php
-                                    Conexion::abrir_conexion();
-                                    informacionCompany::getWorkers(Conexion::obtener_conexion(), $_SESSION['id']);
-                                    Conexion::cerrar_conexion();
-                                }
-                                    ?>
+                                        <?php
+                                        informacionCompany::getAllWorkersWhoHasAQuizBlock($_SESSION['id']);
+                                        ?>
                                     </tbody>
+                                <?php
+                                }
+                                ?>
                             </table>
                         </div>
                     </div>
