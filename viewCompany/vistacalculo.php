@@ -401,11 +401,75 @@ login::sessionCompany();
 
 
                             <!-- Aquí puedes poner tu gráfico pastel -->
-                            <div id="piechart" style="width: 900px; height: 500px;">
-                            <?php 
-                            Conexion::abrir_conexion();
-                            informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
-                            ?>
+                            <div id="piechart" style="height: 500px;">
+                                <?php
+                                Conexion::abrir_conexion();
+                                $cfinal = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
+                                Conexion::cerrar_conexion();
+                                ?>
+
+
+                                <div class="table-responsive mt-4">
+                                    <table class="table text-center">
+                                        <thead class="table-light text-center">
+                                            <tr>
+                                                <th scope="col">Resultado del cuestionario</th>
+                                                
+                                                    <?php
+                                                    if ($cfinal < 20) {
+                                                        ?><th scope="col" style="background-color: #00c0f3;"><?php
+                                                        echo "Nulo o despreciable";
+                                                        ?></th><?php
+                                                    } elseif ($cfinal >= 20 && $cfinal < 45) {
+                                                        ?><th scope="col" style="background-color: #16a53f;"><?php
+                                                        echo "Bajo";
+                                                        ?></th><?php
+                                                    } elseif ($cfinal >= 45 && $cfinal < 70) {
+                                                        ?><th scope="col" style="background-color: #ffff00;"><?php
+                                                        echo "Medio";
+                                                        ?></th><?php
+                                                    } elseif ($cfinal >= 70 && $cfinal < 90) {
+                                                        ?><th scope="col" style="background-color: #ff8000;"><?php
+                                                        echo "Alto";
+                                                        ?></th><?php
+                                                    } elseif ($cfinal > 90) {
+                                                        ?><th scope="col" style="background-color: #ff3600;"><?php
+                                                        echo "Muy Alto";
+                                                        ?></th><?php
+                                                    }
+                                                    ?>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <td>
+                                            Calificacion final del cuestionario
+                                        </td>
+                                        <?php
+                                        if ($cfinal < 20) {
+                                            ?><td scope="col" style="background-color: #00c0f3;"><?php
+                                            echo "$cfinal";
+                                            ?></td><?php
+                                        } elseif ($cfinal >= 20 && $cfinal < 45) {
+                                            ?><td scope="col" style="background-color: #16a53f;"><?php
+                                            echo "$cfinal";
+                                            ?></td><?php
+                                        } elseif ($cfinal >= 45 && $cfinal < 70) {
+                                            ?><td scope="col" style="background-color: #ffff00;"><?php
+                                            echo "$cfinal";
+                                            ?></td><?php
+                                        } elseif ($cfinal >= 70 && $cfinal < 90) {
+                                            ?><td scope="col" style="background-color: #ff8000;"><?php
+                                            echo "$cfinal";
+                                            ?></td><?php
+                                        } elseif ($cfinal > 90) {
+                                            ?><td scope="col" style="background-color: #ff3600;"><?php
+                                            echo "$cfinal";
+                                            ?></td><?php
+                                        }
+                                        ?>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>
