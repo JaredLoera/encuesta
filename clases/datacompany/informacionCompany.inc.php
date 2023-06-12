@@ -471,10 +471,11 @@ class informacionCompany
                     <td><?php echo $info->nombre . " " . $info->ap_paterno . " " . $info->ap_materno; ?></td>
                     <td><?php echo $info->folio_encuesta; ?></td>
                     <td>
-                        <form action="" method="POST">
-                            <button type="submit" name="" class="btn btn-link">Ver resultados</button>
+                        <form action="vistacalculo.php?sid=<?php echo $info->user_id;?>&fol=<?php echo $info->folio_encuesta ;?>" method="POST">
+                            <button type="submit" class="btn btn-link">Ver resultados</button>
                         </form>
                     </td>
+                    <td></td>
                 </tr>
 <?php
                 Conexion::cerrar_conexion();
