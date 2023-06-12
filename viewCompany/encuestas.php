@@ -100,7 +100,6 @@ login::sessionCompany();
 
                             if ($idBloqueInfo[0]->id == 1) {
                                 date_default_timezone_set('America/Mexico_City');
-
                                 $tiempo_en_segundos = time();
                                 $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
                                 $bloque = new Bloque();

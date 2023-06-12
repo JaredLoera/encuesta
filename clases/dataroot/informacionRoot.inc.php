@@ -274,4 +274,30 @@ class informacionRoot
         Conexion::cerrar_conexion();
         return $resultado;
     }
+    public static function getCapitulosCount($conexion, $company_id, $bloque_id)
+    {
+        $consulta = "SELECT * from capitulo where company_id=" . $company_id;
+        $resultados = datosRoot::consultas($conexion, $consulta);
+        if ($resultados) {
+            foreach ($resultados as $info) {
+                //echo $info->id;
+                $quiz = new Quiz();
+                $quiz->set_capitulo_id($info->id);
+                $quiz->set_bloqueinfo_id($bloque_id);
+                $quiz->saveBloque();
+            }
+            ?>
+        <?php
+            return true;
+        }
+        return false;
+    }
+    public static function getIdBloqueInfo($nombre_bloque, $company_id)
+    {
+        Conexion::abrir_conexion();
+        $consulta = "SELECT * from bloque_info where nombre = " . "'$nombre_bloque'" . " AND company_id = $company_id";
+        $resultados = datosRoot::preguntaOnlyRow(Conexion::obtener_conexion(), $consulta);
+        Conexion::cerrar_conexion();
+        return $resultados;
+    }
 }

@@ -94,15 +94,18 @@ login::sessionRoot();
                     </div>
                     <?php
                     if (isset($_POST['aplicarBloqueRandom'])) {
-
+                        $idBloqueInfo = informacionRoot::getIdBloqueInfo("Encuesta-1", $_GET['id']);
                         date_default_timezone_set('America/Mexico_City');
-                            $tiempo_en_segundos = time();
-                            $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
-                            $bloque = new Bloque();
-                            $bloque->set_folio("Encuesta-1 " . $fecha_actual);
-                            $bloque->set_company_id($_SESSION['id']);
-                            print_r($bloque);
-                            die();
+                        $tiempo_en_segundos = time();
+                        $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
+                        $bloque = new Bloque();
+                        $bloque->set_folio($idBloqueInfo->nombre . " " . $fecha_actual);
+                        $bloque->set_company_id($_GET['id']);
+                        $bloque->set_bloqueinfo_id($idBloqueInfo->id);
+                        $idlastBloque=$bloque->save();
+                        Conexion::abrir_conexion();
+                        $var = informacionRoot::getCapitulosCount(Conexion::obtener_conexion(), $_GET['id'], $idlastBloque);
+                        Conexion::cerrar_conexion();
                      ?> 
                      <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>¡Quiz aplicado a la empresa!</strong> Se aplico aplico el bloque de quiz correctamente y se finalizaron correctamente.
@@ -111,7 +114,6 @@ login::sessionRoot();
                      <?php
                     } 
                     ?>
-                    
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <?php
                         informacionRoot::capitulosRespuestas($_GET['id']);
