@@ -76,8 +76,50 @@ login::sessionCompany();
                 </nav>
                 <div class="container-fluid">
                     <div class="row justify-content-center">
+                    <?php
+                                Conexion::abrir_conexion();
+                                $cfinal = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
+                                Conexion::cerrar_conexion();
+                    ?>
+                    <h1 class="text-center my-3"><strong>RESULTADOS DE LA ENCUESTA</strong></h1><br>
+                    <div class="col-md-6">
+                        <table class="table table-bordered border-2" style="border-color: #00c0f3;">
+                            <thead>
+                                <tr class="fs-4">
+                                <th scope="col">Resultado del cuestionario</th>
+                                <th scope="col">Calificacion final del cuestionario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fs-4 text-center">
+                                <th scope="row">
+                                <?php
+                                    if ($cfinal < 20) {
+                                        echo "Nulo o despreciable";
+                                    } elseif ($cfinal >= 20 && $cfinal < 45) {
+                                        echo "Bajo";
+                                    } elseif ($cfinal >= 45 && $cfinal < 70) { 
+                                        echo "Medio";
+                                    } elseif ($cfinal >= 70 && $cfinal < 90) {     
+                                        echo "Alto";  
+                                    } elseif ($cfinal > 90) {
+                                        echo "Muy Alto";      
+                                    }
+                                ?>
+                                </th>
+                                <td>
+                                <h3><?php echo $cfinal ?></h3>
+                                </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                 
+
+                    </div>
+                    <div class="row justify-content-center">
                         <div class="col-md-10">
-                            <h1 class="text-center my-3"><strong>RESULTADOS DE LA ENCUESTA</strong></h1><br>
+
                             <p>Las respuestas a los ítems del cuestionario para la identificación de los factores de riesgo psicosocial deberán ser calificados, de acuerdo con la puntación de la Tabla siguiente:</p>
 
                             <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;">
@@ -402,11 +444,7 @@ login::sessionCompany();
 
                             <!-- grafica -->
                             <div id="piechart" style="height: 500px;">
-                                <?php
-                                Conexion::abrir_conexion();
-                                $cfinal = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
-                                Conexion::cerrar_conexion();
-                                ?>
+                             
 
 
                                 <div class="table-responsive mt-4">
