@@ -79,6 +79,7 @@ login::sessionCompany();
                     <?php
                                 Conexion::abrir_conexion();
                                 $cfinal = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
+                                $cAmbienteTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [2,1,3]);
                                 Conexion::cerrar_conexion();
                     ?>
                     <h1 class="text-center my-3"><strong>RESULTADOS DE LA ENCUESTA</strong></h1><br>
