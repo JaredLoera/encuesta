@@ -22,6 +22,8 @@ include '../clases/database/conexion.inc.php';
 include '../clases/modelos/company.php';
 include '../clases/correos/correos.php';
 include '../clases/modelos/bloque.php';
+include '../clases/modelos/quiz.php';
+include '../clases/modelos/userrespuesta.php';
 login::sessionRoot();
 ?>
 
@@ -106,6 +108,82 @@ login::sessionRoot();
                         Conexion::abrir_conexion();
                         $var = informacionRoot::getCapitulosCount(Conexion::obtener_conexion(), $_GET['id'], $idlastBloque);
                         Conexion::cerrar_conexion();
+                        $idsWorkers = informacionRoot::workersCompany($_GET['id']);
+                        $idQuizs= informacionRoot::getQuizs($idlastBloque);
+                        foreach ($idsWorkers as $ifids)
+                        { 
+                            foreach ($idQuizs as $idQuiz) {
+                                if(!informacionRoot::conprobarExamenesPendientes($ifids->id,$idQuiz->id)){
+                                    $QuerynumQuestion ="SELECT * FROM question where capitulo_id = ".$idQuiz->capitulo_id;
+                                    Conexion::abrir_conexion();
+                                    $arreglo_respuesta = '';
+                                    $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
+                                    $idsPreguntas = datosRoot::consultas(Conexion::obtener_conexion(),$QuerynumQuestion);
+                                        foreach ($idsPreguntas as $idsPregunta) {
+                                            $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$idsPregunta->id");
+                                            $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
+                                            $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
+                                            if($tipo->calsificacion==1){
+                                                 
+                                               switch ($respuesta_aleatoria) {
+                                                   case 'Siempre':
+                                                       $valor = 4;
+                                                       break;
+                                                   case 'Casi siempre':
+                                                       $valor = 3;
+                                                       break;
+                                                   case 'Algunas veces':
+                                                       $valor = 2;
+                                                       break;
+                                                   case 'Casi nunca':
+                                                       $valor = 1;
+                                                       break;
+                                                   case 'Nunca':
+                                                       $valor = 0;
+                                                       break;
+                                                   default:
+                                                       echo "Error";
+                                                       die();
+                                                       break;
+                                                 }
+                                            }else{
+                                               switch ($respuesta_aleatoria) {
+                                                   case 'Siempre':
+                                                       $valor = 0;
+                                                       break;
+                                                   case 'Casi siempre':
+                                                       $valor = 1;
+                                                       break;
+                                                   case 'Algunas veces':
+                                                       $valor = 2;
+                                                       break;
+                                                   case 'Casi nunca':
+                                                       $valor = 3;
+                                                       break;
+                                                   case 'Nunca':
+                                                       $valor = 4;
+                                                       break;
+                                                   default:
+                                                       echo "Error";
+                                                       die();
+                                                       break;
+                                               }
+                                            }
+                                            $arreglo_respuesta[] = ['idpregunta' => $idsPregunta->id, 'respuesta' => $respuesta_aleatoria, 'valor' => $valor];
+                                        }
+                                        Conexion::cerrar_conexion();
+                                        $json = json_encode($arreglo_respuesta);
+                                        $userrespuesta = new userrespuesta();
+                                        $userrespuesta->setUser_id($ifids->id);
+                                        $userrespuesta->setQuiz_id($idQuiz->id);
+                                        $userrespuesta->setRespuesta($json);
+                                        $userrespuesta->save();
+                                        $json = null;
+                                        $arreglo_respuesta = null;
+                                }
+                            }
+                         
+                        }
                      ?> 
                      <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>¡Quiz aplicado a la empresa!</strong> Se aplico aplico el bloque de quiz correctamente y se finalizaron correctamente.

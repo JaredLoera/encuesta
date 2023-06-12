@@ -3,6 +3,7 @@ include 'datosRoot.inc.php';
 class informacionRoot
 {
 
+
     public static function informacion($conexion)
     {
         $sql = "SELECT company.id as id_company,nombre,refimenFiscal,domicilio,pass,correo from company join contacto on contacto.id = company.contacto_id ;";
@@ -299,5 +300,12 @@ class informacionRoot
         $resultados = datosRoot::preguntaOnlyRow(Conexion::obtener_conexion(), $consulta);
         Conexion::cerrar_conexion();
         return $resultados;
+    }
+    public static function getQuizs($bloque_id){
+        Conexion::abrir_conexion();
+        $query = "SELECT * FROM quiz WHERE bloque_id = ".$bloque_id;
+        $resultado = datosRoot::consultas(conexion::obtener_conexion(),$query);
+        Conexion::cerrar_conexion();
+        return $resultado;
     }
 }
