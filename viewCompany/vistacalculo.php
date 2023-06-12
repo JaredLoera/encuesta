@@ -161,7 +161,7 @@ login::sessionCompany();
                             </div>
 
                             <br>
-                            
+
                             <div class="text-start mb-0">
                                 <p class="mb-1">Para obtener la calificación se deberá considerar la Tabla 2 que agrupa los ítems por categoría, dominio y dimensión, y proceder de la manera siguiente:</p>
                                 <p class="mb-1">1) Calificación del dominio (Cdom). Se obtiene sumando el puntaje de cada uno de los ítems que integran el dominio;</p>
@@ -401,7 +401,12 @@ login::sessionCompany();
 
 
                             <!-- Aquí puedes poner tu gráfico pastel -->
-                            <div id="piechart" style="width: 900px; height: 500px;"></div>
+                            <div id="piechart" style="width: 900px; height: 500px;">
+                            <?php 
+                            Conexion::abrir_conexion();
+                            informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
+                            ?>
+                            </div>
                         </div>
                     </div>
                 </div>
