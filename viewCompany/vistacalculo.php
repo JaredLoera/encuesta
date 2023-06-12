@@ -83,7 +83,30 @@ login::sessionCompany();
                     ?>
                     <h1 class="text-center my-3"><strong>RESULTADOS DE LA ENCUESTA</strong></h1><br>
                     <div class="col-md-6">
-                        <table class="table table-bordered border-2" style="border-color: #00c0f3;">
+                    <?php
+                                    if ($cfinal < 20) {
+                                         $estadoMental = "Nulo";
+                                         $color = "#00c0f3";
+                                         $mensaje="El riesgo resulta despreciable por lo que no se requiere medidas adicionales.";
+                                    } elseif ($cfinal >= 20 && $cfinal < 45) {
+                                         $estadoMental = "Bajo";
+                                         $color = "#16a53f";
+                                         $mensaje="Es necesario una mayor difusión de la política de prevención de riesgos psicosociales y programas para: la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral.";
+                                    } elseif ($cfinal >= 45 && $cfinal < 70) { 
+                                         $estadoMental = "Medio";
+                                            $color = "#ffff00";
+                                            $mensaje="Se requiere revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión, mediante un Programa de intervención";
+                                    } elseif ($cfinal >= 70 && $cfinal < 90) {     
+                                          $estadoMental = "Alto";  
+                                          $color = "#ff8000";
+                                          $mensaje ="Se requiere realizar un análisis de cada categoría y dominio, de manera que se puedan determinar las acciones de intervención apropiadas a través de un Programa de intervención, que podrá incluir una evaluación específica1 y deberá incluir una campaña de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.";
+                                    } elseif ($cfinal > 90) {
+                                         $estadoMental = "Muy Alto";   
+                                         $color = "#ff3600";   
+                                         $mensaje ="Se requiere realizar el análisis de cada categoría y dominio para establecer las acciones de intervención apropiadas, mediante un Programa de intervención que deberá incluir evaluaciones específicas1, y contemplar campañas de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.                                        ";
+                                    }
+                                ?>
+                        <table class="table table-bordered border-2" style="border-color: <?php echo $color ?>;">
                             <thead>
                                 <tr class="fs-4">
                                 <th scope="col">Resultado del cuestionario</th>
@@ -93,19 +116,7 @@ login::sessionCompany();
                             <tbody>
                                 <tr class="fs-4 text-center">
                                 <th scope="row">
-                                <?php
-                                    if ($cfinal < 20) {
-                                        echo "Nulo o despreciable";
-                                    } elseif ($cfinal >= 20 && $cfinal < 45) {
-                                        echo "Bajo";
-                                    } elseif ($cfinal >= 45 && $cfinal < 70) { 
-                                        echo "Medio";
-                                    } elseif ($cfinal >= 70 && $cfinal < 90) {     
-                                        echo "Alto";  
-                                    } elseif ($cfinal > 90) {
-                                        echo "Muy Alto";      
-                                    }
-                                ?>
+                                <?php echo $estadoMental ?>
                                 </th>
                                 <td>
                                 <h3><?php echo $cfinal ?></h3>
@@ -114,9 +125,18 @@ login::sessionCompany();
                             </tbody>
                         </table>
                         </div>
-                 
-
                     </div>
+                    <div class="row">
+                        <?php 
+                        ?>
+                        <div class="col">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Nota:</strong> <?php echo $mensaje ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row justify-content-center">
                         <div class="col-md-10">
 
@@ -443,72 +463,7 @@ login::sessionCompany();
 
 
                             <!-- grafica -->
-                            <div id="piechart" style="height: 500px;">
-                             
-
-
-                                <div class="table-responsive mt-4">
-                                    <table class="table text-center">
-                                        <thead class="table-light text-center">
-                                            <tr>
-                                                <th scope="col">Resultado del cuestionario</th>
-                                                
-                                                    <?php
-                                                    if ($cfinal < 20) {
-                                                        ?><th scope="col" style="background-color: #00c0f3;"><?php
-                                                        echo "Nulo o despreciable";
-                                                        ?></th><?php
-                                                    } elseif ($cfinal >= 20 && $cfinal < 45) {
-                                                        ?><th scope="col" style="background-color: #16a53f;"><?php
-                                                        echo "Bajo";
-                                                        ?></th><?php
-                                                    } elseif ($cfinal >= 45 && $cfinal < 70) {
-                                                        ?><th scope="col" style="background-color: #ffff00;"><?php
-                                                        echo "Medio";
-                                                        ?></th><?php
-                                                    } elseif ($cfinal >= 70 && $cfinal < 90) {
-                                                        ?><th scope="col" style="background-color: #ff8000;"><?php
-                                                        echo "Alto";
-                                                        ?></th><?php
-                                                    } elseif ($cfinal > 90) {
-                                                        ?><th scope="col" style="background-color: #ff3600;"><?php
-                                                        echo "Muy Alto";
-                                                        ?></th><?php
-                                                    }
-                                                    ?>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <td>
-                                            Calificacion final del cuestionario
-                                        </td>
-                                        <?php
-                                        if ($cfinal < 20) {
-                                            ?><td scope="col" style="background-color: #00c0f3;"><?php
-                                            echo "$cfinal";
-                                            ?></td><?php
-                                        } elseif ($cfinal >= 20 && $cfinal < 45) {
-                                            ?><td scope="col" style="background-color: #16a53f;"><?php
-                                            echo "$cfinal";
-                                            ?></td><?php
-                                        } elseif ($cfinal >= 45 && $cfinal < 70) {
-                                            ?><td scope="col" style="background-color: #ffff00;"><?php
-                                            echo "$cfinal";
-                                            ?></td><?php
-                                        } elseif ($cfinal >= 70 && $cfinal < 90) {
-                                            ?><td scope="col" style="background-color: #ff8000;"><?php
-                                            echo "$cfinal";
-                                            ?></td><?php
-                                        } elseif ($cfinal > 90) {
-                                            ?><td scope="col" style="background-color: #ff3600;"><?php
-                                            echo "$cfinal";
-                                            ?></td><?php
-                                        }
-                                        ?>
-                                    </table>
-                                </div>
-
-                            </div>
+                         
                         </div>
                     </div>
                 </div>
