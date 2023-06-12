@@ -514,15 +514,15 @@ class informacionCompany
             bloque.folio;";
         $resultados = datosCompany::consultas($conexion, $consulta);
 
-        $intrespuesta = 0;
+        $cfinal = 0;
 
         foreach ($resultados as $info) {
             $answers = json_decode($info->answers, true);
 
             foreach ($answers as $answer) {
-                $intrespuesta += $answer['valor'];
+                $cfinal += $answer['valor'];
             }
         }
-
+        return $cfinal;
     }
 }
