@@ -400,7 +400,7 @@ login::sessionCompany();
                             </div>
 
 
-                            <!-- Aquí puedes poner tu gráfico pastel -->
+                            <!-- grafica -->
                             <div id="piechart" style="height: 500px;">
                                 <?php
                                 Conexion::abrir_conexion();
