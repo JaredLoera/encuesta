@@ -97,8 +97,7 @@ login::sessionCompany();
                             Conexion::abrir_conexion();
                             $idBloqueInfo = informacionCompany::getIdBloqueInfo("Encuesta-1", $_SESSION['id']);
                             Conexion::cerrar_conexion();
-
-                            if ($idBloqueInfo[0]->id == 1) {
+                            if ($idBloqueInfo[0]->nombre == "Encuesta-1" ) {
                                 date_default_timezone_set('America/Mexico_City');
                                 $tiempo_en_segundos = time();
                                 $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
