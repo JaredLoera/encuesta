@@ -116,7 +116,9 @@ login::sessionCompany();
                                         </thead>
                                         <tbody class="text-center">
                                             <td>
-                                                <button type="button" class="btn btn-danger"> Ver resultados </button>
+                                                <form action="vistacalculoall.php" method="get">
+                                                    <button type="submit" class="btn btn-danger"> Ver resultados </button>
+                                                </form>
                                             </td>
                                         </tbody>
                                     <?php
