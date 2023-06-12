@@ -590,4 +590,49 @@ class informacionCompany
 
         return $promedio;
     }
+    public static function getAllBasedJsonAnswer($conexion, $company_id, $user_id, $folio, $array_numeros)
+    {
+        $consulta = "SELECT 
+        user.id AS user_id, 
+        user.nombre, 
+        user.ap_paterno,
+        user.ap_materno,
+        bloque.folio,
+        bloque_info.nombre AS bloque_nombre,
+        capitulo.nombre_examen AS capitulo_nombre,
+        capitulo.descripcion AS capitulo_descripcion,
+        user_answer.answers,
+        quiz.fecha_inicio AS fecha_inicio_quiz,
+        bloque.fecha_ingreso AS fecha_ingreso_bloque
+        FROM 
+            user
+        JOIN
+            user_answer ON user.id = user_answer.user_id
+        JOIN
+            quiz ON user_answer.quiz_id = quiz.id
+        JOIN
+            bloque ON quiz.bloque_id = bloque.id
+        JOIN
+            bloque_info ON bloque.bloqueinfo_id = bloque_info.id
+        JOIN
+            capitulo ON quiz.capitulo_id = capitulo.id
+            WHERE user.company_id = $company_id AND bloque.folio = " . "'$folio'" . " AND user.id = $user_id
+        ORDER BY 
+            user.id, 
+            bloque.folio;";
+        $resultados = datosCompany::consultas($conexion, $consulta);
+
+        $cfinal = 0;
+
+        foreach ($resultados as $info) {
+            $answers = json_decode($info->answers, true);
+
+            foreach ($answers as $answer) {
+                if (in_array($answer['idpregunta'], $array_numeros)) {
+                    $cfinal += $answer['valor'];
+                }
+            }
+        }
+        return $cfinal;
+    }
 }
