@@ -635,4 +635,71 @@ class informacionCompany
         }
         return $cfinal;
     }
+    public static function getAllJsonAnswersAllWorkers($conexion, $company_id, $array_numeros)
+    {
+        $consulta = "SELECT 
+        user.id AS user_id, 
+        user.nombre, 
+        user.ap_paterno,
+        user.ap_materno,
+        bloque.folio,
+        bloque_info.nombre AS bloque_nombre,
+        capitulo.nombre_examen AS capitulo_nombre,
+        capitulo.descripcion AS capitulo_descripcion,
+        user_answer.answers,
+        quiz.fecha_inicio AS fecha_inicio_quiz,
+        bloque.fecha_ingreso AS fecha_ingreso_bloque
+        FROM 
+            user
+        JOIN
+            user_answer ON user.id = user_answer.user_id
+        JOIN
+            quiz ON user_answer.quiz_id = quiz.id
+        JOIN
+            bloque ON quiz.bloque_id = bloque.id
+        JOIN
+            bloque_info ON bloque.bloqueinfo_id = bloque_info.id
+        JOIN
+            capitulo ON quiz.capitulo_id = capitulo.id
+            WHERE user.company_id = $company_id
+        ORDER BY 
+            user.id, 
+            bloque.folio;";
+
+        $resultados = datosCompany::consultas($conexion, $consulta);
+
+        $cfinal = 0;
+        $cantidad_respuestas = 0;
+        $folio_anterior = null;
+
+        foreach ($resultados as $info) {
+            $answers = json_decode($info->answers, true);
+
+            foreach ($answers as $answer) {
+                if(in_array($answer['idpregunta'], $array_numeros)){
+                    $cfinal += $answer['valor'];
+                }
+            }
+
+            // cambio de folio
+            if ($folio_anterior !== null && $folio_anterior !== $info->folio) {
+                $cantidad_respuestas++;
+            }
+
+            // guardar folio para proxima comparacion
+            $folio_anterior = $info->folio;
+        }
+
+        // si solo hay un folio único en los resultados, incremento
+        if ($cantidad_respuestas === 0 && $folio_anterior !== null) {
+            $cantidad_respuestas++;
+        }
+
+        $promedio = 0;
+        if ($cantidad_respuestas > 0) {
+            $promedio = $cfinal / $cantidad_respuestas;
+        }
+
+        return $promedio;
+    }
 }
