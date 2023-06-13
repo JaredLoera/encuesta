@@ -87,7 +87,7 @@ login::sessionRoot();
                         </div>
                         <div class="col">
                             <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Termianar encuesta
+                            Terminar encuesta
                             </button>
                         </div>
                     </div>
