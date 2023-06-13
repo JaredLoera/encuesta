@@ -430,7 +430,7 @@ class informacionCompany
                 $quiz->saveBloque();
             }
         ?>
-            <?php
+        <?php
             return true;
         }
         return false;
@@ -450,6 +450,47 @@ class informacionCompany
         INNER JOIN quiz AS q ON ua.quiz_id = q.id
         INNER JOIN bloque AS b ON q.bloque_id = b.id
         WHERE u.company_id = $company_id
+        GROUP BY u.id, b.folio;";
+
+        $resultados = datosCompany::consultas(Conexion::obtener_conexion(), $consulta);
+        if (!$resultados) {
+        ?>
+            <!-- colspan -->
+            <div class="col text-center">
+                <h2>
+                    No se encontraron datos
+                </h2>
+            </div>
+            <?php
+        } else {
+            foreach ($resultados as $info) {
+            ?>
+                <tr>
+                    <td></td>
+                    <td><?php echo $info->user_id; ?></td>
+                    <td><?php echo $info->nombre . " " . $info->ap_paterno . " " . $info->ap_materno; ?></td>
+                    <td><?php echo $info->folio_encuesta; ?></td>
+                    <td>
+                        <form action="vistacalculo.php?sid=<?php echo $info->user_id; ?>&fol=<?php echo $info->folio_encuesta; ?>" method="POST">
+                            <button type="submit" class="btn btn-link">Ver resultados</button>
+                        </form>
+                    </td>
+                    <td></td>
+                </tr>
+            <?php
+                Conexion::cerrar_conexion();
+            }
+        }
+    }
+    public static function getAllWorkersWhoHasAQuizBlockPerFolio($company_id, $folio)
+    {
+        Conexion::abrir_conexion();
+        $consulta = "SELECT u.id AS user_id, u.nombre, u.ap_paterno, u.ap_materno, u.rfc, u.telefono, b.folio AS folio_encuesta
+        FROM user AS u
+        INNER JOIN user_answer AS ua ON u.id = ua.user_id
+        INNER JOIN quiz AS q ON ua.quiz_id = q.id
+        INNER JOIN bloque AS b ON q.bloque_id = b.id
+        WHERE u.company_id = $company_id && b.folio = " . "'$folio'" . " 
         GROUP BY u.id, b.folio;";
 
         $resultados = datosCompany::consultas(Conexion::obtener_conexion(), $consulta);
@@ -477,6 +518,30 @@ class informacionCompany
                     </td>
                     <td></td>
                 </tr>
+            <?php
+                Conexion::cerrar_conexion();
+            }
+        }
+    }
+    public static function getAllFolios($company_id)
+    {
+        Conexion::abrir_conexion();
+        $consulta = "SELECT DISTINCT b.folio AS folio_encuesta
+        FROM user AS u
+        INNER JOIN user_answer AS ua ON u.id = ua.user_id
+        INNER JOIN quiz AS q ON ua.quiz_id = q.id
+        INNER JOIN bloque AS b ON q.bloque_id = b.id
+        WHERE u.company_id = $company_id;";
+
+        $resultados = datosCompany::consultas(Conexion::obtener_conexion(), $consulta);
+        if (!$resultados) {
+            ?>
+            <option value="" disabled>No hay folios actualmente</option>
+            <?php
+        } else {
+            foreach ($resultados as $info) {
+            ?>
+                <option value="<?php echo $info->folio_encuesta; ?>"><?php echo $info->folio_encuesta; ?></option>
 <?php
                 Conexion::cerrar_conexion();
             }
@@ -676,7 +741,7 @@ class informacionCompany
             $answers = json_decode($info->answers, true);
 
             foreach ($answers as $answer) {
-                if(in_array($answer['idpregunta'], $array_numeros)){
+                if (in_array($answer['idpregunta'], $array_numeros)) {
                     $cfinal += $answer['valor'];
                 }
             }

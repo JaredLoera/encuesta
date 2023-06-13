@@ -76,39 +76,42 @@ login::sessionCompany();
                     </ul>
                 </nav>
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row justify-content-center">
+
+
+                        <!-- form de elegir si todos o unos pocos -->
                         <form action="" method="post" class="form-inline">
+                            <h4>Selecciona por:</h4>
                             <select class="form-select form-select-lg mb-3" name="filtrarDatos" aria-label=".form-select-lg example">
                                 <option value="1" selected>Trabajador individual</option>
                                 <option value="2">Todos los trabajadores</option>
                             </select>
                             <button type="submit" class="btn btn-primary btn-block mb-4" name="listaTrabajadores">Filtrar</button>
                         </form>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <?php
-                                if (isset($_POST['listaTrabajadores'])) {
-                                    $value = $_POST['filtrarDatos'];
-                                    if ($value == '1') {
-                                ?>
-                                        <thead class="text-center">
-                                            <tr class="table-dark">
-                                                <th></th>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nombre completo</th>
-                                                <th scope="col">Folio de Encuesta</th>
-                                                <th scope="col">Correo</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-center">
-                                            <?php
-                                            informacionCompany::getAllWorkersWhoHasAQuizBlock($_SESSION['id']);
-                                            ?>
-                                        </tbody>
-                                    <?php
-                                    } elseif ($value == '2') {
-                                    ?>
+
+                        <?php if (isset($_POST['listaTrabajadores'])) {
+
+                            $value = $_POST['filtrarDatos'];
+
+                            if ($value == '1') { ?>
+                                <div class="col-md-6">
+                                    <h4>Selecciona el folio que deseas verificar:</h4>
+                                    <form action="" method="post" class="form-inline text-center">
+                                        <div class="form-group w-100">
+                                            <select name="filtrarFolios" class="form-select form-select-lg mb-3 w-100" aria-label=".form-select-lg example">
+                                                <option value="Todos" selected>Todos</option>
+                                                <?php
+                                                informacionCompany::getAllFolios($_SESSION['id']);
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-warning btn-block mb-4" name="listaFolios">Filtrar Folios</button>
+                                    </form>
+                                </div><?php
+                                    } elseif ($value == '2') { ?>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
                                         <thead class="text-center">
                                             <tr class="table-dark">
                                                 <th scope="col">Todos los trabajadores</th>
@@ -121,30 +124,58 @@ login::sessionCompany();
                                                 </form>
                                             </td>
                                         </tbody>
-                                    <?php
+                                    </table>
+                                </div>
+                            <?php
                                     }
-                                } else {
-                                    ?>
-                                    <thead class="text-center">
-                                        <tr class="table-dark">
-                                            <th></th>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Nombre completo</th>
-                                            <th scope="col">Folio de Encuesta</th>
-                                            <th scope="col">Resultados</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-center">
-                                        <?php
-                                        informacionCompany::getAllWorkersWhoHasAQuizBlock($_SESSION['id']);
-                                        ?>
-                                    </tbody>
-                                <?php
                                 }
-                                ?>
-                            </table>
-                        </div>
+                                $selectvalue = "Todos";
+                                if (isset($_POST['listaFolios'])) {
+
+                                    $selectvalue = $_POST['filtrarFolios'];
+
+                                    if ($selectvalue == 'Todos') { ?>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead class="text-center">
+                                            <tr class="table-dark">
+                                                <th></th>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nombre completo</th>
+                                                <th scope="col">Folio de Encuesta</th>
+                                                <th scope="col">Resultados</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <?php informacionCompany::getAllWorkersWhoHasAQuizBlock($_SESSION['id']); ?>
+                                        </tbody>
+                                    </table>
+                                </div><?php
+                                    } elseif ($selectvalue != "Todos") { ?>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead class="text-center">
+                                            <tr class="table-dark">
+                                                <th></th>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nombre completo</th>
+                                                <th scope="col">Folio de Encuesta</th>
+                                                <th scope="col">Resultados</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            <?php
+                                            informacionCompany::getAllWorkersWhoHasAQuizBlockPerFolio($_SESSION['id'], $selectvalue);
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div><?php
+
+                                    }
+                                }
+                                        ?>
                     </div>
                 </div>
                 <!--TERMINAN CARDS SUPERIORES-->
