@@ -454,7 +454,7 @@ class informacionCompany
 
         $resultados = datosCompany::consultas(Conexion::obtener_conexion(), $consulta);
         if (!$resultados) {
-            ?>S
+            ?>
             <!-- colspan -->
             <div class="col text-center">
                 <h2>
