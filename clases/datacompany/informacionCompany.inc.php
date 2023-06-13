@@ -628,7 +628,7 @@ class informacionCompany
         $resultados = datosCompany::consultas($conexion, $consulta);
 
         $cfinal = 0;
-        $cantidad_respuestas = 0;
+        $cantidad_respuestas = 1;
         $folio_anterior = null;
 
         foreach ($resultados as $info) {
