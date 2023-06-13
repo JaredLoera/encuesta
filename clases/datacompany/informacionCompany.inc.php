@@ -52,7 +52,7 @@ class informacionCompany
                 <td><?php echo $info->correo; ?></td>
                 <td><?php echo $info->telefono; ?></td>
                 <td>
-                    <form action="vistaresultados.php?id=<?php echo $info->id; ?>" method="post">
+                    <form action="resultadosfinales.php" method="post">
                         <button type="submit" class="btn btn-outline-primary">Ver Resultados de Encuesta</button>
                     </form>
                 </td>

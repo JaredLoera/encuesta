@@ -1,5 +1,5 @@
-create database finalSQL;
-use finalSQL;
+create database primaria;
+use primaria;
 
 create table tipo_user(
     id int not null auto_increment,
