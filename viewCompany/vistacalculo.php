@@ -236,7 +236,7 @@ login::sessionCompany();
                                     elseif ($cargaTrabajoDominio>=20 && $cargaTrabajoDominio<24) {
                                         $estadoCargaTrabajoDominio = "Alto";  
                                         $estadoCargaDominioColor = "#FFBC79";
-                                    }elseif ($cAmbienteTrabajoDominio>24) {
+                                    }elseif ($cargaTrabajoDominio>24) {
                                         $estadoCargaTrabajoDominio = "Muy Alto";   
                                         $estadoCargaDominioColor = "#EDADAD";   
                                     }
