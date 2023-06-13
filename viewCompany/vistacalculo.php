@@ -78,8 +78,9 @@ login::sessionCompany();
                     <div class="row justify-content-center">
                     <?php
                                 Conexion::abrir_conexion();
-                                $cfinal = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
-
+                                $arreglo = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
+                                $nombreEncuestado = $arreglo['user'];
+                                $cfinal = $arreglo['cfinal'];
                                 $cAmbienteTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [2,1,3]);
                                 $fPropiosDeActividad = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [4,9,5,6,7,8,41,42,43,10,11,12,13,20,21,22,18,19,26,27]);
                                 $oDelTiempoDeTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [14, 15,16,17]);
@@ -96,7 +97,8 @@ login::sessionCompany();
                                 Conexion::cerrar_conexion();
                     ?>
                     <h1 class="text-center my-3"><strong>RESULTADOS DE LA ENCUESTA</strong></h1><br>
-                    <div class="col-md-6">
+                    <h2 class="text-center"><?php echo $nombreEncuestado?></h2>
+                    <div class="col-md-6 mt-5">
                     <?php
                    
                                     if ($cfinal < 20) {

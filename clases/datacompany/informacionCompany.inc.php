@@ -485,10 +485,9 @@ class informacionCompany
     public static function getJsonAnswer($conexion, $company_id, $user_id, $folio)
     {
         $consulta = "SELECT 
-        user.id AS user_id, 
-        user.nombre, 
-        user.ap_paterno,
-        user.ap_materno,
+        user.id AS user_id,  CONCAT(user.nombre,' ', 
+        user.ap_paterno,' ',
+        user.ap_materno) AS nombre_completo,
         bloque.folio,
         bloque_info.nombre AS bloque_nombre,
         capitulo.nombre_examen AS capitulo_nombre,
@@ -517,13 +516,18 @@ class informacionCompany
         $cfinal = 0;
 
         foreach ($resultados as $info) {
+            $user=$info->nombre_completo;
             $answers = json_decode($info->answers, true);
 
             foreach ($answers as $answer) {
                 $cfinal += $answer['valor'];
             }
         }
-        return $cfinal;
+        $array = array(
+            "user" => $user,
+            "cfinal" => $cfinal
+        );
+        return $array;
     }
     public static function getAllJsonAnswers($conexion, $company_id)
     {
