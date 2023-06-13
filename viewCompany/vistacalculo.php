@@ -79,17 +79,20 @@ login::sessionCompany();
                     <?php
                                 Conexion::abrir_conexion();
                                 $cfinal = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
+
                                 $cAmbienteTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [2,1,3]);
                                 $fPropiosDeActividad = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [4,9,5,6,7,8,41,42,43,10,11,12,13,20,21,22,18,19,26,27]);
                                 $oDelTiempoDeTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [14, 15,16,17]);
                                 $lYRelacionesDeTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [23, 24, 25,28, 29,30, 31, 32,44, 45, 46,33, 34, 35, 36, 37, 38, 39, 40]);
-                                $cAmbienteTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
-                                $cargaTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
-                                $fControlSobreTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
-                                $jTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
-                                $iTrabajofamiliaDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
-                                $liderazgoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
-                                $rTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
+                                
+                                $cAmbienteTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [1,2,3]);
+                                $cargaTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [4,9,5, 6,7, 8,41, 42, 43,10, 11,12, 13]);
+                                $fControlSobreTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [20, 21, 22,18, 19,26,27]);
+                                $jTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [14, 15]);
+                                $iTrabajofamiliaDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [16,17]);
+                                $liderazgoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [23,24,25,28,29]);
+                                $rTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [30,31,32,44,45,46]);
+                                $violeciaDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [33,34,35, 36,37,38,39,40]);
                                 Conexion::cerrar_conexion();
                     ?>
                     <h1 class="text-center my-3"><strong>RESULTADOS DE LA ENCUESTA</strong></h1><br>
@@ -117,7 +120,7 @@ login::sessionCompany();
                                          $color = "#ff3600";   
                                          $mensaje ="Se requiere realizar el análisis de cada categoría y dominio para establecer las acciones de intervención apropiadas, mediante un Programa de intervención que deberá incluir evaluaciones específicas1, y contemplar campañas de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.                                        ";
                                     }
-                                   
+                                   ////////////////////////////////////////// PARA CALCULOS DE CATEGORIA
                                     if ($cAmbienteTrabajo<3) {                                    
                                         $estadoAmbiente = "Nulo";
                                         $estadoAmbienteColor = "#AEEEFF";
@@ -197,6 +200,169 @@ login::sessionCompany();
                                         $estadoLiderazgoTrabajo = "Muy Alto";   
                                         $estadoLiderazgoColor = "#EDADAD";   
                                     }
+                                        /////////////////////////////////////////////////////////////////////////////PARA CALCULO DE DOMINIO
+                                    if ($cAmbienteTrabajoDominio<3) {                                    
+                                        $estadoCondicionesTrabajoDominio = "Nulo";
+                                        $estadoCondiconesDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($cAmbienteTrabajoDominio >= 3 && $cAmbienteTrabajoDominio<5) {
+                                        $estadoCondicionesTrabajoDominio = "Bajo";
+                                        $estadoCondiconesDominioColor = "#72E894";
+                                    }
+                                    elseif ($cAmbienteTrabajoDominio >= 5 && $cAmbienteTrabajoDominio<7) {
+                                        $estadoCondicionesTrabajoDominio = "Medio";
+                                        $estadoCondiconesDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($cAmbienteTrabajoDominio>=7 && $cAmbienteTrabajoDominio<9) {
+                                        $estadoCondicionesTrabajoDominio = "Alto";  
+                                        $estadoCondiconesDominioColor = "#FFBC79";
+                                    }elseif ($cAmbienteTrabajoDominio>9) {
+                                        $estadoCondicionesTrabajoDominio = "Muy Alto";   
+                                        $estadoCondiconesDominioColor = "#EDADAD";   
+                                    }
+
+                                    if ($cargaTrabajoDominio<12) {                                    
+                                        $estadoCargaTrabajoDominio = "Nulo";
+                                        $estadoCargaDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($cargaTrabajoDominio >= 12 && $cargaTrabajoDominio<16) {
+                                        $estadoCargaTrabajoDominio = "Bajo";
+                                        $estadoCargaDominioColor = "#72E894";
+                                    }
+                                    elseif ($cargaTrabajoDominio >= 16 && $cargaTrabajoDominio<20) {
+                                        $estadoCargaTrabajoDominio = "Medio";
+                                        $estadoCargaDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($cargaTrabajoDominio>=20 && $cargaTrabajoDominio<24) {
+                                        $estadoCargaTrabajoDominio = "Alto";  
+                                        $estadoCargaDominioColor = "#FFBC79";
+                                    }elseif ($cAmbienteTrabajoDominio>24) {
+                                        $estadoCargaTrabajoDominio = "Muy Alto";   
+                                        $estadoCargaDominioColor = "#EDADAD";   
+                                    }
+
+                                    if ($fControlSobreTrabajoDominio<1) {                                    
+                                        $estadoControlTrabajoDominio = "Nulo";
+                                        $estadoControlDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($fControlSobreTrabajoDominio >= 5 && $fControlSobreTrabajoDominio<8) {
+                                        $estadoControlTrabajoDominio = "Bajo";
+                                        $estadoControlDominioColor = "#72E894";
+                                    }
+                                    elseif ($fControlSobreTrabajoDominio >= 8 && $fControlSobreTrabajoDominio<11) {
+                                        $estadoControlTrabajoDominio = "Medio";
+                                        $estadoControlDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($fControlSobreTrabajoDominio>=11 && $fControlSobreTrabajoDominio<14) {
+                                        $estadoControlTrabajoDominio = "Alto";  
+                                        $estadoControlDominioColor = "#FFBC79";
+                                    }elseif ($fControlSobreTrabajoDominio>14) {
+                                        $estadoControlTrabajoDominio = "Muy Alto";   
+                                        $estadoControlDominioColor = "#EDADAD";   
+                                    }
+
+                                    if ($jTrabajoDominio<1) {                                    
+                                        $estadoControlDominio = "Nulo";
+                                        $estadoJornadaDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($jTrabajoDominio >= 1 && $jTrabajoDominio<2) {
+                                        $estadoControlDominio = "Bajo";
+                                        $estadoJornadaDominioColor = "#72E894";
+                                    }
+                                    elseif ($jTrabajoDominio >= 2 && $jTrabajoDominio<4) {
+                                        $estadoControlDominio = "Medio";
+                                        $estadoJornadaDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($jTrabajoDominio>=4 && $jTrabajoDominio<6) {
+                                        $estadoControlDominio = "Alto";  
+                                        $estadoJornadaDominioColor = "#FFBC79";
+                                    }elseif ($jTrabajoDominio>6) {
+                                        $estadoControlDominio = "Muy Alto";   
+                                        $estadoJornadaDominioColor = "#EDADAD";   
+                                    }
+
+                                    if ($iTrabajofamiliaDominio<1) {                                    
+                                        $estadoFamiliaDominio = "Nulo";
+                                        $estadoFamiliaDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($iTrabajofamiliaDominio >= 1 && $iTrabajofamiliaDominio<2) {
+                                        $estadoFamiliaDominio = "Bajo";
+                                        $estadoFamiliaDominioColor = "#72E894";
+                                    }
+                                    elseif ($iTrabajofamiliaDominio >= 2 && $iTrabajofamiliaDominio<4) {
+                                        $estadoFamiliaDominio = "Medio";
+                                        $estadoFamiliaDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($iTrabajofamiliaDominio>=4 && $iTrabajofamiliaDominio<6) {
+                                        $estadoFamiliaDominio = "Alto";  
+                                        $estadoFamiliaDominioColor = "#FFBC79";
+                                    }elseif ($iTrabajofamiliaDominio>6) {
+                                        $estadoFamiliaDominio = "Muy Alto";   
+                                        $estadoFamiliaDominioColor = "#EDADAD";   
+                                    }
+
+                                    if ($liderazgoDominio<3) {                                    
+                                        $estadoLiderazgoDominio = "Nulo";
+                                        $estadoLiderazgoDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($liderazgoDominio >= 3 && $liderazgoDominio<5) {
+                                        $estadoLiderazgoDominio = "Bajo";
+                                        $estadoLiderazgoDominioColor = "#72E894";
+                                    }
+                                    elseif ($liderazgoDominio >= 5 && $liderazgoDominio<8) {
+                                        $estadoLiderazgoDominio = "Medio";
+                                        $estadoLiderazgoDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($liderazgoDominio>=8 && $liderazgoDominio<11) {
+                                        $estadoLiderazgoDominio = "Alto";  
+                                        $estadoLiderazgoDominioColor = "#FFBC79";
+                                    }elseif ($liderazgoDominio>11) {
+                                        $estadoLiderazgoDominio = "Muy Alto";   
+                                        $estadoLiderazgoDominioColor = "#EDADAD";   
+                                    }
+
+                                    if ($rTrabajoDominio<5) {                                    
+                                        $estadoRelacionesDominio = "Nulo";
+                                        $estadoRelacionesDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($rTrabajoDominio >= 5 && $rTrabajoDominio<8) {
+                                        $estadoRelacionesDominio = "Bajo";
+                                        $estadoRelacionesDominioColor = "#72E894";
+                                    }
+                                    elseif ($rTrabajoDominio >= 8 && $rTrabajoDominio<11) {
+                                        $estadoRelacionesDominio = "Medio";
+                                        $estadoRelacionesDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($rTrabajoDominio>=11 && $rTrabajoDominio<14) {
+                                        $estadoRelacionesDominio = "Alto";  
+                                        $estadoRelacionesDominioColor = "#FFBC79";
+                                    }
+                                    elseif ($rTrabajoDominio>14) {
+                                        $estadoRelacionesDominio = "Muy Alto";   
+                                        $estadoRelacionesDominioColor = "#EDADAD";   
+                                    }
+
+                                    if ($violeciaDominio<7) {                                    
+                                        $estadoViolenciaDominio = "Nulo";
+                                        $estadoViolenciaDominioColor = "#AEEEFF";
+                                    }
+                                    elseif ($violeciaDominio >= 7 && $violeciaDominio<10) {
+                                        $estadoViolenciaDominio = "Bajo";
+                                        $estadoViolenciaDominioColor = "#72E894";
+                                    }
+                                    elseif ($violeciaDominio >= 10 && $violeciaDominio<13) {
+                                        $estadoViolenciaDominio = "Medio";
+                                        $estadoViolenciaDominioColor = "#FFFF8F";
+                                    }
+                                    elseif ($violeciaDominio>=13 && $violeciaDominio<16) {
+                                        $estadoViolenciaDominio = "Alto";  
+                                        $estadoViolenciaDominioColor = "#FFBC79";
+                                    }
+                                    elseif ($violeciaDominio>16) {
+                                        $estadoViolenciaDominio = "Muy Alto";   
+                                        $estadoViolenciaDominioColor = "#EDADAD";   
+                                    }
+
                                 ?>
                         <table class="table table-bordered border-2" style="border-color: <?php echo $color ?>;">
                             <thead>
@@ -293,28 +459,36 @@ login::sessionCompany();
                             </thead>
                             <tbody class="fs-4">
                                 <tr>
-                                    <td>Condicion en el ambiente de trabajo</td>
+                                    <td style="background-color:<?php echo $estadoCondiconesDominioColor; ?>">Condicion en el ambiente de trabajo</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoCondiconesDominioColor; ?>"><?php echo $cAmbienteTrabajoDominio ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Carga de trabajo</td>
+                                    <td style="background-color:<?php echo $estadoCargaDominioColor; ?>">Carga de trabajo</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoCargaDominioColor; ?>"><?php echo $cargaTrabajoDominio ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Falta de control sobre el trabajo</td>
+                                    <td style="background-color:<?php echo $estadoControlDominioColor; ?>">Falta de control sobre el trabajo</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoControlDominioColor; ?>"><?php echo $fControlSobreTrabajoDominio ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Jornada de trabajo</td>
+                                    <td style="background-color:<?php echo $estadoJornadaDominioColor; ?>">Jornada de trabajo</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoJornadaDominioColor; ?>"><?php echo $jTrabajoDominio ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Inferencia en la relacion trabajo-familia</td>
+                                    <td style="background-color:<?php echo $estadoFamiliaDominioColor; ?>">Inferencia en la relacion trabajo-familia</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoFamiliaDominioColor; ?>"><?php echo $iTrabajofamiliaDominio ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Liderazgo</td>
+                                    <td style="background-color:<?php echo $estadoLiderazgoDominioColor; ?>">Liderazgo</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoLiderazgoDominioColor; ?>"><?php echo $liderazgoDominio ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Relaciones de trabajo</td>
+                                    <td style="background-color:<?php echo $estadoRelacionesDominioColor; ?>">Relaciones de trabajo</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoRelacionesDominioColor; ?>"><?php echo $rTrabajoDominio ?></td>
                                 </tr>
                                 <tr>
-                                    <td>Violencia</td>
+                                    <td style="background-color:<?php echo $estadoViolenciaDominioColor; ?>">Violencia</td>
+                                    <td class="text-center" style="background-color:<?php echo $estadoViolenciaDominioColor; ?>"><?php echo $violeciaDominio ?></td>
                                 </tr>
                             </tbody>
                         </table>
