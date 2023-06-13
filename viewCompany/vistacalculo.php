@@ -80,11 +80,22 @@ login::sessionCompany();
                                 Conexion::abrir_conexion();
                                 $cfinal = informacionCompany::getJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol']);
                                 $cAmbienteTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [2,1,3]);
+                                $fPropiosDeActividad = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [4,9,5,6,7,8,41,42,43,10,11,12,13,20,21,22,18,19,26,27]);
+                                $oDelTiempoDeTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [14, 15,16,17]);
+                                $lYRelacionesDeTrabajo = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], [23, 24, 25,28, 29,30, 31, 32,44, 45, 46,33, 34, 35, 36, 37, 38, 39, 40]);
+                                $cAmbienteTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
+                                $cargaTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
+                                $fControlSobreTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
+                                $jTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
+                                $iTrabajofamiliaDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
+                                $liderazgoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
+                                $rTrabajoDominio = informacionCompany::getAllBasedJsonAnswer(Conexion::obtener_conexion(), $_SESSION['id'], $_GET['sid'], $_GET['fol'], []);
                                 Conexion::cerrar_conexion();
                     ?>
                     <h1 class="text-center my-3"><strong>RESULTADOS DE LA ENCUESTA</strong></h1><br>
                     <div class="col-md-6">
                     <?php
+                   
                                     if ($cfinal < 20) {
                                          $estadoMental = "Nulo";
                                          $color = "#00c0f3";
@@ -105,6 +116,86 @@ login::sessionCompany();
                                          $estadoMental = "Muy Alto";   
                                          $color = "#ff3600";   
                                          $mensaje ="Se requiere realizar el análisis de cada categoría y dominio para establecer las acciones de intervención apropiadas, mediante un Programa de intervención que deberá incluir evaluaciones específicas1, y contemplar campañas de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.                                        ";
+                                    }
+                                   
+                                    if ($cAmbienteTrabajo<3) {                                    
+                                        $estadoAmbiente = "Nulo";
+                                        $estadoAmbienteColor = "#AEEEFF";
+                                    }
+                                    elseif ($cAmbienteTrabajo >= 3 && $cAmbienteTrabajo<5) {
+                                        $estadoAmbiente = "Bajo";
+                                        $estadoAmbienteColor = "#72E894";
+                                    }
+                                    elseif ($cAmbienteTrabajo >= 5 && $cAmbienteTrabajo<7) {
+                                        $estadoAmbiente = "Medio";
+                                        $estadoAmbienteColor = "#FFFF8F";
+                                    }
+                                    elseif ($cAmbienteTrabajo>=7 && $cAmbienteTrabajo<9) {
+                                        $estadoAmbiente = "Alto";  
+                                        $estadoAmbienteColor = "#FFBC79";
+                                    }elseif ($cAmbienteTrabajo>9) {
+                                        $estadoAmbiente = "Muy Alto";   
+                                        $estadoAmbienteColor = "#EDADAD";   
+                                    }
+
+                                    if ($fPropiosDeActividad<10) {                                    
+                                        $estadoFactoresPropios = "Nulo";
+                                        $estadoFactoresColor = "#AEEEFF";
+                                    }
+                                    elseif ($fPropiosDeActividad >= 10 && $fPropiosDeActividad<20) {
+                                        $estadoFactoresPropios = "Bajo";
+                                        $estadoFactoresColor = "#72E894";
+                                    }
+                                    elseif ($fPropiosDeActividad >= 20 && $fPropiosDeActividad<30) {
+                                        $estadoFactoresPropios = "Medio";
+                                        $estadoFactoresColor = "#FFFF8F";
+                                    }
+                                    elseif ($fPropiosDeActividad>=30 && $fPropiosDeActividad<40) {
+                                        $estadoFactoresPropios = "Alto";  
+                                        $estadoFactoresColor = "#FFBC79";
+                                    }elseif ($fPropiosDeActividad>40) {
+                                        $estadoFactoresPropios = "Muy Alto";   
+                                        $estadoFactoresColor = "#EDADAD";   
+                                    }
+
+                                    if ($oDelTiempoDeTrabajo<4) {                                    
+                                        $estadoOrganicacionTiempo = "Nulo";
+                                        $estadoOrgTiempoColor = "#AEEEFF";
+                                    }
+                                    elseif ($oDelTiempoDeTrabajo >= 4 && $oDelTiempoDeTrabajo<6) {
+                                        $estadoOrganicacionTiempo = "Bajo";
+                                        $estadoOrgTiempoColor = "#72E894";
+                                    }
+                                    elseif ($oDelTiempoDeTrabajo >= 6 && $oDelTiempoDeTrabajo<9) {
+                                        $estadoOrganicacionTiempo = "Medio";
+                                        $estadoOrgTiempoColor = "#FFFF8F";
+                                    }
+                                    elseif ($oDelTiempoDeTrabajo>=9 && $oDelTiempoDeTrabajo<12) {
+                                        $estadoOrganicacionTiempo = "Alto";  
+                                        $estadoOrgTiempoColor = "#FFBC79";
+                                    }elseif ($oDelTiempoDeTrabajo>12) {
+                                        $estadoOrganicacionTiempo = "Muy Alto";   
+                                        $estadoOrgTiempoColor = "#EDADAD";   
+                                    }
+
+                                    if ($lYRelacionesDeTrabajo<4) {                                    
+                                        $estadoLiderazgoTrabajo = "Nulo";
+                                        $estadoLiderazgoColor = "#AEEEFF";
+                                    }
+                                    elseif ($lYRelacionesDeTrabajo >= 4 && $lYRelacionesDeTrabajo<6) {
+                                        $estadoLiderazgoTrabajo = "Bajo";
+                                        $estadoLiderazgoColor = "#72E894";
+                                    }
+                                    elseif ($lYRelacionesDeTrabajo >= 6 && $lYRelacionesDeTrabajo<9) {
+                                        $estadoLiderazgoTrabajo = "Medio";
+                                        $estadoLiderazgoColor = "#FFFF8F";
+                                    }
+                                    elseif ($lYRelacionesDeTrabajo>=9 && $lYRelacionesDeTrabajo<12) {
+                                        $estadoLiderazgoTrabajo = "Alto";  
+                                        $estadoLiderazgoColor = "#FFBC79";
+                                    }elseif ($lYRelacionesDeTrabajo>12) {
+                                        $estadoLiderazgoTrabajo = "Muy Alto";   
+                                        $estadoLiderazgoColor = "#EDADAD";   
                                     }
                                 ?>
                         <table class="table table-bordered border-2" style="border-color: <?php echo $color ?>;">
@@ -137,7 +228,98 @@ login::sessionCompany();
                             </div>
                         </div>
                     </div>
-
+                    <div class="row mt-3 mb-2">
+                        <div class="col">
+                            <h2><strong>Calificacion por categoria</strong></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                        <table class="table table-bordered border-2">
+                            <thead>
+                                <tr class="fs-4">
+                                <th scope="col">Calificacion de la categoria</th>
+                                <th scope="col" class="text-center">Puntos obtenidos</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fs-4">
+                                <tr>
+                                <td scope="row" style="background-color:<?php echo $estadoAmbienteColor; ?>">
+                                Ambiente de trabajo
+                                </td>
+                                <td class="text-center" style="background-color:<?php echo $estadoAmbienteColor; ?>">
+                                <?php echo $cAmbienteTrabajo ?>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td style="background-color:<?php echo $estadoFactoresColor; ?>">Factores propios de actividad</td>
+                                <td class="text-center" style="background-color:<?php echo $estadoFactoresColor; ?>">
+                                    <?php echo $fPropiosDeActividad ?>
+                                </th>
+                                </tr>
+                                <tr>
+                                    <td style="background-color:<?php echo $estadoOrgTiempoColor; ?>">
+                                        Organización del tiempo de trabajo
+                                    </th>
+                                    <td class="text-center" style="background-color:<?php echo $estadoOrgTiempoColor; ?>">
+                                        <?php echo $oDelTiempoDeTrabajo ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  style="background-color:<?php echo $estadoLiderazgoColor; ?>">
+                                        Liderazgo y relaciones en el trabajo
+                                    </td>
+                                    <td class="text-center"  style="background-color:<?php echo $estadoLiderazgoColor; ?>">
+                                        <?php echo $lYRelacionesDeTrabajo ?>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <div class="row mt-3 mb-2">
+                        <div class="col">
+                            <h2><strong>Calificacion por dominio</strong></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                        <table class="table table-bordered border-2">
+                            <thead>
+                                <tr class="fs-4">
+                                <th scope="col">Calificacion del dominio</th>
+                                <th scope="col" class="text-center">Puntos obtenidos</th>
+                                </tr>
+                            </thead>
+                            <tbody class="fs-4">
+                                <tr>
+                                    <td>Condicion en el ambiente de trabajo</td>
+                                </tr>
+                                <tr>
+                                    <td>Carga de trabajo</td>
+                                </tr>
+                                <tr>
+                                    <td>Falta de control sobre el trabajo</td>
+                                </tr>
+                                <tr>
+                                    <td>Jornada de trabajo</td>
+                                </tr>
+                                <tr>
+                                    <td>Inferencia en la relacion trabajo-familia</td>
+                                </tr>
+                                <tr>
+                                    <td>Liderazgo</td>
+                                </tr>
+                                <tr>
+                                    <td>Relaciones de trabajo</td>
+                                </tr>
+                                <tr>
+                                    <td>Violencia</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
                     <div class="row justify-content-center">
                         <div class="col-md-10">
 
