@@ -112,16 +112,18 @@ login::sessionRoot();
                             foreach ($idQuizs as $idQuiz) {
                                 if(!informacionRoot::conprobarExamenesPendientes($ifids->id,$idQuiz->id)){
                                     $QuerynumQuestion ="SELECT * FROM question where capitulo_id = ".$idQuiz->capitulo_id;
-                                    Conexion::abrir_conexion();
                                     $arreglo_respuesta = '';
                                     $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
+                                    Conexion::abrir_conexion();
                                     $idsPreguntas = datosRoot::consultas(Conexion::obtener_conexion(),$QuerynumQuestion);
+                                    Conexion::cerrar_conexion();
                                         foreach ($idsPreguntas as $idsPregunta) {
+                                            Conexion::abrir_conexion();
                                             $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$idsPregunta->id");
+                                            Conexion::cerrar_conexion();
                                             $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
                                             $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
                                             if($tipo->calsificacion==1){
-                                                 
                                                switch ($respuesta_aleatoria) {
                                                    case 'Siempre':
                                                        $valor = 4;
@@ -168,7 +170,6 @@ login::sessionRoot();
                                             }
                                             $arreglo_respuesta[] = ['idpregunta' => $idsPregunta->id, 'respuesta' => $respuesta_aleatoria, 'valor' => $valor];
                                         }
-                                        Conexion::cerrar_conexion();
                                         $json = json_encode($arreglo_respuesta);
                                         $userrespuesta = new userrespuesta();
                                         $userrespuesta->setUser_id($ifids->id);
