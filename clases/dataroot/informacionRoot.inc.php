@@ -3,6 +3,7 @@ include 'datosRoot.inc.php';
 class informacionRoot
 {
 
+
     public static function informacion($conexion)
     {
         $sql = "SELECT company.id as id_company,nombre,refimenFiscal,domicilio,pass,correo from company join contacto on contacto.id = company.contacto_id ;";
@@ -23,8 +24,8 @@ class informacionRoot
                 <td><?php echo $resultado->domicilio; ?></td>
                 <td><?php echo $resultado->correo; ?></td>
                 <td>
-                    <form action="companyquiz.php?id=<?php echo $resultado->id_company; ?>" method="post">
-                        <button type="submit" class="btn btn-outline-primary">Ver encuestas</button>
+                    <form action="viewcapitulos.php?id=<?php echo $resultado->id_company; ?>" method="post">
+                        <button type="submit" class="btn btn-outline-primary">Ver Capitulos</button>
                     </form>
                 </td>
             </tr>
@@ -270,6 +271,39 @@ class informacionRoot
     public static function workersCompany($company_id){
         Conexion::abrir_conexion();
         $query = "SELECT id FROM user WHERE company_id = $company_id";
+        $resultado = datosRoot::consultas(conexion::obtener_conexion(),$query);
+        Conexion::cerrar_conexion();
+        return $resultado;
+    }
+    public static function getCapitulosCount($conexion, $company_id, $bloque_id)
+    {
+        $consulta = "SELECT * from capitulo where company_id=" . $company_id;
+        $resultados = datosRoot::consultas($conexion, $consulta);
+        if ($resultados) {
+            foreach ($resultados as $info) {
+                //echo $info->id;
+                $quiz = new Quiz();
+                $quiz->set_capitulo_id($info->id);
+                $quiz->set_bloqueinfo_id($bloque_id);
+                $quiz->saveBloque();
+            }
+            ?>
+        <?php
+            return true;
+        }
+        return false;
+    }
+    public static function getIdBloqueInfo($nombre_bloque, $company_id)
+    {
+        Conexion::abrir_conexion();
+        $consulta = "SELECT * from bloque_info where nombre = " . "'$nombre_bloque'" . " AND company_id = $company_id";
+        $resultados = datosRoot::preguntaOnlyRow(Conexion::obtener_conexion(), $consulta);
+        Conexion::cerrar_conexion();
+        return $resultados;
+    }
+    public static function getQuizs($bloque_id){
+        Conexion::abrir_conexion();
+        $query = "SELECT * FROM quiz WHERE bloque_id = ".$bloque_id;
         $resultado = datosRoot::consultas(conexion::obtener_conexion(),$query);
         Conexion::cerrar_conexion();
         return $resultado;

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,9 +19,11 @@ include '../clases/dataroot/informacionRoot.inc.php';
 include '../clases/database/conexion.inc.php';
 include '../clases/modelos/company.php';
 include '../clases/correos/correos.php';
+include '../clases/modelos/bloque.php';
+include '../clases/modelos/quiz.php';
+include '../clases/modelos/userrespuesta.php';
 login::sessionRoot();
 ?>
-
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -78,9 +78,118 @@ login::sessionRoot();
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Capítulos aplicados</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Información de la encuesta</h1>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Capítulos aplicados</h1>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Terminar encuesta
+                            </button>
+                        </div>
+                    </div>
+                    <?php
+                    if (isset($_POST['aplicarBloqueRandom'])) {
+                        $idBloqueInfo = informacionRoot::getIdBloqueInfo("Encuesta-1", $_GET['id']);
+                        date_default_timezone_set('America/Mexico_City');
+                        $tiempo_en_segundos = time();
+                        $fecha_actual = date("d-m-Y h:i:s", $tiempo_en_segundos);
+                        $bloque = new Bloque();
+                        $bloque->set_folio($idBloqueInfo->nombre . " " . $fecha_actual);
+                        $bloque->set_company_id($_GET['id']);
+                        $bloque->set_bloqueinfo_id($idBloqueInfo->id);
+                        $idlastBloque=$bloque->save();
+                        Conexion::abrir_conexion();
+                        $var = informacionRoot::getCapitulosCount(Conexion::obtener_conexion(), $_GET['id'], $idlastBloque);
+                        Conexion::cerrar_conexion();
+                        $idsWorkers = informacionRoot::workersCompany($_GET['id']);
+                        $idQuizs= informacionRoot::getQuizs($idlastBloque);
+                        foreach ($idsWorkers as $ifids)
+                        { 
+                            foreach ($idQuizs as $idQuiz) {
+                                if(!informacionRoot::conprobarExamenesPendientes($ifids->id,$idQuiz->id)){
+                                    $QuerynumQuestion ="SELECT * FROM question where capitulo_id = ".$idQuiz->capitulo_id;
+                                    $arreglo_respuesta = '';
+                                    $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
+                                    Conexion::abrir_conexion();
+                                    $idsPreguntas = datosRoot::consultas(Conexion::obtener_conexion(),$QuerynumQuestion);
+                                    Conexion::cerrar_conexion();
+                                        foreach ($idsPreguntas as $idsPregunta) {
+                                            Conexion::abrir_conexion();
+                                            $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion,item FROM question where id=$idsPregunta->id");
+                                            Conexion::cerrar_conexion();
+                                            $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
+                                            $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
+                                            if($tipo->calsificacion==1){
+                                               switch ($respuesta_aleatoria) {
+                                                   case 'Siempre':
+                                                       $valor = 4;
+                                                       break;
+                                                   case 'Casi siempre':
+                                                       $valor = 3;
+                                                       break;
+                                                   case 'Algunas veces':
+                                                       $valor = 2;
+                                                       break;
+                                                   case 'Casi nunca':
+                                                       $valor = 1;
+                                                       break;
+                                                   case 'Nunca':
+                                                       $valor = 0;
+                                                       break;
+                                                   default:
+                                                       echo "Error";
+                                                       die();
+                                                       break;
+                                                 }
+                                            }else{
+                                               switch ($respuesta_aleatoria) {
+                                                   case 'Siempre':
+                                                       $valor = 0;
+                                                       break;
+                                                   case 'Casi siempre':
+                                                       $valor = 1;
+                                                       break;
+                                                   case 'Algunas veces':
+                                                       $valor = 2;
+                                                       break;
+                                                   case 'Casi nunca':
+                                                       $valor = 3;
+                                                       break;
+                                                   case 'Nunca':
+                                                       $valor = 4;
+                                                       break;
+                                                   default:
+                                                       echo "Error";
+                                                       die();
+                                                       break;
+                                               }
+                                            }
+                                            $arreglo_respuesta[] = ['idpregunta' => $idsPregunta->id, 'respuesta' => $respuesta_aleatoria, 'valor' => $valor, 'item' => $tipo->item];
+                                        }
+                                        $json = json_encode($arreglo_respuesta);
+                                        $userrespuesta = new userrespuesta();
+                                        $userrespuesta->setUser_id($ifids->id);
+                                        $userrespuesta->setQuiz_id($idQuiz->id);
+                                        $userrespuesta->setRespuesta($json);
+                                        $userrespuesta->save();
+                                        $json = null;
+                                        $arreglo_respuesta = null;
+                                }
+                            }
+                         
+                        }
+                     ?> 
+                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>¡Quiz aplicado a la empresa!</strong> Se aplico aplico el bloque de quiz correctamente y se finalizaron correctamente.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                     <?php
+                    } 
+                    ?>
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <?php
                         informacionRoot::capitulosRespuestas($_GET['id']);
@@ -102,8 +211,27 @@ login::sessionRoot();
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                   <h4>¿Aplicar bloque y finalizar?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <form action="" method="post">
+                    <button type="submit" class="btn btn-primary" name="aplicarBloqueRandom">Save changes</button>
+                  </form>  
+                </div>
+                </div>
+            </div>
+            </div>
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
 </body>
-
 </html>

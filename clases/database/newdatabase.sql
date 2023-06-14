@@ -117,16 +117,19 @@ BEGIN
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi trabajo me exige laborar en días de descanso, festivos o fines de semana",capitulo_id,1);/*15*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("considero que el tiempo en el trabajo es mucho y perjudica mis actividades familiares o personales",capitulo_id,1);/*16*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("pienso en las actividades familiares o personales cuando estoy en mi trabajo",capitulo_id,1);/*17*/
+
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi trabajo permite que desarrolle nuevas habilidades",capitulo_id,2);/*18*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("en mi trabajo puedo aspirar a un mejor puesto",capitulo_id,2);/*19*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("durante mi jornada de trabajo puedo tomar pausas cuando las necesito",capitulo_id,2);/*20*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("puedo decidir cuánto trabajo realizo durante la jornada laboral",capitulo_id,2);/*21*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("puedo decidir la velocidad a la que realizo mis actividades en mi trabajo",capitulo_id,2);/*22*/
+
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("me informan con claridad cuáles son mis funciones",capitulo_id,2);/*23*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("me explican claramente los resultados que debo obtener en mi trabajo",capitulo_id,2);/*24*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("me informan con quién puedo resolver problemas o asuntos de trabajo",capitulo_id,2);/*25*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("me permiten asistir a capacitaciones relacionadas con mi trabajo",capitulo_id,2);/*26*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("recibo capacitación útil para hacer mi trabajo",capitulo_id,2);/*27*/
+
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi jefe tiene en cuenta mis puntos de vista y opiniones",capitulo_id,2);/*28*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("mi jefe ayuda a solucionar los problemas que se presentan en el trabajo",capitulo_id,2);/*29*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("puedo confiar en mis compañeros de trabajo",capitulo_id,2);/*30*/
@@ -140,6 +143,7 @@ BEGIN
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("se ignoran mis éxitos laborales y se atribuyen a otros trabajadores",capitulo_id,1);/*38*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("me bloquean o impiden las oportunidades que tengo para obtener ascenso o mejora en mi trabajo",capitulo_id,1);/*39*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("he presenciado actos de violencia en mi centro de trabajo",capitulo_id,1);/*40*/
+    
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("comunican tarde los asuntos del trabajo",capitulo_id,1);/*41*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("dificultan el logro de los resultados del trabajo",capitulo_id,1);/*42*/
     INSERT INTO question (pregunta,capitulo_id,calsificacion) VALUE("ignoran las sugerencias para mejorar su trabajo",capitulo_id,1);/*43*/

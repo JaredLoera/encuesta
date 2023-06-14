@@ -277,9 +277,9 @@ login::sessionCompany();
                         </div>
                         <div class="mb-3">
                             <label for="rfc" class="form-label">RFC del empleado</label>
-                            <input type="text" class="form-control" id="rfc" placeholder="RFC del empleado" aria-describedby="rfc" name="rfc" required>
+                            <input type="text" class="form-control" id="rfc" placeholder="RFC del empleado" aria-describedby="rfc" name="rfc" pattern="[A-ZÑ&]{3,4}\d{6}[A-V1-9][A-Z1-9][0-9A]" required>
                             <div class="invalid-feedback">
-                                Escriba el rfc del empleado
+                                Tiene que ser un rfc valido
                             </div>
                         </div>
                         <div class="mb-3">
