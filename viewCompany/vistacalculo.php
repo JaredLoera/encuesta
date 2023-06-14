@@ -117,7 +117,7 @@ login::sessionCompany();
                                           $estadoMental = "Alto";  
                                           $color = "#ff8000";
                                           $mensaje ="Se requiere realizar un análisis de cada categoría y dominio, de manera que se puedan determinar las acciones de intervención apropiadas a través de un Programa de intervención, que podrá incluir una evaluación específica1 y deberá incluir una campaña de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.";
-                                    } elseif ($cfinal > 90) {
+                                    } elseif ($cfinal >= 90) {
                                          $estadoMental = "Muy Alto";   
                                          $color = "#ff3600";   
                                          $mensaje ="Se requiere realizar el análisis de cada categoría y dominio para establecer las acciones de intervención apropiadas, mediante un Programa de intervención que deberá incluir evaluaciones específicas1, y contemplar campañas de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.                                        ";
@@ -138,7 +138,7 @@ login::sessionCompany();
                                     elseif ($cAmbienteTrabajo>=7 && $cAmbienteTrabajo<9) {
                                         $estadoAmbiente = "Alto";  
                                         $estadoAmbienteColor = "#FFBC79";
-                                    }elseif ($cAmbienteTrabajo>9) {
+                                    }elseif ($cAmbienteTrabajo>=9) {
                                         $estadoAmbiente = "Muy Alto";   
                                         $estadoAmbienteColor = "#EDADAD";   
                                     }
@@ -158,7 +158,7 @@ login::sessionCompany();
                                     elseif ($fPropiosDeActividad>=30 && $fPropiosDeActividad<40) {
                                         $estadoFactoresPropios = "Alto";  
                                         $estadoFactoresColor = "#FFBC79";
-                                    }elseif ($fPropiosDeActividad>40) {
+                                    }elseif ($fPropiosDeActividad>=40) {
                                         $estadoFactoresPropios = "Muy Alto";   
                                         $estadoFactoresColor = "#EDADAD";   
                                     }
@@ -178,7 +178,7 @@ login::sessionCompany();
                                     elseif ($oDelTiempoDeTrabajo>=9 && $oDelTiempoDeTrabajo<12) {
                                         $estadoOrganicacionTiempo = "Alto";  
                                         $estadoOrgTiempoColor = "#FFBC79";
-                                    }elseif ($oDelTiempoDeTrabajo>12) {
+                                    }elseif ($oDelTiempoDeTrabajo>=12) {
                                         $estadoOrganicacionTiempo = "Muy Alto";   
                                         $estadoOrgTiempoColor = "#EDADAD";   
                                     }
@@ -198,7 +198,7 @@ login::sessionCompany();
                                     elseif ($lYRelacionesDeTrabajo>=9 && $lYRelacionesDeTrabajo<12) {
                                         $estadoLiderazgoTrabajo = "Alto";  
                                         $estadoLiderazgoColor = "#FFBC79";
-                                    }elseif ($lYRelacionesDeTrabajo>12) {
+                                    }elseif ($lYRelacionesDeTrabajo>=12) {
                                         $estadoLiderazgoTrabajo = "Muy Alto";   
                                         $estadoLiderazgoColor = "#EDADAD";   
                                     }
@@ -218,7 +218,7 @@ login::sessionCompany();
                                     elseif ($cAmbienteTrabajoDominio>=7 && $cAmbienteTrabajoDominio<9) {
                                         $estadoCondicionesTrabajoDominio = "Alto";  
                                         $estadoCondiconesDominioColor = "#FFBC79";
-                                    }elseif ($cAmbienteTrabajoDominio>9) {
+                                    }elseif ($cAmbienteTrabajoDominio>=9) {
                                         $estadoCondicionesTrabajoDominio = "Muy Alto";   
                                         $estadoCondiconesDominioColor = "#EDADAD";   
                                     }
@@ -238,7 +238,7 @@ login::sessionCompany();
                                     elseif ($cargaTrabajoDominio>=20 && $cargaTrabajoDominio<24) {
                                         $estadoCargaTrabajoDominio = "Alto";  
                                         $estadoCargaDominioColor = "#FFBC79";
-                                    }elseif ($cargaTrabajoDominio>24) {
+                                    }elseif ($cargaTrabajoDominio>=24) {
                                         $estadoCargaTrabajoDominio = "Muy Alto";   
                                         $estadoCargaDominioColor = "#EDADAD";   
                                     }
@@ -258,7 +258,7 @@ login::sessionCompany();
                                     elseif ($fControlSobreTrabajoDominio>=11 && $fControlSobreTrabajoDominio<14) {
                                         $estadoControlTrabajoDominio = "Alto";  
                                         $estadoControlDominioColor = "#FFBC79";
-                                    }elseif ($fControlSobreTrabajoDominio>14) {
+                                    }elseif ($fControlSobreTrabajoDominio>=14) {
                                         $estadoControlTrabajoDominio = "Muy Alto";   
                                         $estadoControlDominioColor = "#EDADAD";   
                                     }
@@ -278,7 +278,7 @@ login::sessionCompany();
                                     elseif ($jTrabajoDominio>=4 && $jTrabajoDominio<6) {
                                         $estadoControlDominio = "Alto";  
                                         $estadoJornadaDominioColor = "#FFBC79";
-                                    }elseif ($jTrabajoDominio>6) {
+                                    }elseif ($jTrabajoDominio>=6) {
                                         $estadoControlDominio = "Muy Alto";   
                                         $estadoJornadaDominioColor = "#EDADAD";   
                                     }
@@ -298,7 +298,7 @@ login::sessionCompany();
                                     elseif ($iTrabajofamiliaDominio>=4 && $iTrabajofamiliaDominio<6) {
                                         $estadoFamiliaDominio = "Alto";  
                                         $estadoFamiliaDominioColor = "#FFBC79";
-                                    }elseif ($iTrabajofamiliaDominio>6) {
+                                    }elseif ($iTrabajofamiliaDominio>=6) {
                                         $estadoFamiliaDominio = "Muy Alto";   
                                         $estadoFamiliaDominioColor = "#EDADAD";   
                                     }
@@ -318,7 +318,7 @@ login::sessionCompany();
                                     elseif ($liderazgoDominio>=8 && $liderazgoDominio<11) {
                                         $estadoLiderazgoDominio = "Alto";  
                                         $estadoLiderazgoDominioColor = "#FFBC79";
-                                    }elseif ($liderazgoDominio>11) {
+                                    }elseif ($liderazgoDominio>=11) {
                                         $estadoLiderazgoDominio = "Muy Alto";   
                                         $estadoLiderazgoDominioColor = "#EDADAD";   
                                     }
@@ -339,7 +339,7 @@ login::sessionCompany();
                                         $estadoRelacionesDominio = "Alto";  
                                         $estadoRelacionesDominioColor = "#FFBC79";
                                     }
-                                    elseif ($rTrabajoDominio>14) {
+                                    elseif ($rTrabajoDominio>=14) {
                                         $estadoRelacionesDominio = "Muy Alto";   
                                         $estadoRelacionesDominioColor = "#EDADAD";   
                                     }
@@ -360,7 +360,7 @@ login::sessionCompany();
                                         $estadoViolenciaDominio = "Alto";  
                                         $estadoViolenciaDominioColor = "#FFBC79";
                                     }
-                                    elseif ($violeciaDominio>16) {
+                                    elseif ($violeciaDominio>=16) {
                                         $estadoViolenciaDominio = "Muy Alto";   
                                         $estadoViolenciaDominioColor = "#EDADAD";   
                                     }
