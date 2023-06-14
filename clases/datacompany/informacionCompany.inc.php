@@ -627,37 +627,32 @@ class informacionCompany
 
         $resultados = datosCompany::consultas($conexion, $consulta);
 
-        $cfinal = 0;
-        $cantidad_respuestas = 1;
-        $folio_anterior = null;
+        $totales_por_folio = [];
+        $usuarios_por_folio = [];
 
         foreach ($resultados as $info) {
             $answers = json_decode($info->answers, true);
 
             foreach ($answers as $answer) {
-                $cfinal += $answer['valor'];
+                if (!isset($totales_por_folio[$info->folio])) {
+                    $totales_por_folio[$info->folio] = 0;
+                    $usuarios_por_folio[$info->folio] = [];
+                }
+
+                $totales_por_folio[$info->folio] += $answer['valor'];
+                $usuarios_por_folio[$info->folio][$info->user_id] = true; // contamos los usuarios únicos
             }
-
-            // cambio de folio
-            if ($folio_anterior !== null && $folio_anterior !== $info->folio) {
-                $cantidad_respuestas++;
-            }
-
-            // guardar folio para proxima comparacion
-            $folio_anterior = $info->folio;
         }
 
-        // si solo hay un folio único en los resultados, incremento
-        if ($cantidad_respuestas === 0 && $folio_anterior !== null) {
-            $cantidad_respuestas++;
+        // suma total y el total de usuarios por folio
+        foreach ($totales_por_folio as $folio => $total) {
+            $totales_por_folio[$folio] = $total / count($usuarios_por_folio[$folio]);
         }
 
-        $promedio = 0;
-        if ($cantidad_respuestas > 0) {
-            $promedio = $cfinal / $cantidad_respuestas;
-        }
+        // Ahora, calculamos el promedio de todos los totales
+        $promedio_total = array_sum($totales_por_folio) / count($totales_por_folio);
 
-        return $promedio;
+        return $promedio_total;
     }
     public static function getAllBasedJsonAnswer($conexion, $company_id, $user_id, $folio, $array_numeros)
     {
