@@ -316,16 +316,13 @@ login::sessionCompany();
 
         inputCorreo.addEventListener('input', function() {
             $('#correo').removeClass('is-invalid');
-            $('.btn-primary').removeAttr('disabled');
         });
 
         (() => {
             'use strict'
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
             const forms = document.querySelectorAll('.needs-validation')
 
-            // Loop over them and prevent submission
             Array.from(forms).forEach(form => {
                 form.addEventListener('submit', event => {
                     if (!form.checkValidity()) {
@@ -338,7 +335,6 @@ login::sessionCompany();
             })
         })()
 
-
         function validarTel(input) {
             var originalValue = input.value;
             var noSpaceValue = originalValue.replace(/\s+/g, '');
@@ -347,7 +343,7 @@ login::sessionCompany();
                 input.setCustomValidity("El número de teléfono debe tener exactamente 10 dígitos sin espacios.");
             } else {
                 input.setCustomValidity("");
-                input.value = noSpaceValue; // remueve espacios cuando es la longitud adecuada, pero como hice las validaciones de boootstrap, no deberia pasar
+                input.value = noSpaceValue;
             }
         }
 
@@ -356,78 +352,74 @@ login::sessionCompany();
             validarTel(telefonoInput);
             return telefonoInput.reportValidity();
         }
+
         $('#exampleModal').on('hidden.bs.modal', function(e) {
             $('#addPersona')[0].reset();
         })
-
-        $('#addPersona').on('submit', function() {
-            if (this.checkValidity()) {
-                $(this).find(':submit').attr('disabled', 'disabled');
-            }
-        });
 
         $(document).ready(function() {
             $('#addPersona').on('submit', function(event) {
                 event.preventDefault();
 
-                var correo = $('#correo').val();
+                if (this.checkValidity()) {
+                    var correo = $('#correo').val();
 
-                if (correo) {
-                    $.ajax({
-                        url: 'verificarcorreo.php',
-                        type: 'post',
-                        dataType: 'json',
-                        data: {
-                            correo: correo
-                        },
-                        success: function(data) {
-                            if (data.exists === true) {
-                                $('#correo').addClass('is-invalid');
-                                $('.btn-primary').attr('disabled', true);
-                                $('#correo').siblings('.invalid-feedback').text('Este correo ya está ocupado.');
-                                console.log(data);
-                            } else {
-                                console.log('Correo does not exist');
-                                $('#correo').removeClass('is-invalid');
-                                $('.btn-primary').removeAttr('disabled');
-                                console.log(data);
-                                // Segunda llamada ajax para enviar el formulario
-                                $.ajax({
-                                    url: 'saveWorker.php',
-                                    type: 'post',
-                                    dataType: 'json',
-                                    data: $('#addPersona').serialize(),
-                                    success: function(response) {
-                                        if (response.status === 1) {
-                                            console.log(response);
-                                            $('#exampleModal').modal('hide');
-                                            showAlert("¡Empleado añadido! El empleado se añadió correctamente.", "success");
-                                        } else {
-                                            console.log(response, "error");
-                                            showAlert("¡Error! El empleado no se añadió correctamente.", "danger");
-                                        }
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown) {
-                                    }
-                                });
+                    if (correo) {
+                        $.ajax({
+                            url: 'verificarcorreo.php',
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                correo: correo
+                            },
+                            success: function(data) {
+                                if (data.exists === true) {
+                                    $('#correo').addClass('is-invalid');
+                                    $('#correo').siblings('.invalid-feedback').text('Este correo ya está ocupado.');
+                                    console.log(data);
+                                } else {
+                                    console.log('Correo does not exist');
+                                    $('#correo').removeClass('is-invalid');
+                                    console.log(data);
+
+                                    $.ajax({
+                                        url: 'saveWorker.php',
+                                        type: 'post',
+                                        dataType: 'json',
+                                        data: $('#addPersona').serialize(),
+                                        success: function(response) {
+                                            if (response.status === 1) {
+                                                console.log(response);
+                                                $('#exampleModal').modal('hide');
+                                                showAlert("¡Empleado añadido! El empleado se añadió correctamente.", "success");
+                                            } else {
+                                                console.log(response, "error");
+                                                showAlert("¡Error! El empleado no se añadió correctamente.", "danger");
+                                            }
+                                        },
+                                        error: function(jqXHR, textStatus, errorThrown) {}
+                                    });
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             });
         });
 
         function showAlert(message, type) {
             var alertTemplate = `
-        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-            <strong>${message}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    `;
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        <strong>${message}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+`;
 
             $('#alertas').prepend(alertTemplate);
         }
     </script>
+
+
 
 </body>
 
