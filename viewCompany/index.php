@@ -253,7 +253,7 @@ login::sessionCompany();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="index.php?id=<?php echo $_SESSION['id'] ?>" method="Post" class="needs-validation" novalidate>
+                    <form action="index.php" method="Post" class="needs-validation" id="addPersona" novalidate>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre del empleado</label>
                             <input type="text" class="form-control" id="nombre" placeholder="Ingresa el nombre del empleado" aria-describedby="nombre" name="nombre" required>
@@ -284,7 +284,7 @@ login::sessionCompany();
                         </div>
                         <div class="mb-3">
                             <label for="telefono" class="form-label">Telefono del empleado</label>
-                            <input type="phone" class="form-control" id="telefono" placeholder="Ingresa el telefono del empleado" aria-describedby="telefono" name="telefono" required minlength="10" maxlength="10" onblur="validarTel(this);">
+                            <input type="tel" class="form-control" id="telefono" placeholder="Ingresa el telefono del empleado" aria-describedby="telefono" name="telefono" required minlength="10" maxlength="10" pattern="\d*" onblur="validarTel(this);">
                             <div class="invalid-feedback">
                                 El número de teléfono debe tener exactamente 10 dígitos sin espacios.
                             </div>
@@ -308,11 +308,10 @@ login::sessionCompany();
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
     <script>
-
-const inputCorreo = document.getElementById('correo');
-inputCorreo.addEventListener('keyup', function() {
-    console.log(inputCorreo.value);
-});
+        const inputCorreo = document.getElementById('correo');
+        inputCorreo.addEventListener('keyup', function() {
+            console.log(inputCorreo.value);
+        });
 
         (() => {
             'use strict'
@@ -351,6 +350,15 @@ inputCorreo.addEventListener('keyup', function() {
             validarTel(telefonoInput);
             return telefonoInput.reportValidity();
         }
+        $('#exampleModal').on('hidden.bs.modal', function(e) {
+            $('#addPersona')[0].reset();
+        })
+
+        $('#addPersona').on('submit', function() {
+            if (this.checkValidity()) {
+                $(this).find(':submit').attr('disabled', 'disabled');
+            }
+        });
     </script>
 </body>
 
