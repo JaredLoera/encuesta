@@ -744,7 +744,7 @@ class informacionCompany
             $answers = json_decode($info->answers, true);
 
             foreach ($answers as $answer) {
-                if (in_array($answer['idpregunta'], $array_numeros)) {
+                if (in_array($answer['item'], $array_numeros)) {
                     $cfinal += $answer['valor'];
                 }
             }
