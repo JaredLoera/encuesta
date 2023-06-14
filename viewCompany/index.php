@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../assets/css/bootstrap-reboot.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <?php
 include '../clases/login.inc.php';
@@ -76,41 +77,42 @@ login::sessionCompany();
                             <h1 class="h3 mb-0 text-gray-800">Principal</h1>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="alertas"></div>
+                    <!-- <div class="row">
                         <?php
-                        if (isset($_POST['saveWorker'])) {
-                            extract($_POST);
-                            $worker = new Worker();
-                            $worker->set_nombre($nombre);
-                            $worker->set_rfc($rfc);
-                            $worker->set_correo($correo);
-                            $worker->set_idCompany($_SESSION['id']);
-                            $worker->set_ap_paterno($ap_paterno);
-                            $worker->set_ap_materno($ap_materno);
-                            $worker->set_telefono($telefono);
-                            $partes = explode("@", $correo);
-                            $password = $partes[0];
-                            $worker->set_pass($password . "123");
-                            //$mail = new Mail();
-                            //$mail->sendMailNewWorker($worker);
-                            if ($worker->save()) {
+                        // if (isset($_POST['saveWorker'])) {
+                        //     extract($_POST);
+                        //     $worker = new Worker();
+                        //     $worker->set_nombre($nombre);
+                        //     $worker->set_rfc($rfc);
+                        //     $worker->set_correo($correo);
+                        //     $worker->set_idCompany($_SESSION['id']);
+                        //     $worker->set_ap_paterno($ap_paterno);
+                        //     $worker->set_ap_materno($ap_materno);
+                        //     $worker->set_telefono($telefono);
+                        //     $partes = explode("@", $correo);
+                        //     $password = $partes[0];
+                        //     $worker->set_pass($password . "123");
+                        //$mail = new Mail();
+                        //$mail->sendMailNewWorker($worker);
+                        // if ($worker->save()) {
                         ?>
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     <strong>¡Empleado añadido!</strong> El empleado se añadió correctamente.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php
-                            } else {
+                            // } else {
                             ?>
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                     <strong>¡Error!</strong> El empleado no se añadió correctamente.
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                         <?php
-                            }
-                        }
+                        //}
+                        //}
                         ?>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -306,11 +308,15 @@ login::sessionCompany();
         </div>
     </div>
     <script src="../assets/js/bootstrap.bundle.js"></script>
-    <script src="../assets/js/validaciones.js"></script>
     <script>
         const inputCorreo = document.getElementById('correo');
         inputCorreo.addEventListener('keyup', function() {
             console.log(inputCorreo.value);
+        });
+
+        inputCorreo.addEventListener('input', function() {
+            $('#correo').removeClass('is-invalid');
+            $('.btn-primary').removeAttr('disabled');
         });
 
         (() => {
@@ -359,7 +365,70 @@ login::sessionCompany();
                 $(this).find(':submit').attr('disabled', 'disabled');
             }
         });
+
+        $(document).ready(function() {
+            $('#addPersona').on('submit', function(event) {
+                event.preventDefault();
+
+                var correo = $('#correo').val();
+
+                if (correo) {
+                    $.ajax({
+                        url: 'verificarcorreo.php',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            correo: correo
+                        },
+                        success: function(data) {
+                            if (data.exists === true) {
+                                $('#correo').addClass('is-invalid');
+                                $('.btn-primary').attr('disabled', true);
+                                $('#correo').siblings('.invalid-feedback').text('Este correo ya está ocupado.');
+                                console.log(data);
+                            } else {
+                                console.log('Correo does not exist');
+                                $('#correo').removeClass('is-invalid');
+                                $('.btn-primary').removeAttr('disabled');
+                                console.log(data);
+                                // Segunda llamada ajax para enviar el formulario
+                                $.ajax({
+                                    url: 'saveWorker.php',
+                                    type: 'post',
+                                    dataType: 'json',
+                                    data: $('#addPersona').serialize(),
+                                    success: function(response) {
+                                        if (response.status === 1) {
+                                            console.log(response);
+                                            $('#exampleModal').modal('hide');
+                                            showAlert("¡Empleado añadido! El empleado se añadió correctamente.", "success");
+                                        } else {
+                                            console.log(response, "error");
+                                            showAlert("¡Error! El empleado no se añadió correctamente.", "danger");
+                                        }
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        function showAlert(message, type) {
+            var alertTemplate = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            <strong>${message}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    `;
+
+            $('#alertas').prepend(alertTemplate);
+        }
     </script>
+
 </body>
 
 </html>
