@@ -778,6 +778,69 @@ login::sessionCompany();
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="row mt-4 mb-4">
+                                <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;">
+                                    <table class="de_tbl_782 detbl" style="width: 782px; height: 0; margin-left: auto; margin-right: auto;">
+                                        <colgroup>
+                                            <col style="width: 158px;" class="de_col_1_158">
+                                            <col style="width: 624px;" class="de_col_2_624">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr style="height: 0px;">
+                                                <td class="de_td_158" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 158px; vertical-align: top; background-color: #b9afac;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_418A1E8E42"><strong>Nivel de riesgo</strong></span></div>
+                                                </td>
+                                                <td class="de_td_624" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 624px; vertical-align: top; background-color: #b9afac;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_418A1E8E42"><strong>Necesidad de acción</strong></span></div>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 0px;">
+                                                <td class="de_td_158" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 158px; vertical-align: middle; background-color: #ff3600;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_418A1E8E42"><strong>Muy alto</strong></span></div>
+                                                </td>
+                                                <td class="de_td_624" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 624px; vertical-align: top;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: justify; direction: ltr; margin-left: 0px; text-indent: 0px;">Se requiere realizar el análisis de cada categoría y dominio para establecer las acciones de intervención apropiadas, mediante un Programa de intervención que deberá incluir evaluaciones específicas1, y contemplar campañas de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.</div>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 0px;">
+                                                <td class="de_td_158" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 158px; vertical-align: middle; background-color: #ff8000;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_418A1E8E42"><strong>Alto</strong></span></div>
+                                                </td>
+                                                <td class="de_td_624" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 624px; vertical-align: top;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: justify; direction: ltr; margin-left: 0px; text-indent: 0px;">Se requiere realizar un análisis de cada categoría y dominio, de manera que se puedan determinar las acciones de intervención apropiadas a través de un Programa de intervención, que podrá incluir una evaluación específica1 y deberá incluir una campaña de sensibilización, revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión.</div>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 0px;">
+                                                <td class="de_td_158" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 158px; vertical-align: middle; background-color: #ffff00;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_418A1E8E42"><strong>Medio</strong></span></div>
+                                                </td>
+                                                <td class="de_td_624" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 624px; vertical-align: middle;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: justify; direction: ltr; margin-left: 0px; text-indent: 0px;">Se requiere revisar la política de prevención de riesgos psicosociales y programas para la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral, así como reforzar su aplicación y difusión, mediante un Programa de intervención.</div>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 0px;">
+                                                <td class="de_td_158" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 158px; vertical-align: middle; background-color: #16a53f;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_418A1E8E42"><strong>Bajo</strong></span></div>
+                                                </td>
+                                                <td class="de_td_624" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 624px; vertical-align: top;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: justify; direction: ltr; margin-left: 0px; text-indent: 0px;">Es necesario una mayor difusión de la política de prevención de riesgos psicosociales y programas para: la prevención de los factores de riesgo psicosocial, la promoción de un entorno organizacional favorable y la prevención de la violencia laboral.</div>
+                                                </td>
+                                            </tr>
+                                            <tr style="height: 0px;">
+                                                <td class="de_td_158" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 158px; vertical-align: middle; background-color: #00c0f3;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: center; direction: ltr; margin-left: 0px; text-indent: 0px;"><span class="de_418A1E8E42"><strong>Nulo</strong></span></div>
+                                                </td>
+                                                <td class="de_td_624" style="padding: 2px; padding-bottom: 1px; border-left-style: dashed; border-left-width: 1px; border-left-color: #000000; border-right-style: dashed; border-right-width: 1px; border-right-color: #000000; border-top-style: dashed; border-top-width: 1px; border-top-color: #000000; border-bottom-style: dashed; border-bottom-width: 1px; border-bottom-color: #000000;  width: 624px; vertical-align: top;" colspan="1" rowspan="1">
+                                                    <div class="p" style="text-align: justify; direction: ltr; margin-left: 0px; text-indent: 0px;">El riesgo resulta despreciable por lo que no se requiere medidas adicionales.</div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
