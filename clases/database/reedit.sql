@@ -60,6 +60,7 @@ create table question(
     capitulo_id int not null,
     estado boolean not null default true,
     calsificacion int not null,
+    item int not null,
 	fecha_pregunta datetime not null default current_timestamp,
     primary key(id),
     foreign key(capitulo_id) references capitulo(id)
