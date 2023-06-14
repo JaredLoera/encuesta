@@ -119,7 +119,7 @@ login::sessionRoot();
                                     Conexion::cerrar_conexion();
                                         foreach ($idsPreguntas as $idsPregunta) {
                                             Conexion::abrir_conexion();
-                                            $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$idsPregunta->id");
+                                            $tipo = datosRoot::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion,item FROM question where id=$idsPregunta->id");
                                             Conexion::cerrar_conexion();
                                             $respuestas = array('Siempre', 'Casi siempre', 'Algunas veces', 'Casi nunca', 'Nunca');
                                             $respuesta_aleatoria = $respuestas[array_rand($respuestas)];
@@ -168,7 +168,7 @@ login::sessionRoot();
                                                        break;
                                                }
                                             }
-                                            $arreglo_respuesta[] = ['idpregunta' => $idsPregunta->id, 'respuesta' => $respuesta_aleatoria, 'valor' => $valor];
+                                            $arreglo_respuesta[] = ['idpregunta' => $idsPregunta->id, 'respuesta' => $respuesta_aleatoria, 'valor' => $valor, 'item' => $tipo->item];
                                         }
                                         $json = json_encode($arreglo_respuesta);
                                         $userrespuesta = new userrespuesta();

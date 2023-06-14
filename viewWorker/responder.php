@@ -43,7 +43,7 @@
             $arreglo_respuesta = '';
             $arreglo_respuesta = json_decode($arreglo_respuesta, TRUE);
             for ($i = 1; $i <= sizeof($_POST)-1; $i++) {
-                $tipo = datosWorker::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion FROM question where id=$inico");
+                $tipo = datosWorker::preguntaOnlyRow(conexion::obtener_conexion(), "SELECT calsificacion,item FROM question where id=$inico");
                 $inlineRadioOptions = 'inlineRadioOptions' . $inico;
                 if($tipo->calsificacion==1){
                       switch ($$inlineRadioOptions) {
@@ -90,7 +90,7 @@
                             break;
                     }
                 }  
-                $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $$inlineRadioOptions, 'valor' => $valor];
+                $arreglo_respuesta[] = ['idpregunta' => $inico, 'respuesta' => $$inlineRadioOptions, 'valor' => $valor, 'item' => $tipo->item];
                 $inico++;
             }
             $json = json_encode($arreglo_respuesta);
