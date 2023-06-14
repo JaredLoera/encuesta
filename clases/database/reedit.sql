@@ -1,5 +1,5 @@
-create database tercerEjemplo;
-use tercerEjemplo;
+create database encuestas;
+use encuestas;
 
 create table tipo_user(
     id int not null auto_increment,
