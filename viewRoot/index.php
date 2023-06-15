@@ -42,7 +42,7 @@ login::sessionRoot();
                 Interfaces
             </div>
             <nav class="nav flex-column ml-3 fw-bold">
-            <?php include('links.php') ?>
+                <?php include('links.php') ?>
             </nav>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
@@ -200,7 +200,7 @@ login::sessionRoot();
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir empresa</h1>
@@ -209,7 +209,7 @@ login::sessionRoot();
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" method="Post" class="needs-validation" novalidate>
+                    <!-- <form action="" method="Post" class="needs-validation" novalidate>
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre de la empresa</label>
                             <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre de la empesa" aria-describedby="nombre" name="name" required>
@@ -249,13 +249,131 @@ login::sessionRoot();
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="submit" name="saveCompany" class="btn btn-primary">Guardar</button>
+                    </form> -->
+                    <form action="" method="Post" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" name="nombre" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba su nombre.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellidoPaterno" class="form-label">Apellido Paterno</label>
+                            <input type="text" class="form-control" id="apellidoPaterno" placeholder="Ingrese su apellido paterno" name="apellidoPaterno" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba su apellido paterno.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellidoMaterno" class="form-label">Apellido Materno</label>
+                            <input type="text" class="form-control" id="apellidoMaterno" placeholder="Ingrese su apellido materno" name="apellidoMaterno" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba su apellido materno.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="RegimenFiscal" class="form-label">Régimen Fiscal</label>
+                            <select class="form-control" id="RegimenFiscal" name="regimenFiscal" required>
+                                <option value="" disabled selected>Seleccione un régimen fiscal</option>
+                                <option value="1">Régimen General de Ley Personas Morales</option>
+                                <option value="2">Régimen de Incorporación Fiscal</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un régimen fiscal.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="calle" class="form-label">Calle</label>
+                            <input type="text" class="form-control" id="calle" placeholder="Ingrese la calle" name="calle" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba la calle.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="numeroCasa" class="form-label">Número de Casa</label>
+                            <input type="text" class="form-control" id="numeroCasa" placeholder="Ingrese el número de casa" name="numeroCasa" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba el número de casa.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="colonia" class="form-label">Colonia</label>
+                            <input type="text" class="form-control" id="colonia" placeholder="Ingrese la colonia" name="colonia" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba la colonia.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="ciudad" placeholder="Ingrese la ciudad" name="ciudad" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba la ciudad.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="estado" placeholder="Ingrese el estado" name="estado" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba el estado.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="codigoPostal" class="form-label">Código Postal</label>
+                            <input type="text" class="form-control" id="codigoPostal" placeholder="Ingrese el código postal" name="codigoPostal" required pattern="[0-9]{5}">
+                            <div class="invalid-feedback">
+                                Por favor escriba un código postal válido.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Ingrese el email" name="email" required>
+                            <div class="invalid-feedback">
+                                Por favor escriba el email.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passcompany" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="passcompany" name="pass" placeholder="Ingrese la contraseña" required minlength="8">
+                            <div class="invalid-feedback">
+                                La contraseña debe de tener más de 8 caracteres.
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" name="saveCompany" class="btn btn-primary">Guardar</button>
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
     <script src="../assets/js/bootstrap.bundle.js"></script>
     <script src="../assets/js/validaciones.js"></script>
+    <script>
+        document.querySelectorAll('input,select').forEach(function(input) {
+            input.addEventListener('keydown', function(e) {
+                if (e.key == "Enter") {
+                    e.preventDefault();
+                    let nextInput = getNextInput(input);
+                    if (nextInput) nextInput.focus();
+                }
+            });
+        });
+
+        function getNextInput(input) {
+            let form = input.form;
+            for (let i = 0; i < form.elements.length; i++) {
+                if (form[i] == input) {
+                    if (i + 1 < form.elements.length) return form.elements[i + 1];
+                }
+            }
+            return null;
+        }
+    </script>
+
 </body>
 
 </html>

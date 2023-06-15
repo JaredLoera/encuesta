@@ -301,14 +301,19 @@ login::sessionCompany();
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" name="saveWorker" class="btn btn-primary">Guardar</button>
+                    <button type="submit" id="saveWorker" name="saveWorker" onclick="buscar()" class="btn btn-primary">Guardar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <script src="../assets/js/bootstrap.bundle.js"></script>
+
     <script>
+        const button = document.getElementById('saveWorker');
+        button.addEventListener('click', function() {
+            button.classList.add('disabled');
+        });
         const inputCorreo = document.getElementById('correo');
         inputCorreo.addEventListener('keyup', function() {
             console.log(inputCorreo.value);
@@ -330,7 +335,8 @@ login::sessionCompany();
                         event.stopPropagation()
                     }
 
-                    form.classList.add('was-validated')
+                    form.classList.add('was-validated');
+                    button.classList.remove('disabled');
                 }, false)
             })
         })()
